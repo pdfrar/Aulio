@@ -1,0 +1,19 @@
+# Ignorar arquivos temporários do Python
+__pycache__/
+*.pyc
+
+# Ignorar áudios baixados
+*.mp3
+*.ogg
+*.m4a
+
+# Ignorar pastas do WPPConnect (Sessões e Tokens)
+tokens/
+sessions/
+wppconnect-server/userData/
+.wppconnect/
+
+# Ignorar variáveis de ambiente (Se usar no futuro)
+.env
+usuarios.json
+autoclick.py
