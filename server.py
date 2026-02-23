@@ -3,15 +3,23 @@ import uvicorn
 import requests
 import os
 import base64
-import json        
-import ia          
-import registro    
+import json         
+import ia           
+import registro     
+from dotenv import load_dotenv  # <-- ADICIONADO
+
+# Carrega as variáveis do arquivo .env
+load_dotenv() # <-- ADICIONADO
 
 app = FastAPI()
 
-SESSAO = "sessao-pedro-final"
-TOKEN = "$2b$10$sHRcXs71H1jZ9VMTovxQ2eEs4x_Mj3ov7UTMpdMKmJSAQXSbIlFaS" 
-DOCKER_URL = "http://localhost:21465" 
+# --- CONFIGURAÇÕES CARREGADAS DO .ENV ---
+# O segundo parâmetro é um "fallback" caso a variável não exista no .env
+SESSAO = os.getenv("WPP_SESSION", "sessao-pedro-final")
+TOKEN = os.getenv("WPP_TOKEN") 
+DOCKER_URL = os.getenv("WPP_URL", "http://localhost:21465") 
+# ---------------------------------------
+
 ARQUIVO_USUARIOS = "usuarios.json"  
 
 NUMEROS_PERMITIDOS = [
@@ -19,7 +27,7 @@ NUMEROS_PERMITIDOS = [
     "558399030176@c.us", "5583981219527@c.us", "558381219527@c.us",
     "558398156803@c.us", "55838156803@c.us", "5583996035018@c.us",
     "558396035018@c.us"  
-] 
+]
 
 estados_usuarios = {}
 

@@ -2,6 +2,9 @@ WSL
 docker rm -f wpp-server
 docker run -it -p 21465:21465 --name wpp-server meu-zap-server
 
+Oracle
+ssh -i ssh-key-2026-02-23.key ubuntu@136.248.74.44
+
 VSCode
 python -m uvicorn server:app --host 0.0.0.0 --port 8000 --reload
 
@@ -12,10 +15,11 @@ http://localhost:21465/api-docs
 Gerar Token
 PC - $2b$10$JDqBFrylrLmpancOBaRAs.PVRf.PnLe2s7KlT95dqIIU7HUOTPoea
 Notebook - $2b$10$sHRcXs71H1jZ9VMTovxQ2eEs4x_Mj3ov7UTMpdMKmJSAQXSbIlFaS
+
 sessao-pedro-final
 
 {
-  "webhook": "http://172.31.48.1:8000/webhook",
+  "webhook": "http://136.248.74.44:8000/webhook",
   "waitQrCode": true,
   "config": {
     "autoDownload": true,
