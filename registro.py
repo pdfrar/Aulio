@@ -2,20 +2,27 @@ import time
 import re
 import json
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
 
 def registrar_aula_completa(login, senha, nome_turma, data, conteudo, tarefa, nomes_faltosos, apenas_frequencia=False):
     print(f"\n🔎 INICIANDO ROBÔ (TURMA: {nome_turma} | DATA: {data})")
     
     print("🚀 Abrindo navegador...")
-    service = Service(ChromeDriverManager().install())
-    options = webdriver.ChromeOptions()
-    # options.add_argument("--headless") 
-    driver = webdriver.Chrome(service=service, options=options)
+    # Quando for iniciar o navegador no seu código, use esta configuração:
+    opcoes = Options()
+    opcoes.add_argument("--headless") # Roda invisível (SEM TELA)
+    opcoes.add_argument("--no-sandbox") # Segurança: obrigatório no Linux
+    opcoes.add_argument("--disable-dev-shm-usage") # Evita travar por falta de memória
+
+    # Aponta para o ChromeDriver que acabamos de instalar no Ubuntu
+    servico = Service("/usr/bin/chromedriver")
+
+    # Inicia o navegador
+    driver = webdriver.Chrome(service=servico, options=opcoes)
     driver.maximize_window()
 
     wait = WebDriverWait(driver, 15)
