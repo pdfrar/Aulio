@@ -1,16 +1,21 @@
 import os
 import json
 import datetime
+import requests
+import re
+import unicodedata
 from groq import Groq
-from google import genai  # <-- NOVA BIBLIOTECA AQUI!
+from google import genai  
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 # --- ⚙️ CONFIGURAÇÕES DAS APIS ---
 GROQ_API_KEY = "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" 
 GEMINI_API_KEY = "AIzaSyBqpzahCaSPI4P7QZyVWxTluAsmnpJOfCg"
 
-ARQUIVO_BNCC_NUVEM = None  # <--- ADICIONE ESTA LINHA AQUI
+ARQUIVO_BNCC_NUVEM = None  
 client = Groq(api_key=GROQ_API_KEY)
-gemini_client = genai.Client(api_key=GEMINI_API_KEY) # <-- NOVO CLIENTE GEMINI
+gemini_client = genai.Client(api_key=GEMINI_API_KEY) 
 
 def transcrever_audio(caminho_arquivo):
     try:
@@ -24,16 +29,6 @@ def transcrever_audio(caminho_arquivo):
     except Exception as e:
         print(f"Erro na transcrição: {e}")
         return ""
-
-import os
-import json
-import datetime
-import requests
-import re
-import unicodedata
-from groq import Groq
-
-# ... (Suas configurações de API e transcrever_audio continuam iguais) ...
 
 def limpar_texto_para_api(texto):
     """Remove acentos e troca espaços por _ para o link da API"""
@@ -49,21 +44,14 @@ def buscar_bncc_ultra_rapida(disciplina, turma, conteudo):
     
     # 2. Traduz o número para a palavra exigida pela API
     mapa_anos = {
-        "1": "primeiro",
-        "2": "segundo",
-        "3": "terceiro",
-        "4": "quarto",
-        "5": "quinto",
-        "6": "sexto",
-        "7": "setimo", # Maioria dos URLs não usa acento, mas tratamos isso abaixo se falhar
-        "8": "oitavo",
-        "9": "nono"
+        "1": "primeiro", "2": "segundo", "3": "terceiro", "4": "quarto",
+        "5": "quinto", "6": "sexto", "7": "setimo", "8": "oitavo", "9": "nono"
     }
-    ano_api = mapa_anos.get(numero, "sexto") # Se não encontrar, usa "sexto" como padrão
+    ano_api = mapa_anos.get(numero, "sexto") 
 
     # 3. Mapeamento super rigoroso para os nomes exatos da disciplina
     nome_disc = disciplina.lower()
-    disc_api = "computacao" # Padrão de segurança
+    disc_api = "computacao" 
     
     if "portugu" in nome_disc: disc_api = "lingua_portuguesa"
     elif "arte" in nome_disc: disc_api = "arte"
@@ -77,12 +65,12 @@ def buscar_bncc_ultra_rapida(disciplina, turma, conteudo):
 
     # 4. Constrói o URL com a palavra por extenso!
     url = f"https://cientificar1992.pythonanywhere.com/bncc_fundamental/disciplina/{disc_api}/{ano_api}/"
-    print(f"⚡ A procurar na API: {url}")
+    print(f"> A procurar na API: {url}")
     
     try:
         resposta = requests.get(url)
         
-        # Estratégia de segurança: tenta com acento no "sétimo" ou sem barra no final se a primeira tentativa falhar
+        # Estratégia de segurança
         if resposta.status_code != 200:
             if numero == "7":
                 url = f"https://cientificar1992.pythonanywhere.com/bncc_fundamental/disciplina/{disc_api}/sétimo/"
@@ -91,15 +79,12 @@ def buscar_bncc_ultra_rapida(disciplina, turma, conteudo):
                 resposta = requests.get(url.rstrip('/'))
                 
         if resposta.status_code != 200:
-            print(f"⚠️ Erro: Não foi possível encontrar {disc_api} do {ano_api} ano na API.")
+            print(f"> Erro: Nao foi possivel encontrar {disc_api} do {ano_api} ano na API.")
             return ""
             
         dados_habilidades = resposta.json()
-        
-        # Transforma o resultado da API num texto para a Inteligência ler
         texto_opcoes = json.dumps(dados_habilidades, ensure_ascii=False)
 
-        # 5. Pede ao Llama 3 (Groq) para escolher a melhor habilidade
         prompt = f"""
         És um especialista em BNCC.
         AULA: {conteudo}
@@ -119,33 +104,57 @@ def buscar_bncc_ultra_rapida(disciplina, turma, conteudo):
         return completion.choices[0].message.content.strip()
 
     except Exception as e:
-        print(f"❌ Erro na integração com a API da BNCC: {e}")
+        print(f"> Erro na integracao com a API da BNCC: {e}")
         return ""
     
 def extrair_dados_da_aula(texto_transcrito, dados_anteriores=None):
     hoje = datetime.date.today().strftime("%d/%m/%Y")
     
-    # Centralizamos as regras para a IA não esquecer delas na hora da correção
+    opcoes_disciplinas = [
+        "lingua_portuguesa", "arte", "educacao_fisica", "lingua_inglesa", 
+        "matematica", "ciencias", "geografia", "historia", "ensino_religioso", "computacao"
+    ]
+
     regras_base = f"""
-    Você é um assistente escolar. Hoje é {hoje}.
-    Extraia dados da aula para um JSON seguindo EXATAMENTE esta estrutura:
+    Você é um assistente escolar inteligente. Hoje é {hoje}.
+    Sua missão é analisar o texto transcrito da aula e extrair os dados para um JSON.
+
+    Estrutura EXATA do JSON:
     {{
-        "disciplina": "Adivinhe a disciplina. Retorne EXATAMENTE UMA destas opções: lingua_portuguesa, arte, educacao_fisica, lingua_inglesa, matematica, ciencias, geografia, historia, ensino_religioso, computacao",
-        "turma": "string (Ex: 5A, 8B, 9C)",
-        "conteudo": "string (Resumo formal do assunto)",
+        "disciplina": "A disciplina identificada com base no conteúdo. Deve ser UMA destas: {', '.join(opcoes_disciplinas)}",
+        "turma_site": "string (Apenas o número e a letra. Ex: 5A, 8B, 1C)",
+        "turma_api": "string (Prefixo + Número + Letra. Ex: F5A, M1B, I2C)",
+        "conteudo": "string (Resumo formal e corrigido do assunto)",
         "tarefa": "string ou 'Nenhuma'",
         "faltosos": {{"nome_do_aluno": 0 ou 1}},
         "data": "{hoje}"
     }}
     
-    REGRAS DE ESTILO E FORMATAÇÃO (MUITO IMPORTANTE):
-    - CONTEÚDO E TAREFA: Não transcreva literalmente o que o professor falou. Reescreva o relato transformando-o num resumo profissional, objetivo e estritamente redigido na norma-padrão da língua portuguesa. 
-    - Corrija erros de concordância, remova hesitações, gírias ou vícios de linguagem falada.
-    - Se o professor não mencionar tarefa de casa, o valor do campo "tarefa" DEVE ser a palavra "Nenhuma".
+    REGRA DA TURMA API (MUITO IMPORTANTE):
+    Você deve classificar o nível da turma e adicionar o prefixo correto no campo 'turma_api':
+    - Ensino Fundamental (1º ao 9º ano): Prefixo 'F'. Ex: 5º ano A vira F5A.
+    - Ensino Médio (1ª à 3ª série): Prefixo 'M'. Ex: 1ª série B vira M1B.
+    - Educação Infantil (I ao V): Prefixo 'I'. Ex: Infantil II C vira I2C.
+
+    REGRAS DE ESTILO E FORMATAÇÃO:
+    - CONTEÚDO E TAREFA: Reescreva o relato num resumo profissional, objetivo e na norma-padrão.
+    - Remova gírias e vícios de linguagem.
+    - Se não houver tarefa citada, use "Nenhuma".
     
-    REGRA DA DISCIPLINA: Se o assunto envolver robótica, programação, circuitos ou tecnologia, o valor DEVE ser "computacao".
-    
-    REGRA DOS FALTOSOS: O padrão é 0 (Normal). Só use 1 se a falta for justificada ("atestado", "doente", etc).
+    REGRA DA DISCIPLINA (CRUCIAL):
+    Analise os termos técnicos e o assunto falado para definir a disciplina. Siga este guia:
+    1. Se falar de robótica, programação, tecnologia, computadores -> "computacao"
+    2. Se falar de verbos, gramática, literatura, redação -> "lingua_portuguesa"
+    3. Se falar de cálculos, equações, geometria, números -> "matematica"
+    4. Se falar de células, corpo humano, natureza, física, química -> "ciencias"
+    5. Se falar de mapas, relevo, clima, população -> "geografia"
+    6. Se falar de passado, guerras, revoluções, sociedade -> "historia"
+    7. Se falar de inglês, verb to be, vocabulary -> "lingua_inglesa"
+    8. Se falar de pintura, cores, música, teatro -> "arte"
+    9. Se falar de esportes, jogos, corpo em movimento -> "educacao_fisica"
+    10. Se falar de ética, valores, fé, religião -> "ensino_religioso"
+
+    REGRA DOS FALTOSOS: O padrão é 0 (Normal). Só use 1 se a falta for explicitamente justificada no áudio.
     """
 
     if not dados_anteriores:
@@ -176,45 +185,45 @@ def extrair_dados_da_aula(texto_transcrito, dados_anteriores=None):
         buscar_bncc = False
         
         if not dados_anteriores or 'bncc' not in dados_anteriores:
-            buscar_bncc = True  # É a primeira vez, busca a BNCC!
+            buscar_bncc = True  
         else:
-            # Verifica se o professor alterou algo que impacte a BNCC
             mudou_conteudo = dados_aula.get('conteudo') != dados_anteriores.get('conteudo')
-            mudou_turma = dados_aula.get('turma') != dados_anteriores.get('turma')
+            mudou_turma = dados_aula.get('turma_site') != dados_anteriores.get('turma_site')
             mudou_disciplina = dados_aula.get('disciplina') != dados_anteriores.get('disciplina')
             
             if mudou_conteudo or mudou_turma or mudou_disciplina:
                 buscar_bncc = True
-                print("🔄 Mudança detectada! Buscando nova habilidade na BNCC...")
+                print("> Mudanca detectada! Buscando nova habilidade na BNCC...")
 
-        # Executa a busca se o gatilho foi ativado
         if buscar_bncc:
             disciplina = dados_aula.get('disciplina', '')
             if disciplina:
-                resultado_bncc = buscar_bncc_ultra_rapida(disciplina, dados_aula.get('turma'), dados_aula.get('conteudo'))
+                resultado_bncc = buscar_bncc_ultra_rapida(disciplina, dados_aula.get('turma_site', ''), dados_aula.get('conteudo'))
                 if resultado_bncc:
                     dados_aula['bncc'] = resultado_bncc
         elif dados_anteriores and 'bncc' in dados_anteriores:
-            # Se foi só uma correção de faltas, mantém a BNCC que já estava lá
             dados_aula['bncc'] = dados_anteriores['bncc']
                     
         return dados_aula
     except Exception as e:
-        print(f"Erro na inteligência: {e}")
+        print(f"Erro na inteligencia: {e}")
         return None
 
 def resolver_ambiguidade(texto_usuario, dicionario_conflitos, faltosos_atuais):
     prompt = f"""
-    O professor relatou faltosos, mas há alunos com o mesmo nome na sala.
+    Você é um assistente de dados focado EXCLUSIVAMENTE em corrigir nomes de alunos.
     
-    FALTOSOS ORIGINAIS COM ERRO: {json.dumps(faltosos_atuais, ensure_ascii=False)}
-    CONFLITOS DETECTADOS: {json.dumps(dicionario_conflitos, ensure_ascii=False)}
-    RESPOSTA DO PROFESSOR: "{texto_usuario}"
+    DADOS RECEBIDOS:
+    1. Faltas Originais: {json.dumps(faltosos_atuais, ensure_ascii=False)}
+    2. Opções de Nomes Completos: {json.dumps(dicionario_conflitos, ensure_ascii=False)}
+    3. Mensagem do Professor: "{texto_usuario}"
     
-    SUA TAREFA:
-    Substitua os nomes no dicionário pelo NOME COMPLETO DO ALUNO correto escolhido pelo professor.
-    MANTENHA OS VALORES (0 ou 1) ORIGINAIS (0=Normal, 1=Justificada) para cada aluno.
-    Retorne APENAS o JSON dos faltosos atualizado.
+    SUA MISSÃO VITAL:
+    - Analise a mensagem do professor. Ele indicou CLARAMENTE qual nome completo das opções é o correto?
+    - SE SIM: Retorne um JSON substituindo o nome curto pelo nome completo escolhido. MANTENHA O VALOR DA FALTA (0 ou 1) INTACTO. Nunca mude 0 para 1.
+    - SE NÃO (ex: se ele mandou apenas "oi", "ok", áudio mudo, ou algo sem sentido): Retorne EXATAMENTE este JSON: {{"erro": "invalido"}}
+    
+    Retorne APENAS um objeto JSON e nada mais.
     """
     try:
         completion = client.chat.completions.create(
@@ -225,4 +234,4 @@ def resolver_ambiguidade(texto_usuario, dicionario_conflitos, faltosos_atuais):
         return json.loads(completion.choices[0].message.content)
     except Exception as e:
         print(f"Erro ao desambiguar: {e}")
-        return faltosos_atuais
+        return {"erro": "invalido"} # Em caso de erro técnico, também avisa que falhou!

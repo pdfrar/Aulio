@@ -1,0 +1,2912 @@
+[
+    {
+        "id_diario": 7515,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 354,
+        "nome_turma_completo": "Educação Infantil / INFANTIL II / 2026 / INFANTIL II - A"
+    },
+    {
+        "id_diario": 7516,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 402,
+        "nome_turma_completo": "Educação Infantil / INFANTIL II / 2026 / INFANTIL II - B"
+    },
+    {
+        "id_diario": 7517,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 355,
+        "nome_turma_completo": "Educação Infantil / INFANTIL III / 2026 / INFANTIL III - A"
+    },
+    {
+        "id_diario": 7518,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 355,
+        "nome_turma_completo": "Educação Infantil / INFANTIL III / 2026 / INFANTIL III - A"
+    },
+    {
+        "id_diario": 7519,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 359,
+        "nome_turma_completo": "Educação Infantil / INFANTIL III / 2026 / INFANTIL III - B"
+    },
+    {
+        "id_diario": 7520,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 359,
+        "nome_turma_completo": "Educação Infantil / INFANTIL III / 2026 / INFANTIL III - B"
+    },
+    {
+        "id_diario": 7521,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 391,
+        "nome_turma_completo": "Educação Infantil / INFANTIL III / 2026 / INFANTIL III - C"
+    },
+    {
+        "id_diario": 7522,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 391,
+        "nome_turma_completo": "Educação Infantil / INFANTIL III / 2026 / INFANTIL III - C"
+    },
+    {
+        "id_diario": 7525,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 356,
+        "nome_turma_completo": "Educação Infantil / INFANTIL IV / 2026 / INFANTIL IV - A"
+    },
+    {
+        "id_diario": 7526,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 356,
+        "nome_turma_completo": "Educação Infantil / INFANTIL IV / 2026 / INFANTIL IV - A"
+    },
+    {
+        "id_diario": 7529,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 360,
+        "nome_turma_completo": "Educação Infantil / INFANTIL IV / 2026 / INFANTIL IV - B"
+    },
+    {
+        "id_diario": 7530,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 360,
+        "nome_turma_completo": "Educação Infantil / INFANTIL IV / 2026 / INFANTIL IV - B"
+    },
+    {
+        "id_diario": 7527,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 357,
+        "nome_turma_completo": "Educação Infantil / INFANTIL IV / 2026 / INFANTIL IV - C"
+    },
+    {
+        "id_diario": 7528,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 357,
+        "nome_turma_completo": "Educação Infantil / INFANTIL IV / 2026 / INFANTIL IV - C"
+    },
+    {
+        "id_diario": 7531,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 408,
+        "nome_turma_completo": "Educação Infantil / INFANTIL IV / 2026 / INFANTIL IV - D"
+    },
+    {
+        "id_diario": 7532,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 408,
+        "nome_turma_completo": "Educação Infantil / INFANTIL IV / 2026 / INFANTIL IV - D"
+    },
+    {
+        "id_diario": 7535,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 358,
+        "nome_turma_completo": "Educação Infantil / INFANTIL V / 2026 / INFANTIL V - A"
+    },
+    {
+        "id_diario": 7536,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 358,
+        "nome_turma_completo": "Educação Infantil / INFANTIL V / 2026 / INFANTIL V - A"
+    },
+    {
+        "id_diario": 7537,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 362,
+        "nome_turma_completo": "Educação Infantil / INFANTIL V / 2026 / INFANTIL V - B"
+    },
+    {
+        "id_diario": 7538,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 362,
+        "nome_turma_completo": "Educação Infantil / INFANTIL V / 2026 / INFANTIL V - B"
+    },
+    {
+        "id_diario": 7533,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 353,
+        "nome_turma_completo": "Educação Infantil / INFANTIL V / 2026 / INFANTIL V - C"
+    },
+    {
+        "id_diario": 7534,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 353,
+        "nome_turma_completo": "Educação Infantil / INFANTIL V / 2026 / INFANTIL V - C"
+    },
+    {
+        "id_diario": 7539,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 363,
+        "nome_turma_completo": "Educação Infantil / INFANTIL V / 2026 / INFANTIL V - D"
+    },
+    {
+        "id_diario": 7540,
+        "nome_disciplina": "APRENDIZAGEM E DESENVOLVIMENTO",
+        "id_turma": 363,
+        "nome_turma_completo": "Educação Infantil / INFANTIL V / 2026 / INFANTIL V - D"
+    },
+    {
+        "id_diario": 7541,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7542,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7543,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7544,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7545,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7546,
+        "nome_disciplina": "ARTE",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7547,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7548,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7549,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7550,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7551,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7552,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 365,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
+    },
+    {
+        "id_diario": 7553,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7554,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7555,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7556,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7557,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7558,
+        "nome_disciplina": "ARTE",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7559,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7560,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7561,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7562,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7563,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7564,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 374,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - B"
+    },
+    {
+        "id_diario": 7565,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7566,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7567,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7568,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7569,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7570,
+        "nome_disciplina": "ARTE",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7571,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7572,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7573,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7574,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7575,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7576,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 394,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - C"
+    },
+    {
+        "id_diario": 7577,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7578,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7579,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7580,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7581,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7582,
+        "nome_disciplina": "ARTE",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7583,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7584,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7585,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7586,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7587,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7588,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 397,
+        "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - D"
+    },
+    {
+        "id_diario": 7601,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7602,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7603,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7604,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7605,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7606,
+        "nome_disciplina": "ARTE",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7607,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7608,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7609,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7610,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7611,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7612,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 367,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - A"
+    },
+    {
+        "id_diario": 7613,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7614,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7615,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7616,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7617,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7618,
+        "nome_disciplina": "ARTE",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7619,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7620,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7621,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7622,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7623,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7624,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 375,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - B"
+    },
+    {
+        "id_diario": 7589,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7590,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7591,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7592,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7593,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7594,
+        "nome_disciplina": "ARTE",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7595,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7596,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7597,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7598,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7599,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7600,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 366,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - C"
+    },
+    {
+        "id_diario": 7625,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7626,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7627,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7628,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7629,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7630,
+        "nome_disciplina": "ARTE",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7631,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7632,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7633,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7634,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7635,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7636,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 398,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - D"
+    },
+    {
+        "id_diario": 7637,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7638,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7639,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7640,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7641,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7642,
+        "nome_disciplina": "ARTE",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7643,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7644,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7645,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7646,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7647,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7648,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 403,
+        "nome_turma_completo": "Ensino Fundamental I / 2º Ano / 2026 / 2º ANO - E"
+    },
+    {
+        "id_diario": 7661,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7662,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7663,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7664,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7665,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7666,
+        "nome_disciplina": "ARTE",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7667,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7668,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7669,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7670,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7671,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7672,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 368,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - A"
+    },
+    {
+        "id_diario": 7673,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7674,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7675,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7676,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7677,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7678,
+        "nome_disciplina": "ARTE",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7679,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7680,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7681,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7682,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7683,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7684,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 376,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - B"
+    },
+    {
+        "id_diario": 7649,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7650,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7651,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7652,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7653,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7654,
+        "nome_disciplina": "ARTE",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7655,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7656,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7657,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7658,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7659,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7660,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 364,
+        "nome_turma_completo": "Ensino Fundamental I / 3º Ano / 2026 / 3º ANO - C"
+    },
+    {
+        "id_diario": 7685,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7686,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7687,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7688,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7689,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7690,
+        "nome_disciplina": "ARTE",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7691,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7692,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7693,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7694,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7695,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7696,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 369,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - A"
+    },
+    {
+        "id_diario": 7697,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7698,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7699,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7700,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7701,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7702,
+        "nome_disciplina": "ARTE",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7703,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7704,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7705,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7706,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7707,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7708,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 370,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - B"
+    },
+    {
+        "id_diario": 7709,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7710,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7711,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7712,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7713,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7714,
+        "nome_disciplina": "ARTE",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7715,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7716,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7717,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7718,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7719,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7720,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 401,
+        "nome_turma_completo": "Ensino Fundamental I / 4º Ano / 2026 / 4º ANO - C"
+    },
+    {
+        "id_diario": 7721,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7722,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7723,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7724,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7725,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7726,
+        "nome_disciplina": "ARTE",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7727,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7728,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7729,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7730,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7731,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7732,
+        "nome_disciplina": "LITERATURA / REDAÇÃO",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7733,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 371,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - A"
+    },
+    {
+        "id_diario": 7734,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7735,
+        "nome_disciplina": "CIÊNCIAS",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7736,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7737,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7738,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7739,
+        "nome_disciplina": "ARTE",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7740,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7741,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7742,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7743,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7744,
+        "nome_disciplina": "LÍNGUA PORTUGUESA",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7745,
+        "nome_disciplina": "LITERATURA / REDAÇÃO",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 7746,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 377,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / 5º ANO - B"
+    },
+    {
+        "id_diario": 8001,
+        "nome_disciplina": "Educação Tecnológica",
+        "id_turma": 409,
+        "nome_turma_completo": "Ensino Fundamental I / 5º Ano / 2026 / Turma pedro"
+    },
+    {
+        "id_diario": 7747,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7748,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7749,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7750,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7751,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7752,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7753,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7754,
+        "nome_disciplina": "ARTE",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7755,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7756,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7757,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7758,
+        "nome_disciplina": "INTRODUÇÃO A QUÍMICA / FÍSICA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7759,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7760,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7761,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 378,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - A"
+    },
+    {
+        "id_diario": 7777,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7778,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7779,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7780,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7781,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7782,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7783,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7784,
+        "nome_disciplina": "ARTE",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7785,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7786,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7787,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7788,
+        "nome_disciplina": "INTRODUÇÃO A QUÍMICA / FÍSICA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7789,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7790,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7791,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 386,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - B"
+    },
+    {
+        "id_diario": 7762,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7763,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7764,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7765,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7766,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7767,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7768,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7769,
+        "nome_disciplina": "ARTE",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7770,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7771,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7772,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7773,
+        "nome_disciplina": "INTRODUÇÃO A QUÍMICA / FÍSICA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7774,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7775,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7776,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 379,
+        "nome_turma_completo": "Ensino Fundamental II / 6º Ano / 2026 / 6º ANO - C"
+    },
+    {
+        "id_diario": 7792,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7793,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7794,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7795,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7796,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7797,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7798,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7799,
+        "nome_disciplina": "ARTE",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7800,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7801,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7802,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7803,
+        "nome_disciplina": "INTRODUÇÃO A QUÍMICA / FÍSICA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7804,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7805,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7806,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 380,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - A"
+    },
+    {
+        "id_diario": 7822,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7823,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7824,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7825,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7826,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7827,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7828,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7829,
+        "nome_disciplina": "ARTE",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7830,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7831,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7832,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7833,
+        "nome_disciplina": "INTRODUÇÃO A QUÍMICA / FÍSICA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7834,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7835,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7836,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 393,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - B"
+    },
+    {
+        "id_diario": 7807,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7808,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7809,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7810,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7811,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7812,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7813,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7814,
+        "nome_disciplina": "ARTE",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7815,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7816,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7817,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7818,
+        "nome_disciplina": "INTRODUÇÃO A QUÍMICA / FÍSICA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7819,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7820,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7821,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 381,
+        "nome_turma_completo": "Ensino Fundamental II / 7º Ano / 2026 / 7º ANO - C"
+    },
+    {
+        "id_diario": 7837,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7838,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7839,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7840,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7841,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7842,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7843,
+        "nome_disciplina": "FÍSICA 1",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7844,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7845,
+        "nome_disciplina": "ARTE",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7846,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7847,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7848,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7849,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7850,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7851,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7852,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 382,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - A"
+    },
+    {
+        "id_diario": 7853,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7854,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7855,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7856,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7857,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7858,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7859,
+        "nome_disciplina": "FÍSICA 1",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7860,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7861,
+        "nome_disciplina": "ARTE",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7862,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7863,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7864,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7865,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7866,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7867,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7868,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 383,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - B"
+    },
+    {
+        "id_diario": 7869,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7870,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7871,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7872,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7873,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7874,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7875,
+        "nome_disciplina": "FÍSICA 1",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7876,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7877,
+        "nome_disciplina": "ARTE",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7878,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7879,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7880,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7881,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7882,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7883,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7884,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 395,
+        "nome_turma_completo": "Ensino Fundamental II / 8º Ano / 2026 / 8º ANO - C"
+    },
+    {
+        "id_diario": 7885,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7886,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7887,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7888,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7889,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7890,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7891,
+        "nome_disciplina": "FÍSICA 1",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7892,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7893,
+        "nome_disciplina": "ARTE",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7894,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7895,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7896,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7897,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7898,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7899,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7900,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 384,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - A"
+    },
+    {
+        "id_diario": 7901,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7902,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7903,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7904,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7905,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7906,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7907,
+        "nome_disciplina": "FÍSICA 1",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7908,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7909,
+        "nome_disciplina": "ARTE",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7910,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7911,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7912,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7913,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7914,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7915,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7916,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 385,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - B"
+    },
+    {
+        "id_diario": 7917,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7918,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7919,
+        "nome_disciplina": "MATEMÁTICA 1",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7920,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7921,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7922,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7923,
+        "nome_disciplina": "FÍSICA 1",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7924,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7925,
+        "nome_disciplina": "ARTE",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7926,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7927,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7928,
+        "nome_disciplina": "MATEMÁTICA FINANCEIRA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7929,
+        "nome_disciplina": "MATEMÁTICA 2",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7930,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7931,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7932,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 399,
+        "nome_turma_completo": "Ensino Fundamental II / 9º Ano / 2026 / 9º ANO - C"
+    },
+    {
+        "id_diario": 7933,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7934,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7935,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7936,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7937,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7938,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7939,
+        "nome_disciplina": "ARTE",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7940,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7941,
+        "nome_disciplina": "SOCIOLOGIA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7942,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7943,
+        "nome_disciplina": "ECONOMIA NA PRÁTICA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7944,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7945,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7946,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7947,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7948,
+        "nome_disciplina": "Ciências Forenses: Investigação Criminal",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7949,
+        "nome_disciplina": "Astronomia",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7950,
+        "nome_disciplina": "Física",
+        "id_turma": 389,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7951,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7952,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7953,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7954,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7955,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7956,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7957,
+        "nome_disciplina": "ARTE",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7958,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7959,
+        "nome_disciplina": "SOCIOLOGIA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7960,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7961,
+        "nome_disciplina": "ECONOMIA NA PRÁTICA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7962,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7963,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7964,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7965,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7966,
+        "nome_disciplina": "Ciências Forenses: Investigação Criminal",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7967,
+        "nome_disciplina": "Astronomia",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7968,
+        "nome_disciplina": "Física",
+        "id_turma": 390,
+        "nome_turma_completo": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - B"
+    },
+    {
+        "id_diario": 7969,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7970,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7971,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7972,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7973,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7974,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7975,
+        "nome_disciplina": "ARTE",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7976,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7977,
+        "nome_disciplina": "SOCIOLOGIA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7978,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7979,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7980,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7981,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7982,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7983,
+        "nome_disciplina": "PODER, POLÍTICA E SOCIEDADE",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7984,
+        "nome_disciplina": "Física",
+        "id_turma": 387,
+        "nome_turma_completo": "Ensino Médio / 2ª Série / 2026 / 2ª SÉRIE - A"
+    },
+    {
+        "id_diario": 7985,
+        "nome_disciplina": "LITERATURA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7986,
+        "nome_disciplina": "REDAÇÃO",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7987,
+        "nome_disciplina": "INGLÊS",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7988,
+        "nome_disciplina": "HISTÓRIA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7989,
+        "nome_disciplina": "GEOGRAFIA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7990,
+        "nome_disciplina": "ED. FISICA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7991,
+        "nome_disciplina": "ARTE",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7992,
+        "nome_disciplina": "FILOSOFIA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7993,
+        "nome_disciplina": "SOCIOLOGIA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7994,
+        "nome_disciplina": "PROJ. DE VIDA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7995,
+        "nome_disciplina": "BIOLOGIA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7996,
+        "nome_disciplina": "QUÍMICA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7997,
+        "nome_disciplina": "MATEMÁTICA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7998,
+        "nome_disciplina": "GRAMÁTICA",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 7999,
+        "nome_disciplina": "Ciências Forenses: Investigação Criminal",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    },
+    {
+        "id_diario": 8000,
+        "nome_disciplina": "Física",
+        "id_turma": 388,
+        "nome_turma_completo": "Ensino Médio / 3ª Série / 2026 / 3ª SERIE - A"
+    }
+]

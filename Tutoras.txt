@@ -5,8 +5,17 @@ docker run -it -p 21465:21465 --name wpp-server meu-zap-server
 Oracle
 ssh -i ssh-key-2026-02-23.key ubuntu@136.248.74.44
 
+
+source venv/bin/activate
+python3 -m uvicorn server:app --host 0.0.0.0 --port 8000 --workers 4
+
+
+
 VSCode
 python -m uvicorn server:app --host 0.0.0.0 --port 8000 --reload
+
+Pull Github
+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
 
 IPV4 do WSL
 
@@ -15,11 +24,16 @@ http://localhost:21465/api-docs
 Gerar Token
 PC - $2b$10$JDqBFrylrLmpancOBaRAs.PVRf.PnLe2s7KlT95dqIIU7HUOTPoea
 Notebook - $2b$10$sHRcXs71H1jZ9VMTovxQ2eEs4x_Mj3ov7UTMpdMKmJSAQXSbIlFaS
+Servidor - $2b$10$MXlh4uOrMZfb9cbGu4DGYu3.iXUoaiSZrRGuBALYmIEAHtpYdDsdu
 
 sessao-pedro-final
 
+
+Oracle: 136.248.74.44
+WSL notebook: 172.23.144.1
+
 {
-  "webhook": "http://136.248.74.44:8000/webhook",
+  "webhook": "http://172.23.144.1:8000/webhook",
   "waitQrCode": true,
   "config": {
     "autoDownload": true,
@@ -38,3 +52,6 @@ sessao-pedro-final
     }
   }
 }
+
+API Active
+ZaAmsMtiTSf3nxpuTJuZ2zkgOmVMhr
