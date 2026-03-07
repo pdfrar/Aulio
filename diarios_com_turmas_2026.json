@@ -212,6 +212,7 @@
     {
         "id_diario": 7552,
         "nome_disciplina": "Educação Tecnológica",
+        "id_disciplina": 82,
         "id_turma": 365,
         "nome_turma_completo": "Ensino Fundamental I / 1º Ano / 2026 / 1º ANO - A"
     },

@@ -12,7 +12,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 # --- ⚙️ CONFIGURAÇÕES DAS APIS ---
 GROQ_API_KEY = "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" 
 GEMINI_API_KEY = "AIzaSyBqpzahCaSPI4P7QZyVWxTluAsmnpJOfCg"
-
+    
 ARQUIVO_BNCC_NUVEM = None  
 client = Groq(api_key=GROQ_API_KEY)
 gemini_client = genai.Client(api_key=GEMINI_API_KEY) 
@@ -119,42 +119,53 @@ def extrair_dados_da_aula(texto_transcrito, dados_anteriores=None):
     Você é um assistente escolar inteligente. Hoje é {hoje}.
     Sua missão é analisar o texto transcrito da aula e extrair os dados para um JSON.
 
-    Estrutura EXATA do JSON:
+    Estrutura EXATA do JSON que você deve retornar:
     {{
-        "disciplina": "A disciplina identificada com base no conteúdo. Deve ser UMA destas: {', '.join(opcoes_disciplinas)}",
+        "disciplina": "string (O nome EXATO da disciplina que o professor falar no áudio. Ex: Educação Tecnológica, História, Inglês)",
         "turma_site": "string (Apenas o número e a letra. Ex: 5A, 8B, 1C)",
         "turma_api": "string (Prefixo + Número + Letra. Ex: F5A, M1B, I2C)",
         "conteudo": "string (Resumo formal e corrigido do assunto)",
         "tarefa": "string ou 'Nenhuma'",
-        "faltosos": {{"nome_do_aluno": 0 ou 1}},
+        "faltosos": {{"Nome_do_Aluno": 0}},
         "data": "{hoje}"
     }}
     
+    REGRA DOS FALTOSOS (CRUCIAL):
+    - O campo "faltosos" é um DICIONÁRIO (chave/valor).
+    - Escute atentamente o áudio: se o professor disser "Noah e Joaquim faltaram", você deve trocar "Nome_do_Aluno" pelos nomes deles. O JSON DEVE ficar assim: "faltosos": {{"Noah": 0, "Joaquim": 0}}
+    - O valor 0 significa falta normal.
+    - O valor 1 significa falta justificada (apenas se usar a palavra "atestado" ou "justificada").
+    - SE, E SOMENTE SE, O PROFESSOR NÃO FALAR DE FALTAS, retorne o dicionário vazio: "faltosos": {{}}
+
     REGRA DA TURMA API (MUITO IMPORTANTE):
     Você deve classificar o nível da turma e adicionar o prefixo correto no campo 'turma_api':
     - Ensino Fundamental (1º ao 9º ano): Prefixo 'F'. Ex: 5º ano A vira F5A.
     - Ensino Médio (1ª à 3ª série): Prefixo 'M'. Ex: 1ª série B vira M1B.
     - Educação Infantil (I ao V): Prefixo 'I'. Ex: Infantil II C vira I2C.
-
+    REGRA DE NÍVEL DE ENSINO (MUITO IMPORTANTE):
+    - Se o professor falar "Ano" (ex: 1º Ano, 2º Ano), é SEMPRE Ensino Fundamental. O código da turma_api DEVE começar com F (ex: F1A, F2B).
+    - Se o professor falar "Série" (ex: 1ª Série, 2ª Série), é SEMPRE Ensino Médio. O código da turma_api DEVE começar com M (ex: M1A, M2A).
+    - Nunca confunda "Ano" com Ensino Médio. Se o professor disser "1º Ano", NÃO use M1A, use F1A. Se disser "2ª Série", NÃO use F2A, use M2A.
+    - Se o professor disser "Infantil", use o prefixo I (ex: I2C para Infantil II C).
+    
     REGRAS DE ESTILO E FORMATAÇÃO:
     - CONTEÚDO E TAREFA: Reescreva o relato num resumo profissional, objetivo e na norma-padrão.
     - Remova gírias e vícios de linguagem.
     - Se não houver tarefa citada, use "Nenhuma".
     
     REGRA DA DISCIPLINA (CRUCIAL):
-    Analise os termos técnicos e o assunto falado para definir a disciplina. Siga este guia:
-    1. Se falar de robótica, programação, tecnologia, computadores -> "computacao"
-    2. Se falar de verbos, gramática, literatura, redação -> "lingua_portuguesa"
-    3. Se falar de cálculos, equações, geometria, números -> "matematica"
-    4. Se falar de células, corpo humano, natureza, física, química -> "ciencias"
-    5. Se falar de mapas, relevo, clima, população -> "geografia"
-    6. Se falar de passado, guerras, revoluções, sociedade -> "historia"
-    7. Se falar de inglês, verb to be, vocabulary -> "lingua_inglesa"
-    8. Se falar de pintura, cores, música, teatro -> "arte"
-    9. Se falar de esportes, jogos, corpo em movimento -> "educacao_fisica"
-    10. Se falar de ética, valores, fé, religião -> "ensino_religioso"
-
-    REGRA DOS FALTOSOS: O padrão é 0 (Normal). Só use 1 se a falta for explicitamente justificada no áudio.
+    1º Passo: Ouça com atenção se o professor ditar o nome da disciplina no áudio (Ex: 'Aula de educação tecnológica...', 'Aula de inglês...'). Caso ele não cite o nome, deduza a matéria com base nos termos técnicos (ex: verbos = português, robôs = tecnologia).
+    2º Passo: Para montar o JSON, você DEVE OBRIGATORIAMENTE converter a matéria identificada para APENAS UMA destas 10 strings exatas (exigidas pela API da BNCC):
+    - Educação Tecnológica, Robótica, Programação, Computadores -> "computacao"
+    - Língua Portuguesa, Gramática, Literatura, Redação -> "lingua_portuguesa"
+    - Matemática, Cálculos, Geometria, Números -> "matematica"
+    - Ciências, Biologia, Física, Química, Células -> "ciencias"
+    - Geografia, Mapas, Relevo, Clima -> "geografia"
+    - História, Passado, Guerras, Sociedade -> "historia"
+    - Inglês, Língua Inglesa, Verb to be -> "lingua_inglesa"
+    - Arte, Pintura, Música, Teatro -> "arte"
+    - Educação Física, Esportes, Jogos -> "educacao_fisica"
+    - Ensino Religioso, Ética, Valores, Religião -> "ensino_religioso"
     """
 
     if not dados_anteriores:
@@ -180,7 +191,15 @@ def extrair_dados_da_aula(texto_transcrito, dados_anteriores=None):
             temperature=0, response_format={"type": "json_object"}
         )
         dados_aula = json.loads(completion.choices[0].message.content)
+        # ... código existente ...
+        dados_aula = json.loads(completion.choices[0].message.content)
         
+        # COLE ESTAS DUAS LINHAS AQUI PARA O NOSSO RAIO-X:
+        print(f"\n🔴 RAIO-X 1 (O que a IA ouviu): {texto_transcrito}")
+        print(f"🔴 RAIO-X 2 (O JSON que a IA gerou): {dados_aula}\n")
+        
+        # --- O GATILHO INTELIGENTE DA BNCC ---
+        # ... resto do código ...
         # --- O GATILHO INTELIGENTE DA BNCC ---
         buscar_bncc = False
         
@@ -211,27 +230,90 @@ def extrair_dados_da_aula(texto_transcrito, dados_anteriores=None):
 
 def resolver_ambiguidade(texto_usuario, dicionario_conflitos, faltosos_atuais):
     prompt = f"""
-    Você é um assistente de dados focado EXCLUSIVAMENTE em corrigir nomes de alunos.
+    Você é um assistente especialista em resolver ambiguidades de nomes em listas de chamadas.
     
-    DADOS RECEBIDOS:
-    1. Faltas Originais: {json.dumps(faltosos_atuais, ensure_ascii=False)}
-    2. Opções de Nomes Completos: {json.dumps(dicionario_conflitos, ensure_ascii=False)}
-    3. Mensagem do Professor: "{texto_usuario}"
+    FALTAS ORIGINAIS (Status: 0 = Falta Normal, 1 = Falta Justificada): 
+    {json.dumps(faltosos_atuais, ensure_ascii=False)}
     
-    SUA MISSÃO VITAL:
-    - Analise a mensagem do professor. Ele indicou CLARAMENTE qual nome completo das opções é o correto?
-    - SE SIM: Retorne um JSON substituindo o nome curto pelo nome completo escolhido. MANTENHA O VALOR DA FALTA (0 ou 1) INTACTO. Nunca mude 0 para 1.
-    - SE NÃO (ex: se ele mandou apenas "oi", "ok", áudio mudo, ou algo sem sentido): Retorne EXATAMENTE este JSON: {{"erro": "invalido"}}
+    CONFLITOS ENCONTRADOS (Nome curto -> Opções reais na chamada): 
+    {json.dumps(dicionario_conflitos, ensure_ascii=False)}
     
-    Retorne APENAS um objeto JSON e nada mais.
+    ÁUDIO/RESPOSTA DO PROFESSOR: 
+    "{texto_usuario}"
+    
+    REGRAS CRUCIAIS DE EXTRAÇÃO:
+    1. Identifique exatamente quais opções completas o professor escolheu baseando-se no dicionário de conflitos.
+    2. Tenha flexibilidade com a escrita (ex: se o professor disser "Antônia", cruze com "ANTONYA"; se disser "Eduarda", cruze com "MARIA EDUARDA").
+    3. Um mesmo nome curto pode ter se desdobrado em múltiplos alunos (ex: o professor escolheu a Maria Antonya E a Maria Eduarda).
+    4. MANTENHA O VALOR DA FALTA (0 ou 1) ESTRITAMENTE IGUAL ao que estava no JSON de Faltas Originais. NUNCA invente justificativas (mudar 0 para 1).
+    5. O seu retorno DEVE ser EXCLUSIVAMENTE um objeto JSON contendo apenas as chaves dos nomes completos finais e seus valores inteiros.
+    
+    EXEMPLO DE RETORNO OBRIGATÓRIO (MOLDE):
+    {{
+        "LARA MARIA MORAIS MELO": 0,
+        "MARIA ANTONYA ALCANTARA FERNANDES": 0,
+        "MARIA EDUARDA RODRIGUES PEREIRA": 0
+    }}
+    
+    Se o professor tiver respondido algo totalmente sem sentido que não ajude a identificar os alunos, retorne {{"erro": "invalido"}}.
     """
     try:
         completion = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[{"role": "system", "content": prompt}],
-            temperature=0, response_format={"type": "json_object"}
+            temperature=0, 
+            response_format={"type": "json_object"}
         )
         return json.loads(completion.choices[0].message.content)
     except Exception as e:
         print(f"Erro ao desambiguar: {e}")
-        return {"erro": "invalido"} # Em caso de erro técnico, também avisa que falhou!
+        return {"erro": "invalido"}
+
+def traduzir_nomes_para_chamada(faltosos_extraidos, lista_oficial_alunos):
+    """
+    Recebe os nomes brutos extraídos do áudio e cruza com a lista oficial da turma.
+    Devolve um dicionário limpo com os números da chamada.
+    """
+    # Se não houver faltosos citados, já retorna vazio e economiza API
+    if not faltosos_extraidos or faltosos_extraidos == "Nenhuma":
+        return {"F": [], "J": []}
+
+    prompt_tradutor = f"""
+    Você é um assistente escolar especialista em cruzamento de dados.
+
+    LISTA OFICIAL DA TURMA:
+    {json.dumps(lista_oficial_alunos, ensure_ascii=False)}
+
+    ALUNOS CITADOS COMO AUSENTES NO ÁUDIO:
+    {json.dumps(faltosos_extraidos, ensure_ascii=False)}
+
+    SUA MISSÃO:
+    1. Para cada aluno citado, procure-o na lista oficial.
+    2. Se houver MAIS DE UM aluno que possa corresponder ao nome (Ex: citado "Maria" e existem 4 Marias na lista), NÃO adicione na falta. Coloque o nome na chave "ambiguos", e como valor uma lista de strings com todos os nomes completos possíveis achados.
+    3. Se encontrar apenas UMA correspondência clara, adicione o NÚMERO DA CHAMADA na lista "F" ou "J".
+    4. Se não encontrar de jeito nenhum, adicione na lista "nao_encontrados".
+
+    Você deve retornar EXCLUSIVAMENTE um objeto JSON no formato:
+    {{
+        "F": [array de números da chamada (apenas correspondência exata e única)],
+        "J": [array de números da chamada (justificadas)],
+        "nao_encontrados": [array de strings com nomes não achados],
+        "ambiguos": {{
+            "Nome Citado": ["Nome Completo 1", "Nome Completo 2", "Nome Completo 3"]
+        }}
+    }}
+    """
+
+    try:
+        completion = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[{"role": "system", "content": prompt_tradutor}],
+            temperature=0, # Temperatura 0 é vital aqui para ele não "alucinar" números
+            response_format={"type": "json_object"}
+        )
+        resultado_json = json.loads(completion.choices[0].message.content)
+        return resultado_json
+        
+    except Exception as e:
+        print(f"Erro na tradução de faltosos: {e}")
+        return {"F": [], "J": [], "nao_encontrados": []}

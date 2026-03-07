@@ -5,14 +5,14 @@ import os
 import base64
 import json         
 import ia           
-import registro     
-import sigaapi 
+import extrairdadosjson  
+import registrohtml     
+import sigaapi
 from dotenv import load_dotenv
 import sys
 import traceback 
 sys.stdout.reconfigure(encoding='utf-8')
 
-# Carrega as variáveis do arquivo .env
 load_dotenv() 
 
 app = FastAPI()
@@ -36,28 +36,70 @@ NUMEROS_PERMITIDOS = [
 estados_usuarios = {}
 boas_vindas_enviadas = set() 
 
-# --- INTEGRAÇÃO COM A API ---
-def validar_alunos_api(turma_codigo_api, faltosos_dict):
-    conflitos, resolvidos, nao_encontrados = {}, {}, []
-    if faltosos_dict and isinstance(faltosos_dict, dict) and turma_codigo_api:
-        siga = sigaapi.SigaAPI(SIGA_BASE_URL, SIGA_TOKEN, ARQUIVO_DIARIOS)
-        for nome_alvo, status in faltosos_dict.items():
-            resultados = siga.buscar_aluno_na_turma(turma_codigo_api, nome_alvo)
-            if len(resultados) > 1:
-                conflitos[nome_alvo] = [r.get('nome') for r in resultados]
-            elif len(resultados) == 1:
-                resolvidos[resultados[0].get('nome')] = status
-            else:
-                nao_encontrados.append(nome_alvo)
-    return conflitos, resolvidos, nao_encontrados
+import unicodedata
 
-def gerar_mensagem_conflito(conflitos):
-    msg = "⚠️ *Atenção! Encontrei alunos com nomes parecidos na turma:*\n\n"
-    for n, opcoes in conflitos.items():
-        msg += f"👤 *{n}* pode ser:\n"
-        for op in opcoes: msg += f"  - {op}\n"
-    msg += "\n🎙️ Responda com um áudio ou texto dizendo o nome completo correto para eu não errar!"
-    return msg
+def remover_acentos(txt):
+    if not txt: return ""
+    return unicodedata.normalize('NFKD', txt).encode('ASCII', 'ignore').decode('utf-8').lower()
+
+def descobrir_dados_do_diario(turma_site, turma_api, disciplina_ia):
+    mapa_banco = {
+        "computacao": ["Educação Tecnológica", "Computação", "Robótica", "Informática"],
+        "lingua_portuguesa": ["Língua Portuguesa", "Português", "Redação"],
+        "lingua_inglesa": ["Inglês", "Língua Inglesa"],
+        "matematica": ["Matemática"],
+        "ciencias": ["Ciências", "Ciência"],
+        "geografia": ["Geografia"],
+        "historia": ["História"],
+        "arte": ["Arte", "Artes"],
+        "educacao_fisica": ["Educação Física"],
+        "ensino_religioso": ["Ensino Religioso", "Religião"]
+    }
+    nomes_possiveis = mapa_banco.get(disciplina_ia, [disciplina_ia])
+
+    try:
+        with open(ARQUIVO_DIARIOS, "r", encoding="utf-8") as f:
+            diarios = json.load(f)
+            
+        numero_turma = ''.join(filter(str.isdigit, turma_site))
+        letra_turma = ''.join(filter(str.isalpha, turma_site)).upper()
+        
+        candidatos = []
+        for diario in diarios:
+            nome_turma = diario.get("nome_turma_completo", "")
+            nome_disc = diario.get("nome_disciplina", "")
+            bateu_disciplina = any(remover_acentos(nome) in remover_acentos(nome_disc) for nome in nomes_possiveis)
+            if bateu_disciplina and numero_turma in nome_turma and letra_turma in nome_turma:
+                candidatos.append(diario)
+                
+        if not candidatos: return None 
+        
+        texto_dica = (turma_site + " " + turma_api).lower()
+        quer_fundamental = "ano" in texto_dica or "f" in turma_api.lower()
+        quer_medio = "série" in texto_dica or "serie" in texto_dica or "m" in turma_api.lower()
+
+        diarios_filtrados = []
+        for diario in candidatos:
+            nome_turma = diario.get("nome_turma_completo", "")
+            if quer_fundamental and "Fundamental" in nome_turma:
+                diarios_filtrados.append(diario)
+            elif quer_medio and ("Médio" in nome_turma or "Série" in nome_turma):
+                diarios_filtrados.append(diario)
+
+        if not diarios_filtrados: diarios_filtrados = candidatos
+            
+        diario_escolhido = diarios_filtrados[0]
+        nome_turma = diario_escolhido.get("nome_turma_completo", "")
+        nome_disc = diario_escolhido.get("nome_disciplina", "")
+        
+        return {
+            "id_diario": diario_escolhido["id_diario"], 
+            "id_turma": diario_escolhido["id_turma"], 
+            "id_disciplina": "00", 
+            "disciplina_str": f"{nome_turma} - {nome_disc}"
+        }
+    except Exception as e: print(f"Erro ao buscar diário no JSON: {e}")
+    return None
 
 def carregar_usuarios():
     if os.path.exists(ARQUIVO_USUARIOS):
@@ -107,41 +149,77 @@ def baixar_audio_limpo(message_id):
         return nome_arquivo
     except: return None
 
+# ==============================================================================
+# NOVA FUNÇÃO DE EXIBIÇÃO: Impede duplicação de código!
+# ==============================================================================
+def exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequencia, lista_oficial, lista_limpa_para_ia):
+    nomes_confirmados = []
+    for aluno in lista_oficial:
+        num = aluno.get('numero_chamada')
+        num_str = str(num) 
+        
+        faltas_f = [str(x) for x in numeros_frequencia.get('F', [])]
+        faltas_j = [str(x) for x in numeros_frequencia.get('J', [])]
+        
+        if num_str in faltas_f:
+            nomes_confirmados.append(f"{aluno.get('nome')} (*Falta*)")
+        elif num_str in faltas_j:
+            nomes_confirmados.append(f"{aluno.get('nome')} (*Justificada*)")
+            
+    texto_faltosos = ", ".join(nomes_confirmados) if nomes_confirmados else "Nenhum"
+    
+    nao_encontrados = numeros_frequencia.get("nao_encontrados", [])
+    if nao_encontrados:
+        nomes_perdidos = ", ".join(nao_encontrados)
+        texto_faltosos += f"\n\n⚠️ *Atenção:* Os alunos _{nomes_perdidos}_ não foram encontrados na lista desta turma e foram ignorados!"
+
+    estados_usuarios[remetente] = {
+        "etapa": "esperando_confirmacao", 
+        "dados_aula": dados_aula,
+        "ids_diario": ids_diario,
+        "numeros_frequencia": numeros_frequencia,
+        "lista_limpa_para_ia": lista_limpa_para_ia,
+        "lista_oficial": lista_oficial
+    }
+    
+    bncc_texto = dados_aula.get('bncc', '')
+    conteudo_exibicao = f"{dados_aula.get('conteudo')}\n*(BNCC: {bncc_texto})*" if bncc_texto else dados_aula.get('conteudo')
+
+    msg_resposta = (
+        f"📋 **Confira os dados:**\n\n"
+        f"🏫 Turma: *{ids_diario['disciplina_str']}*\n"
+        f"📅 Data: *{dados_aula.get('data')}*\n"
+        f"📚 Conteúdo: {conteudo_exibicao}\n"
+        f"🏠 Tarefa: {dados_aula.get('tarefa')}\n"
+        f"🚫 Faltosos: {texto_faltosos}\n\n"
+        f"✅ Responda **SIM** para gravar no sistema.\n"
+        f"🔄 Ou mande **outro áudio** para corrigir."
+    )
+    enviar_mensagem_whatsapp(remetente, msg_resposta)
+
+
 def tentar_executar_robo(remetente, estado_atual, login_usar, senha_usar):
     dados_aula = estado_atual['dados_aula']
-    apenas_freq = estado_atual.get('apenas_frequencia', False)
+    ids_diario = estado_atual['ids_diario']
+    numeros_frequencia = estado_atual['numeros_frequencia']
     conteudo_base = dados_aula.get('conteudo', '')
     bncc_base = dados_aula.get('bncc', '')
     conteudo_final = f"{conteudo_base}\nBNCC: {bncc_base}" if bncc_base else conteudo_base
     
     try:
-        registro.registrar_aula_completa(
-            login=login_usar, senha=senha_usar,
-            nome_turma=dados_aula.get('turma_site'),
-            data=dados_aula.get('data'),
-            conteudo=conteudo_final, 
-            tarefa=dados_aula.get('tarefa'),
-            nomes_faltosos=dados_aula.get('faltosos'), apenas_frequencia=apenas_freq
+        registrohtml.registrar_aula_completa(
+            login=login_usar, senha=senha_usar, id_diario=ids_diario['id_diario'], id_turma=ids_diario['id_turma'],
+            id_disciplina=ids_diario.get('id_disciplina', '82'), disciplina_str=ids_diario['disciplina_str'],
+            data_aula=dados_aula.get('data'), conteudo=conteudo_final, tarefa=dados_aula.get('tarefa'), numeros_frequencia=numeros_frequencia
         )
-        enviar_mensagem_whatsapp(remetente, "✅ Registro de aula cadastrado! A chamada foi gravada. Pode mandar a próxima aula.\n*(Para trocar senha, digite 'Resetar')*")
+        enviar_mensagem_whatsapp(remetente, "✅ *Registro Concluído!*\nA aula e a chamada foram gravadas no sistema em tempo recorde. 🚀\n*(Para trocar senha, digite 'Resetar')*")
         if remetente in estados_usuarios: del estados_usuarios[remetente]
-        
     except Exception as e:
-        erro = str(e)
-        if "LOGIN_ERROR" in erro:
-            apagar_usuario(remetente)
-            enviar_mensagem_whatsapp(remetente, "❌ *Acesso Negado!*\nSeu login ou senha estão incorretos.\n\n♻️ Credenciais apagadas. Envie um novo áudio para recomeçar.")
-            if remetente in estados_usuarios: del estados_usuarios[remetente]
+        print("\n🔴🔴🔴 ERRO DETALHADO NA GRAVAÇÃO 🔴🔴🔴")
+        traceback.print_exc()
+        print("🔴🔴🔴------------------------------🔴🔴🔴\n")
+        if "LOGIN_ERROR" in str(e): apagar_usuario(remetente)
             
-        elif "PAGE_ERROR" in erro:
-            msg_erro = erro.split("PAGE_ERROR:")[1].strip()
-            enviar_mensagem_whatsapp(remetente, f"⚠️ *Erro no Sistema Escolar:*\n_{msg_erro}_\n\n🔄 Responda **SIM** para eu tentar de novo. Se persistir, contate o suporte.")
-            estados_usuarios[remetente]['etapa'] = 'esperando_confirmacao'
-            
-        else:
-            enviar_mensagem_whatsapp(remetente, f"❌ Erro Inesperado: Tente mandar o áudio novamente.")
-            if remetente in estados_usuarios: del estados_usuarios[remetente]
-
 @app.post("/webhook")
 async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
     try:
@@ -164,20 +242,12 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
         estado_atual = estados_usuarios.get(remetente)
         if eh_minha and tipo not in ['ptt', 'audio'] and not estado_atual: return {"status": "ignorado_loop"}
 
-        # ==============================================================================
-        # ONBOARDING E BOAS-VINDAS
-        # ==============================================================================
         if remetente not in boas_vindas_enviadas:
             boas_vindas_enviadas.add(remetente)
             usuarios_salvos = carregar_usuarios()
-            
             if remetente not in usuarios_salvos:
-                msg_intro = (
-                    "👋 Olá! Eu sou o *Aulio*, seu assistente inteligente para registro de aulas.\n"
-                    "Meu objetivo é transformar seus áudios em diários preenchidos no sistema escolar em segundos! 🚀\n"
-                )
+                msg_intro = "👋 Olá! Eu sou o *Aulio*, seu assistente inteligente para registro de aulas.\nMeu objetivo é transformar seus áudios em diários preenchidos no sistema escolar em segundos! 🚀\n"
                 enviar_mensagem_whatsapp(remetente, msg_intro)
-                
                 if tipo == 'chat':
                     enviar_mensagem_whatsapp(remetente, "🎙️ Para começarmos, grave um áudio relatando como foi sua aula (turma, conteúdo e faltosos).")
                     return {"status": "ok"}
@@ -187,144 +257,111 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
             return {"status": "ok"}
 
         # ==============================================================================
-        # FLUXO DE ÁUDIO
+        # FLUXO HÍBRIDO (ÁUDIO)
         # ==============================================================================
         if tipo == 'ptt' or tipo == 'audio':
             msg_id = dados.get('id')
+            print(f"\n[Aulio Cérebro] Áudio recebido do remetente {remetente}.")
             
-            # 1. RESOLVER NOMES
-            if estado_atual and estado_atual['etapa'] == 'esperando_desambiguacao':
-                enviar_mensagem_whatsapp(remetente, "🧠 Validando os nomes corrigidos...")
+            # SE O PROFESSOR MANDOU ÁUDIO PARA TIRAR A DÚVIDA DA MARIA:
+            if estado_atual and estado_atual.get('etapa') == 'esperando_desambiguacao':
                 arquivo = baixar_audio_limpo(msg_id)
-                texto_transcrito = ia.transcrever_audio(arquivo)
-                os.remove(arquivo)
-                
-                novos_faltosos = ia.resolver_ambiguidade(texto_transcrito, estado_atual['conflitos'], estado_atual['dados_aula']['faltosos'])
-                
-                # --- NOVO BLOQUEIO DE ERRO DA IA ---
-                if "erro" in novos_faltosos:
-                    enviar_mensagem_whatsapp(remetente, "❌ Não entendi qual aluno você escolheu. Por favor, diga ou digite o nome de uma das opções acima.")
-                    return {"status": "ok"}
-                
-                conflitos, resolvidos, nao_encontrados = validar_alunos_api(estado_atual['dados_aula'].get('turma_api'), novos_faltosos)
-                
-                if conflitos:
-                    estado_atual['conflitos'] = conflitos
-                    enviar_mensagem_whatsapp(remetente, gerar_mensagem_conflito(conflitos))
-                    return {"status": "ok"}
-                
-                estado_atual['dados_aula']['faltosos'] = resolvidos
-                lista_f = [f"{n} (*{'Justificada' if s == 1 else 'Normal'}*)" for n, s in resolvidos.items()]
-                texto_faltosos = ", ".join(lista_f) if lista_f else "Nenhum"
-                
-                aviso_nao_enc = f"\n⚠️ *Aviso:* Não localizados na API: {', '.join(nao_encontrados)}\n" if nao_encontrados else ""
-                
-                msg_confirma = (
-                    f"✅ Nomes atualizados para:\n"
-                    f"🚫 Faltosos: {texto_faltosos}\n"
-                    f"{aviso_nao_enc}\n"
-                    f"Tudo certo agora? Responda **SIM** para finalizar a chamada."
-                )
-                enviar_mensagem_whatsapp(remetente, msg_confirma)
-                estado_atual['etapa'] = 'esperando_confirmacao'
-                return {"status": "ok"}
-
-            # 2. FLUXO NORMAL DE ÁUDIO
-            print(f"\n[DEBUG 1] Áudio recebido do remetente {remetente}.")
-            dados_anteriores = estado_atual['dados_aula'] if estado_atual and 'dados_aula' in estado_atual else None
-            enviar_mensagem_whatsapp(remetente, "🔄 Atualizando..." if dados_anteriores else "🎧 Processando e validando alunos no sistema...")
+                texto_msg = ia.transcrever_audio(arquivo)
+                if os.path.exists(arquivo): os.remove(arquivo)
+                tipo = 'chat' # Engana o sistema para ele pular para o bloco de texto ali embaixo!
             
-            arquivo = baixar_audio_limpo(msg_id)
-            if arquivo:
-                try:
-                    texto_transcrito = ia.transcrever_audio(arquivo)
-                    if texto_transcrito:
+            # SE FOR O ÁUDIO NORMAL DA AULA:
+            else:
+                dados_anteriores = estado_atual['dados_aula'] if estado_atual and 'dados_aula' in estado_atual else None
+                enviar_mensagem_whatsapp(remetente, "🔄 Atualizando..." if dados_anteriores else "🎧 Processando áudio e cruzando dados...")
+                
+                arquivo = baixar_audio_limpo(msg_id)
+                if arquivo:
+                    try:
+                        texto_transcrito = ia.transcrever_audio(arquivo)
+                        if not texto_transcrito: raise Exception("Falha na transcrição")
+                        
                         dados_aula = ia.extrair_dados_da_aula(texto_transcrito, dados_anteriores)
+                        if not dados_aula: raise Exception("Falha na extração de dados")
 
-                        if not dados_aula:
-                            print("🔴 [ERRO FATAL] A função ia.extrair_dados_da_aula retornou None/Vazio!")
-                            enviar_mensagem_whatsapp(remetente, "❌ O cérebro do robô falhou ao extrair o JSON da aula. Tente novamente.")
+                        ids_diario = descobrir_dados_do_diario(dados_aula.get('turma_site', ''), dados_aula.get('turma_api', ''), dados_aula.get('disciplina', ''))
+                        if not ids_diario:
+                            enviar_mensagem_whatsapp(remetente, "❌ Não achei o diário desta turma. Tente outro áudio.")
                             os.remove(arquivo)
                             return {"status": "ok"}
-
-                        turma_api = dados_aula.get('turma_api')
-                        faltosos = dados_aula.get('faltosos', {})
-                        
-                        conflitos, resolvidos, nao_encontrados = validar_alunos_api(turma_api, faltosos)
-                        
-                        if conflitos:
-                            estados_usuarios[remetente] = {"etapa": "esperando_desambiguacao", "dados_aula": dados_aula, "conflitos": conflitos}
-                            enviar_mensagem_whatsapp(remetente, gerar_mensagem_conflito(conflitos))
-                        else:
-                            dados_aula['faltosos'] = resolvidos 
-                            estados_usuarios[remetente] = {"etapa": "esperando_confirmacao", "dados_aula": dados_aula}
                             
-                            lista_f = [f"{nome} (*{'Justificada' if status == 1 else 'Normal'}*)" for nome, status in resolvidos.items()]
-                            texto_faltosos = ", ".join(lista_f) if lista_f else "Nenhum"
+                        ARQUIVO_CACHE_ALUNOS = "cache_alunos_todos_diarios.json"
+                        lista_oficial = []
+                        try:
+                            with open(ARQUIVO_CACHE_ALUNOS, "r", encoding="utf-8") as f:
+                                lista_oficial = json.load(f).get(str(ids_diario['id_diario']), [])
+                        except Exception as e: pass
                             
-                            aviso_nao_enc = f"\n⚠️ *Aviso:* Não localizados na API: {', '.join(nao_encontrados)}\n" if nao_encontrados else ""
+                        if not lista_oficial:
+                            enviar_mensagem_whatsapp(remetente, f"⚠️ A lista de alunos não foi encontrada no banco local. Parei o registro.")
+                            os.remove(arquivo)
+                            return {"status": "ok"}
+                            
+                        lista_limpa_para_ia = [{"numero_chamada": aluno.get('numero_chamada'), "nome": aluno.get('nome', 'Sem Nome')} for aluno in lista_oficial]
+                            
+                        faltosos_extraidos = dados_aula.get('faltosos', {})
+                        try: numeros_frequencia = ia.traduzir_nomes_para_chamada(faltosos_extraidos, lista_limpa_para_ia)
+                        except Exception as e: numeros_frequencia = {"F": [], "J": [], "nao_encontrados": [], "ambiguos": {}}
+                        if not numeros_frequencia: numeros_frequencia = {"F": [], "J": [], "nao_encontrados": [], "ambiguos": {}}
+                        
+                        # --- ALERTA DE AMBIGUIDADE (AS VÁRIAS MARIAS) ---
+                        ambiguos = numeros_frequencia.get("ambiguos", {})
+                        if ambiguos:
+                            msg_conflito = "⚠️ *Atenção! Encontrei alunos com nomes parecidos:*\n\n"
+                            for nome_curto, opcoes in ambiguos.items():
+                                msg_conflito += f"👤 *{nome_curto}* pode ser:\n"
+                                for op in opcoes: msg_conflito += f"  - {op}\n"
+                                msg_conflito += "\n"
+                            msg_conflito += "🎙️ Responda com um *áudio* ou *texto* dizendo o nome completo correto para eu não errar!"
+                            
+                            estados_usuarios[remetente] = {
+                                "etapa": "esperando_desambiguacao", "dados_aula": dados_aula, "ids_diario": ids_diario,
+                                "lista_limpa_para_ia": lista_limpa_para_ia, "lista_oficial": lista_oficial, "ambiguos": ambiguos
+                            }
+                            enviar_mensagem_whatsapp(remetente, msg_conflito)
+                            if os.path.exists(arquivo): os.remove(arquivo)
+                            return {"status": "ok"}
 
-                            bncc_texto = dados_aula.get('bncc', '')
-                            conteudo_exibicao = f"{dados_aula.get('conteudo')}\n*(BNCC: {bncc_texto})*" if bncc_texto else dados_aula.get('conteudo')
-
-                            msg_resposta = (
-                                f"📋 **Confira os dados:**\n\n"
-                                f"🏫 Turma: *{dados_aula.get('turma_site')}*\n"
-                                f"📅 Data: *{dados_aula.get('data')}*\n"
-                                f"📚 Conteúdo: {conteudo_exibicao}\n"
-                                f"🏠 Tarefa: {dados_aula.get('tarefa')}\n"
-                                f"🚫 Faltosos: {texto_faltosos}\n"
-                                f"{aviso_nao_enc}\n"
-                                f"✅ Responda **SIM** para continuar.\n"
-                                f"🔄 Ou mande **outro áudio** para corrigir."
-                            )
-                            enviar_mensagem_whatsapp(remetente, msg_resposta)
-                    
-                    os.remove(arquivo)
-                except Exception as e: 
-                    print("\n🔴🔴🔴 ERRO DETALHADO NO ÁUDIO 🔴🔴🔴")
-                    traceback.print_exc()
-                    print("🔴🔴🔴------------------------------🔴🔴🔴\n")
-                    enviar_mensagem_whatsapp(remetente, "❌ Erro interno ao processar áudio.")
+                        # Se não deu conflito, segue normal usando nossa função limpa!
+                        exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequencia, lista_oficial, lista_limpa_para_ia)
+                        if os.path.exists(arquivo): os.remove(arquivo)
+                        
+                    except Exception as e: 
+                        print("\n🔴🔴🔴 ERRO DETALHADO NO ÁUDIO 🔴🔴🔴")
+                        traceback.print_exc()
+                        enviar_mensagem_whatsapp(remetente, "❌ Erro interno ao processar áudio.")
+                        if os.path.exists(arquivo): os.remove(arquivo)
+                        return {"status": "ok"}
 
         # ==============================================================================
-        # FLUXO DE TEXTO
+        # FLUXO DE TEXTO (E AUDIOS CONVERTIDOS EM TEXTO)
         # ==============================================================================
-        elif tipo == 'chat' and estado_atual:
+        if tipo == 'chat' and estado_atual:
             etapa = estado_atual['etapa']
-            
-            if etapa == 'esperando_desambiguacao':
-                enviar_mensagem_whatsapp(remetente, "🧠 Validando os nomes corrigidos...")
-                novos_faltosos = ia.resolver_ambiguidade(texto_msg, estado_atual['conflitos'], estado_atual['dados_aula']['faltosos'])
-                
-                # --- NOVO BLOQUEIO DE ERRO DA IA ---
-                if "erro" in novos_faltosos:
-                    enviar_mensagem_whatsapp(remetente, "❌ Não entendi qual aluno você escolheu. Por favor, digite o nome exato de uma das opções acima.")
-                    return {"status": "ok"}
-                
-                conflitos, resolvidos, nao_encontrados = validar_alunos_api(estado_atual['dados_aula'].get('turma_api'), novos_faltosos)
-                
-                if conflitos:
-                    estado_atual['conflitos'] = conflitos
-                    enviar_mensagem_whatsapp(remetente, gerar_mensagem_conflito(conflitos))
-                    return {"status": "ok"}
-                
-                estado_atual['dados_aula']['faltosos'] = resolvidos
-                lista_f = [f"{n} (*{'Justificada' if s == 1 else 'Normal'}*)" for n, s in resolvidos.items()]
-                texto_faltosos = ", ".join(lista_f) if lista_f else "Nenhum"
-                aviso_nao_enc = f"\n⚠️ *Aviso:* Não localizados na API: {', '.join(nao_encontrados)}\n" if nao_encontrados else ""
-                
-                msg_confirma = (
-                    f"✅ Nomes atualizados para:\n"
-                    f"🚫 Faltosos: {texto_faltosos}\n"
-                    f"{aviso_nao_enc}\n"
-                    f"Tudo certo agora? Responda **SIM** para finalizar a chamada."
-                )
-                enviar_mensagem_whatsapp(remetente, msg_confirma)
-                estado_atual['etapa'] = 'esperando_confirmacao'
-                return {"status": "ok"}
 
-            if etapa == 'esperando_confirmacao':
+            # NOVO: O Professor tirando a dúvida das Marias
+            if etapa == 'esperando_desambiguacao':
+                resolvido = ia.resolver_ambiguidade(texto_msg, estado_atual['ambiguos'], estado_atual['dados_aula'].get('faltosos', {}))
+                
+                if resolvido and "erro" not in resolvido:
+                    enviar_mensagem_whatsapp(remetente, "🔄 Nomes confirmados! Recalculando faltas...")
+                    estado_atual['dados_aula']['faltosos'] = resolvido
+                    nova_freq = ia.traduzir_nomes_para_chamada(resolvido, estado_atual['lista_limpa_para_ia'])
+                    
+                    # Chama a tela de confirmacao final
+                    exibir_resumo_confirmacao(
+                        remetente, estado_atual['dados_aula'], estado_atual['ids_diario'], 
+                        nova_freq, estado_atual['lista_oficial'], estado_atual['lista_limpa_para_ia']
+                    )
+                else:
+                    enviar_mensagem_whatsapp(remetente, "❌ Não entendi muito bem. Diga de forma clara qual é o nome completo!")
+
+            elif etapa == 'esperando_confirmacao':
                 if texto_msg.lower() in ['sim', 'ok', 'pode', 'confirmo', 'certo', 'vai', 's', 'bora', 'tá certo']:
                     usuarios_salvos = carregar_usuarios()
                     if remetente in usuarios_salvos:
@@ -332,11 +369,7 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                         senha_salva = usuarios_salvos[remetente]['senha']
                         dados_aula = estado_atual.get('dados_aula', {})
 
-                        if estado_atual.get('apenas_frequencia'):
-                            enviar_mensagem_whatsapp(remetente, f"🚀 Retomando chamada de {dados_aula.get('turma_site')}...")
-                        else:
-                            enviar_mensagem_whatsapp(remetente, f"🚀 Registrando aula em {dados_aula.get('turma_site')}...")
-                            
+                        enviar_mensagem_whatsapp(remetente, f"🚀 Registrando aula em {dados_aula.get('turma_site')}...")
                         background_tasks.add_task(tentar_executar_robo, remetente, estado_atual, login_salvo, senha_salva)
                     else:
                         estados_usuarios[remetente]['etapa'] = 'esperando_login'
@@ -349,14 +382,11 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                 enviar_mensagem_whatsapp(remetente, "👍 Agora digite sua **SENHA**:")
             
             elif etapa == 'esperando_senha':
-                login_final = estado_atual['login_salvo']
-                senha_final = texto_msg
-                salvar_usuario(remetente, login_final, senha_final)
+                salvar_usuario(remetente, estado_atual['login_salvo'], texto_msg)
                 enviar_mensagem_whatsapp(remetente, "💾 Credenciais salvas!\n🚀 Iniciando robô...")
-                background_tasks.add_task(tentar_executar_robo, remetente, estado_atual, login_final, senha_final)
+                background_tasks.add_task(tentar_executar_robo, remetente, estado_atual, estado_atual['login_salvo'], texto_msg)
 
-    except Exception as e: 
-        print(f"Erro webhook genérico: {e}")
+    except Exception as e: print(f"Erro webhook genérico: {e}")
     return {"status": "ok"}
 
 if __name__ == "__main__": uvicorn.run(app, host="0.0.0.0", port=8000)

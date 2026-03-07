@@ -1,6 +1,7 @@
 WSL
-docker rm -f wpp-server
-docker run -it -p 21465:21465 --name wpp-server meu-zap-server
+cd ~/wppconnect-server
+docker compose up -d
+docker compose logs -f
 
 Oracle
 ssh -i ssh-key-2026-02-23.key ubuntu@136.248.74.44
@@ -21,9 +22,9 @@ IPV4 do WSL
 
 http://localhost:21465/api-docs
 
-Gerar Token
+Token WPP-Connect
 PC - $2b$10$JDqBFrylrLmpancOBaRAs.PVRf.PnLe2s7KlT95dqIIU7HUOTPoea
-Notebook - $2b$10$sHRcXs71H1jZ9VMTovxQ2eEs4x_Mj3ov7UTMpdMKmJSAQXSbIlFaS
+Notebook - $2b$10$0oKbB9sjkP0TF82w9LkQJ.LQRjQ_48CbbnypEe_oTEcxQiue89tGu
 Servidor - $2b$10$MXlh4uOrMZfb9cbGu4DGYu3.iXUoaiSZrRGuBALYmIEAHtpYdDsdu
 
 sessao-pedro-final
@@ -54,4 +55,4 @@ WSL notebook: 172.23.144.1
 }
 
 API Active
-ZaAmsMtiTSf3nxpuTJuZ2zkgOmVMhr
+Bearer ZaAmsMtiTSf3nxpuTJuZ2zkgOmVMhr
