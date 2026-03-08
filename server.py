@@ -5,7 +5,9 @@ import os
 import base64
 import json         
 import ia           
-import extrairdadosjson  
+import extrairdadosjson
+import httpx
+import asyncio
 import registrohtml     
 import sigaapi
 from dotenv import load_dotenv
@@ -25,6 +27,7 @@ SIGA_BASE_URL = "https://siga.activesoft.com.br"
 SIGA_TOKEN = "Bearer ZaAmsMtiTSf3nxpuTJuZ2zkgOmVMhr"
 ARQUIVO_DIARIOS = "diarios_com_turmas_2026.json"
 ARQUIVO_USUARIOS = "usuarios.json"  
+ARQUIVO_ESTADOS = "estados_conversas.json" # <--- NOSSO CÉREBRO PERMANENTE
 
 NUMEROS_PERMITIDOS = [
     "558396336492@c.us", "5583996336492@c.us", "5583999030176@c.us",
@@ -33,7 +36,27 @@ NUMEROS_PERMITIDOS = [
     "558396035018@c.us"  
 ]
 
-estados_usuarios = {}
+# ==============================================================================
+# SISTEMA DE MEMÓRIA (CURA DO ALZHEIMER)
+# ==============================================================================
+def carregar_estados_disco():
+    if os.path.exists(ARQUIVO_ESTADOS):
+        try:
+            with open(ARQUIVO_ESTADOS, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Erro ao carregar estados: {e}")
+    return {}
+
+def salvar_estados_disco(estados_dict):
+    try:
+        with open(ARQUIVO_ESTADOS, "w", encoding="utf-8") as f:
+            json.dump(estados_dict, f, indent=4, ensure_ascii=False)
+    except Exception as e:
+        print(f"Erro ao salvar estados: {e}")
+
+# Inicia puxando do HD direto! Adeus "estados_usuarios = {}"
+estados_usuarios = carregar_estados_disco()
 boas_vindas_enviadas = set() 
 
 import unicodedata
@@ -119,20 +142,24 @@ def apagar_usuario(numero):
         return True
     return False
 
-def enviar_mensagem_whatsapp(numero, texto):
+async def enviar_mensagem_whatsapp(numero, texto):
     url = f"{DOCKER_URL}/api/{SESSAO}/send-message"
     headers = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
     payload = {"phone": numero, "message": texto}
-    try: requests.post(url, json=payload, headers=headers)
+    try: 
+        async with httpx.AsyncClient() as client:
+            await client.post(url, json=payload, headers=headers)
     except: pass
 
-def baixar_audio_limpo(message_id):
+async def baixar_audio_limpo(message_id):
     url = f"{DOCKER_URL}/api/{SESSAO}/download-media"
     headers = {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"}
     payload = {"messageId": message_id}
     try:
-        resposta = requests.post(url, json=payload, headers=headers)
-        if resposta.status_code != 200: return None
+        async with httpx.AsyncClient() as client:
+            resposta = await client.post(url, json=payload, headers=headers)
+            if resposta.status_code != 200: return None
+            
         dados = resposta.text
         try:
             json_dados = resposta.json()
@@ -149,10 +176,7 @@ def baixar_audio_limpo(message_id):
         return nome_arquivo
     except: return None
 
-# ==============================================================================
-# NOVA FUNÇÃO DE EXIBIÇÃO: Impede duplicação de código!
-# ==============================================================================
-def exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequencia, lista_oficial, lista_limpa_para_ia):
+async def exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequencia, lista_oficial, lista_limpa_para_ia):
     nomes_confirmados = []
     for aluno in lista_oficial:
         num = aluno.get('numero_chamada')
@@ -181,6 +205,7 @@ def exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequen
         "lista_limpa_para_ia": lista_limpa_para_ia,
         "lista_oficial": lista_oficial
     }
+    salvar_estados_disco(estados_usuarios) # SALVA AQUI!
     
     bncc_texto = dados_aula.get('bncc', '')
     conteudo_exibicao = f"{dados_aula.get('conteudo')}\n*(BNCC: {bncc_texto})*" if bncc_texto else dados_aula.get('conteudo')
@@ -195,10 +220,9 @@ def exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequen
         f"✅ Responda **SIM** para gravar no sistema.\n"
         f"🔄 Ou mande **outro áudio** para corrigir."
     )
-    enviar_mensagem_whatsapp(remetente, msg_resposta)
+    await enviar_mensagem_whatsapp(remetente, msg_resposta)
 
-
-def tentar_executar_robo(remetente, estado_atual, login_usar, senha_usar):
+async def tentar_executar_robo(remetente, estado_atual, login_usar, senha_usar):
     dados_aula = estado_atual['dados_aula']
     ids_diario = estado_atual['ids_diario']
     numeros_frequencia = estado_atual['numeros_frequencia']
@@ -207,13 +231,19 @@ def tentar_executar_robo(remetente, estado_atual, login_usar, senha_usar):
     conteudo_final = f"{conteudo_base}\nBNCC: {bncc_base}" if bncc_base else conteudo_base
     
     try:
-        registrohtml.registrar_aula_completa(
+        await asyncio.to_thread(
+            registrohtml.registrar_aula_completa,
             login=login_usar, senha=senha_usar, id_diario=ids_diario['id_diario'], id_turma=ids_diario['id_turma'],
             id_disciplina=ids_diario.get('id_disciplina', '82'), disciplina_str=ids_diario['disciplina_str'],
             data_aula=dados_aula.get('data'), conteudo=conteudo_final, tarefa=dados_aula.get('tarefa'), numeros_frequencia=numeros_frequencia
         )
-        enviar_mensagem_whatsapp(remetente, "✅ *Registro Concluído!*\nA aula e a chamada foram gravadas no sistema em tempo recorde. 🚀\n*(Para trocar senha, digite 'Resetar')*")
-        if remetente in estados_usuarios: del estados_usuarios[remetente]
+        await enviar_mensagem_whatsapp(remetente, "✅ *Registro Concluído!*\nA aula e a chamada foram gravadas no sistema em tempo recorde. 🚀\n*(Para trocar senha, digite 'Resetar')*")
+        
+        # LIMPA E SALVA O ESTADO
+        if remetente in estados_usuarios: 
+            del estados_usuarios[remetente]
+            salvar_estados_disco(estados_usuarios)
+
     except Exception as e:
         print("\n🔴🔴🔴 ERRO DETALHADO NA GRAVAÇÃO 🔴🔴🔴")
         traceback.print_exc()
@@ -234,8 +264,10 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
         if not eh_minha and remetente not in NUMEROS_PERMITIDOS: return {"status": "bloqueado"}
         
         if tipo == 'chat' and texto_msg.lower() == 'resetar':
-            if apagar_usuario(remetente): enviar_mensagem_whatsapp(remetente, "♻️ Suas credenciais foram apagadas. Envie um novo áudio para recomeçar.")
-            if remetente in estados_usuarios: del estados_usuarios[remetente]
+            if apagar_usuario(remetente): await enviar_mensagem_whatsapp(remetente, "♻️ Suas credenciais foram apagadas. Envie um novo áudio para recomeçar.")
+            if remetente in estados_usuarios: 
+                del estados_usuarios[remetente]
+                salvar_estados_disco(estados_usuarios)
             if remetente in boas_vindas_enviadas: boas_vindas_enviadas.remove(remetente) 
             return {"status": "ok"}
             
@@ -247,13 +279,13 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
             usuarios_salvos = carregar_usuarios()
             if remetente not in usuarios_salvos:
                 msg_intro = "👋 Olá! Eu sou o *Aulio*, seu assistente inteligente para registro de aulas.\nMeu objetivo é transformar seus áudios em diários preenchidos no sistema escolar em segundos! 🚀\n"
-                enviar_mensagem_whatsapp(remetente, msg_intro)
+                await enviar_mensagem_whatsapp(remetente, msg_intro)
                 if tipo == 'chat':
-                    enviar_mensagem_whatsapp(remetente, "🎙️ Para começarmos, grave um áudio relatando como foi sua aula (turma, conteúdo e faltosos).")
+                    await enviar_mensagem_whatsapp(remetente, "🎙️ Para começarmos, grave um áudio relatando como foi sua aula (turma, conteúdo e faltosos).")
                     return {"status": "ok"}
 
         if tipo == 'chat' and not estado_atual:
-            enviar_mensagem_whatsapp(remetente, "🎙️ Estou pronto! Pode me enviar o áudio com o resumo da sua aula.")
+            await enviar_mensagem_whatsapp(remetente, "🎙️ Estou pronto! Pode me enviar o áudio com o resumo da sua aula.")
             return {"status": "ok"}
 
         # ==============================================================================
@@ -263,30 +295,28 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
             msg_id = dados.get('id')
             print(f"\n[Aulio Cérebro] Áudio recebido do remetente {remetente}.")
             
-            # SE O PROFESSOR MANDOU ÁUDIO PARA TIRAR A DÚVIDA DA MARIA:
             if estado_atual and estado_atual.get('etapa') == 'esperando_desambiguacao':
-                arquivo = baixar_audio_limpo(msg_id)
-                texto_msg = ia.transcrever_audio(arquivo)
-                if os.path.exists(arquivo): os.remove(arquivo)
-                tipo = 'chat' # Engana o sistema para ele pular para o bloco de texto ali embaixo!
+                
+                # --- ADICIONE ESTA LINHA AQUI! ---
+                await enviar_mensagem_whatsapp(remetente, "🎧 Escutando os nomes...")
+                
+                arquivo = await baixar_audio_limpo(msg_id)
+                texto_msg = arquivo
+                tipo = 'chat'
             
-            # SE FOR O ÁUDIO NORMAL DA AULA:
             else:
                 dados_anteriores = estado_atual['dados_aula'] if estado_atual and 'dados_aula' in estado_atual else None
-                enviar_mensagem_whatsapp(remetente, "🔄 Atualizando..." if dados_anteriores else "🎧 Processando áudio e cruzando dados...")
+                await enviar_mensagem_whatsapp(remetente, "🔄 Atualizando..." if dados_anteriores else "🎧 Processando áudio e cruzando dados...")
                 
-                arquivo = baixar_audio_limpo(msg_id)
+                arquivo = await baixar_audio_limpo(msg_id)
                 if arquivo:
                     try:
-                        texto_transcrito = ia.transcrever_audio(arquivo)
-                        if not texto_transcrito: raise Exception("Falha na transcrição")
-                        
-                        dados_aula = ia.extrair_dados_da_aula(texto_transcrito, dados_anteriores)
-                        if not dados_aula: raise Exception("Falha na extração de dados")
+                       # O Aulio agora é Multimodal! Ele engole o arquivo de áudio direto.
+                        dados_aula = await ia.extrair_dados_da_aula(arquivo, dados_anteriores)
 
                         ids_diario = descobrir_dados_do_diario(dados_aula.get('turma_site', ''), dados_aula.get('turma_api', ''), dados_aula.get('disciplina', ''))
                         if not ids_diario:
-                            enviar_mensagem_whatsapp(remetente, "❌ Não achei o diário desta turma. Tente outro áudio.")
+                            await enviar_mensagem_whatsapp(remetente, "❌ Não achei o diário desta turma. Tente outro áudio.")
                             os.remove(arquivo)
                             return {"status": "ok"}
                             
@@ -298,18 +328,34 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                         except Exception as e: pass
                             
                         if not lista_oficial:
-                            enviar_mensagem_whatsapp(remetente, f"⚠️ A lista de alunos não foi encontrada no banco local. Parei o registro.")
+                            await enviar_mensagem_whatsapp(remetente, f"⚠️ A lista de alunos não foi encontrada no banco local. Parei o registro.")
                             os.remove(arquivo)
                             return {"status": "ok"}
                             
                         lista_limpa_para_ia = [{"numero_chamada": aluno.get('numero_chamada'), "nome": aluno.get('nome', 'Sem Nome')} for aluno in lista_oficial]
                             
+                        # ------------------------------------------------------------------
+                        # 🚀 PARALELISMO REAL: Busca BNCC e Traduz Faltosos AO MESMO TEMPO!
+                        # ------------------------------------------------------------------
                         faltosos_extraidos = dados_aula.get('faltosos', {})
-                        try: numeros_frequencia = ia.traduzir_nomes_para_chamada(faltosos_extraidos, lista_limpa_para_ia)
-                        except Exception as e: numeros_frequencia = {"F": [], "J": [], "nao_encontrados": [], "ambiguos": {}}
+                        disciplina_atual = dados_aula.get('disciplina', '')
+                        turma_atual = dados_aula.get('turma_site', '')
+                        conteudo_atual = dados_aula.get('conteudo', '')
+                        
+                        # Criamos as duas tarefas pendentes
+                        tarefa_faltosos = ia.traduzir_nomes_para_chamada(faltosos_extraidos, lista_limpa_para_ia)
+                        tarefa_bncc = ia.buscar_bncc_ultra_rapida(disciplina_atual, turma_atual, conteudo_atual)
+                        
+                        # Mandamos o servidor executar as duas simultaneamente e esperar!
+                        numeros_frequencia, texto_bncc = await asyncio.gather(tarefa_faltosos, tarefa_bncc)
+                        
+                        # Se achou BNCC, adiciona de volta no dicionário para exibição
+                        if texto_bncc:
+                            dados_aula['bncc'] = texto_bncc
+                            
                         if not numeros_frequencia: numeros_frequencia = {"F": [], "J": [], "nao_encontrados": [], "ambiguos": {}}
                         
-                        # --- ALERTA DE AMBIGUIDADE (AS VÁRIAS MARIAS) ---
+                        # --- ALERTA DE AMBIGUIDADE ---
                         ambiguos = numeros_frequencia.get("ambiguos", {})
                         if ambiguos:
                             msg_conflito = "⚠️ *Atenção! Encontrei alunos com nomes parecidos:*\n\n"
@@ -323,18 +369,19 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                                 "etapa": "esperando_desambiguacao", "dados_aula": dados_aula, "ids_diario": ids_diario,
                                 "lista_limpa_para_ia": lista_limpa_para_ia, "lista_oficial": lista_oficial, "ambiguos": ambiguos
                             }
-                            enviar_mensagem_whatsapp(remetente, msg_conflito)
+                            salvar_estados_disco(estados_usuarios)
+                            
+                            await enviar_mensagem_whatsapp(remetente, msg_conflito)
                             if os.path.exists(arquivo): os.remove(arquivo)
                             return {"status": "ok"}
 
-                        # Se não deu conflito, segue normal usando nossa função limpa!
-                        exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequencia, lista_oficial, lista_limpa_para_ia)
+                        await exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequencia, lista_oficial, lista_limpa_para_ia)
                         if os.path.exists(arquivo): os.remove(arquivo)
                         
                     except Exception as e: 
                         print("\n🔴🔴🔴 ERRO DETALHADO NO ÁUDIO 🔴🔴🔴")
                         traceback.print_exc()
-                        enviar_mensagem_whatsapp(remetente, "❌ Erro interno ao processar áudio.")
+                        await enviar_mensagem_whatsapp(remetente, "❌ Erro interno ao processar áudio.")
                         if os.path.exists(arquivo): os.remove(arquivo)
                         return {"status": "ok"}
 
@@ -344,22 +391,37 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
         if tipo == 'chat' and estado_atual:
             etapa = estado_atual['etapa']
 
-            # NOVO: O Professor tirando a dúvida das Marias
             if etapa == 'esperando_desambiguacao':
-                resolvido = ia.resolver_ambiguidade(texto_msg, estado_atual['ambiguos'], estado_atual['dados_aula'].get('faltosos', {}))
+                
+                # --- ADICIONE ESTAS DUAS LINHAS AQUI! ---
+                if not str(texto_msg).endswith('.m4a'):
+                    await enviar_mensagem_whatsapp(remetente, "⏳ Verificando os nomes...")
+                    
+                resolvido = await ia.resolver_ambiguidade(texto_msg, estado_atual['ambiguos'], estado_atual['dados_aula'].get('faltosos', {}))
+                
+                # Se era um arquivo de áudio, limpa do PC agora!
+                if texto_msg.endswith('.m4a') and os.path.exists(texto_msg):
+                    os.remove(texto_msg)
                 
                 if resolvido and "erro" not in resolvido:
-                    enviar_mensagem_whatsapp(remetente, "🔄 Nomes confirmados! Recalculando faltas...")
-                    estado_atual['dados_aula']['faltosos'] = resolvido
-                    nova_freq = ia.traduzir_nomes_para_chamada(resolvido, estado_atual['lista_limpa_para_ia'])
                     
-                    # Chama a tela de confirmacao final
-                    exibir_resumo_confirmacao(
+                    # 1. Tira os nomes curtos e confusos da lista de faltosos
+                    for nome_curto in estado_atual['ambiguos'].keys():
+                        if nome_curto in estado_atual['dados_aula']['faltosos']:
+                            del estado_atual['dados_aula']['faltosos'][nome_curto]
+                            
+                    # 2. Adiciona os nomes completos certos (isso mantém o Noah na lista se ele não teve ambiguidade!)
+                    estado_atual['dados_aula']['faltosos'].update(resolvido)
+                    
+                    # 3. Manda a IA traduzir a lista final e perfeita para números da chamada
+                    nova_freq = await ia.traduzir_nomes_para_chamada(estado_atual['dados_aula']['faltosos'], estado_atual['lista_limpa_para_ia'])
+                    
+                    await exibir_resumo_confirmacao(
                         remetente, estado_atual['dados_aula'], estado_atual['ids_diario'], 
                         nova_freq, estado_atual['lista_oficial'], estado_atual['lista_limpa_para_ia']
                     )
                 else:
-                    enviar_mensagem_whatsapp(remetente, "❌ Não entendi muito bem. Diga de forma clara qual é o nome completo!")
+                    await enviar_mensagem_whatsapp(remetente, "❌ Não entendi muito bem. Diga de forma clara qual é o nome completo!")
 
             elif etapa == 'esperando_confirmacao':
                 if texto_msg.lower() in ['sim', 'ok', 'pode', 'confirmo', 'certo', 'vai', 's', 'bora', 'tá certo']:
@@ -369,21 +431,23 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                         senha_salva = usuarios_salvos[remetente]['senha']
                         dados_aula = estado_atual.get('dados_aula', {})
 
-                        enviar_mensagem_whatsapp(remetente, f"🚀 Registrando aula em {dados_aula.get('turma_site')}...")
+                        await enviar_mensagem_whatsapp(remetente, f"🚀 Registrando aula em {dados_aula.get('turma_site')}...")
                         background_tasks.add_task(tentar_executar_robo, remetente, estado_atual, login_salvo, senha_salva)
                     else:
                         estados_usuarios[remetente]['etapa'] = 'esperando_login'
-                        enviar_mensagem_whatsapp(remetente, "Certo, vamos iniciar o registro.\n🔒 Digite apenas seu **LOGIN**:\nA senha será solicitada na próxima mensagem.")
-                else: enviar_mensagem_whatsapp(remetente, "Mande **SIM** para confirmar ou outro áudio para corrigir.")
+                        salvar_estados_disco(estados_usuarios) # SALVA AQUI!
+                        await enviar_mensagem_whatsapp(remetente, "Certo, vamos iniciar o registro.\n🔒 Digite apenas seu **LOGIN**:\nA senha será solicitada na próxima mensagem.")
+                else: await enviar_mensagem_whatsapp(remetente, "Mande **SIM** para confirmar ou outro áudio para corrigir.")
 
             elif etapa == 'esperando_login':
                 estados_usuarios[remetente]['login_salvo'] = texto_msg
                 estados_usuarios[remetente]['etapa'] = 'esperando_senha'
-                enviar_mensagem_whatsapp(remetente, "👍 Agora digite sua **SENHA**:")
+                salvar_estados_disco(estados_usuarios) # SALVA AQUI!
+                await enviar_mensagem_whatsapp(remetente, "👍 Agora digite sua **SENHA**:")
             
             elif etapa == 'esperando_senha':
                 salvar_usuario(remetente, estado_atual['login_salvo'], texto_msg)
-                enviar_mensagem_whatsapp(remetente, "💾 Credenciais salvas!\n🚀 Iniciando robô...")
+                await enviar_mensagem_whatsapp(remetente, "💾 Credenciais salvas!\n🚀 Iniciando robô...")
                 background_tasks.add_task(tentar_executar_robo, remetente, estado_atual, estado_atual['login_salvo'], texto_msg)
 
     except Exception as e: print(f"Erro webhook genérico: {e}")
