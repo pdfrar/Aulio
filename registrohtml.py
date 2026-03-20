@@ -125,15 +125,17 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
     # -------------------------------------------------------------------
     # ETAPA 7: Gravar a Frequência (SNIPER)
     # -------------------------------------------------------------------
-    print("[Aulio HTTP] Sincronizando frequência...")
-    
+    # -------------------------------------------------------------------
+    # ETAPA 7: Gravar a Frequência (SNIPER)
+    # -------------------------------------------------------------------
     lista_de_checkboxes = sopa_form.find_all('input', {'name': 'aulas'})
     qtde_aulas_real = len(lista_de_checkboxes) + 1 
 
     aula_inicial_bloco = ((qtde_aulas_real - 1) // 10) * 10 + 1
     coluna_atual_no_bloco = ((qtde_aulas_real - 1) % 10) + 1
 
-    # Usamos o id_disciplina_real que ele acabou de descobrir para abrir a frequência
+    print(f"\n[Aulio HTTP] Sincronizando frequência da aula {qtde_aulas_real} (Bloco {aula_inicial_bloco}, Coluna {coluna_atual_no_bloco})...")
+
     url_visual_freq = f"https://app39.activesoft.com.br/sistema/sistema.1065614/TelasSIGA/Diario/RegistroFrequencia2.asp?IdDiario={id_diario}&IdTurma={id_turma}&IdDisciplina={id_disciplina_real}&QtdeAulasRegistradas={qtde_aulas_real}&AulaInicial={aula_inicial_bloco}"
     
     resposta_visual = sessao.get(url_visual_freq)
@@ -157,18 +159,35 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
     headers_api = {"Authorization": "Bearer ZaAmsMtiTSf3nxpuTJuZ2zkgOmVMhr"}
     dados_frequencia = sessao.get(url_api_frequencia, headers=headers_api).json()
 
-    faltosos_F = numeros_frequencia.get("F", [])
-    faltosos_J = numeros_frequencia.get("J", [])
+    # ⚡ O FILTRO BLINDADO DE DADOS: Força tudo a ser um Número Inteiro!
+    faltosos_F = [int(x) for x in numeros_frequencia.get("F", []) if str(x).isdigit()]
+    faltosos_J = [int(x) for x in numeros_frequencia.get("J", []) if str(x).isdigit()]
+    
+    print(f"[Aulio HTTP] Faltas Normais (F): {faltosos_F}")
+    print(f"[Aulio HTTP] Faltas Justificadas (J): {faltosos_J}")
+
     tradutor = {"•": "P", "F": "F", "J": "J", "D": "D", None: "Z"}
 
+    if not dados_frequencia:
+        print("[Aulio HTTP] 🔴 ALERTA CRÍTICO: A API da escola não retornou a lista de alunos para este diário!")
+
     for i, aluno_api in enumerate(dados_frequencia, start=1):
+        # ⚡ BUSCA PELO NÚMERO DA CHAMADA EXATO (Proteção contra alunos transferidos)
+        num_chamada_str = aluno_api.get("numero_chamada")
+        num_chamada = int(num_chamada_str) if num_chamada_str else i
+
         string_frequencia = ""
         for pos in range(1, 11):
             aula_abs = aula_inicial_bloco + pos - 1
             if pos == coluna_atual_no_bloco:
-                if i in faltosos_F: string_frequencia += "F"
-                elif i in faltosos_J: string_frequencia += "J"
-                else: string_frequencia += "P"
+                if num_chamada in faltosos_F: 
+                    string_frequencia += "F"
+                    print(f"  👉 Cravando Falta (F) para o Nº {num_chamada} - {aluno_api.get('nome')}")
+                elif num_chamada in faltosos_J: 
+                    string_frequencia += "J"
+                    print(f"  👉 Cravando Justificada (J) para o Nº {num_chamada} - {aluno_api.get('nome')}")
+                else: 
+                    string_frequencia += "P"
             else:
                 valor_api = aluno_api.get(f"presenca_falta_{aula_abs:02d}")
                 string_frequencia += tradutor.get(valor_api, "Z")
@@ -176,6 +195,7 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
         payload_frequencia[f"ArrayPresencaFalta{i}"] = string_frequencia
 
     try:
+        print("[Aulio HTTP] Disparando gravação da chamada...")
         payload_cod_freq = urlencode(payload_frequencia, encoding='iso-8859-1', errors='ignore')
         res_freq = sessao.post("https://app39.activesoft.com.br/sistema/sistema.1065614/TelasSIGA/Diario/RegistroFrequenciaGravar2.asp", 
                                data=payload_cod_freq, headers={"Content-Type": "application/x-www-form-urlencoded", "Referer": url_visual_freq}, allow_redirects=False)

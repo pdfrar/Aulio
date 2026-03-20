@@ -33,11 +33,11 @@ NUMEROS_PERMITIDOS = [
     "558396336492@c.us", "5583996336492@c.us", "5583999030176@c.us",
     "558399030176@c.us", "5583981219527@c.us", "558381219527@c.us",
     "558398156803@c.us", "55838156803@c.us", "5583996035018@c.us",
-    "558396035018@c.us"  
+    "558396035018@c.us" 
 ]
 
 # ==============================================================================
-# SISTEMA DE MEMÓRIA (CURA DO ALZHEIMER)
+# SISTEMA DE MEMÓRIA
 # ==============================================================================
 def carregar_estados_disco():
     if os.path.exists(ARQUIVO_ESTADOS):
@@ -76,9 +76,11 @@ def descobrir_dados_do_diario(turma_site, turma_api, disciplina_ia):
         "historia": ["História"],
         "arte": ["Arte", "Artes"],
         "educacao_fisica": ["Educação Física"],
-        "ensino_religioso": ["Ensino Religioso", "Religião"]
+        "ensino_religioso": ["Ensino Religioso", "Religião"],
+        # --- A NOVA MATÉRIA DO INFANTIL ---
+        "aprendizagem e desenvolvimento": ["Aprendizagem e Desenvolvimento", "Aprendizagem"]
     }
-    nomes_possiveis = mapa_banco.get(disciplina_ia, [disciplina_ia])
+    nomes_possiveis = mapa_banco.get(disciplina_ia.lower(), [disciplina_ia])
 
     try:
         with open(ARQUIVO_DIARIOS, "r", encoding="utf-8") as f:
@@ -86,6 +88,12 @@ def descobrir_dados_do_diario(turma_site, turma_api, disciplina_ia):
             
         numero_turma = ''.join(filter(str.isdigit, turma_site))
         letra_turma = ''.join(filter(str.isalpha, turma_site)).upper()
+        
+        # --- O TRADUTOR ROMANO DO INFANTIL ---
+        if turma_api.startswith('I') and numero_turma:
+            romanos = {"1": "I", "2": "II", "3": "III", "4": "IV", "5": "V"}
+            numero_turma = romanos.get(numero_turma, numero_turma)
+        # -------------------------------------
         
         candidatos = []
         for diario in diarios:
@@ -248,7 +256,35 @@ async def tentar_executar_robo(remetente, estado_atual, login_usar, senha_usar):
         print("\n🔴🔴🔴 ERRO DETALHADO NA GRAVAÇÃO 🔴🔴🔴")
         traceback.print_exc()
         print("🔴🔴🔴------------------------------🔴🔴🔴\n")
-        if "LOGIN_ERROR" in str(e): apagar_usuario(remetente)
+        
+        erro_str = str(e)
+        
+        # O Robô agora avisa o professor no WhatsApp dependendo do erro!
+        if "LOGIN_ERROR" in erro_str or "Token JWT não encontrado" in erro_str:
+            msg_erro = (
+                "❌ *Acesso Negado no Sistema!*\n\n"
+                "Eu não consegui acessar o diário. Isso acontece quando:\n"
+                "1. O login/senha está incorreto.\n"
+                "2. O sistema está pedindo para você **atualizar a sua senha** ou há algum bloqueio.\n\n"
+                "⚠️ *Suas credenciais salvas foram apagadas por segurança.* Entre no site da escola pelo computador, resolva o aviso, e depois mande um novo áudio aqui para recomeçar!"
+            )
+            apagar_usuario(remetente) # Apaga a senha inválida do banco
+            
+            # Limpa o estado atual para o professor não ficar preso na mesma tela
+            if remetente in estados_usuarios: 
+                del estados_usuarios[remetente]
+                salvar_estados_disco(estados_usuarios)
+                
+        else:
+            # Se for outro tipo de erro (ex: site fora do ar)
+            msg_erro = (
+                "❌ *Ops! Ocorreu uma falha técnica ao gravar a aula.*\n\n"
+                f"Detalhe do erro: _{erro_str}_\n\n"
+                "Por favor, tente responder SIM novamente em alguns instantes, ou mande a palavra *Resetar*."
+            )
+            
+        # Dispara a mensagem de erro pro Zap do professor
+        await enviar_mensagem_whatsapp(remetente, msg_erro)
             
 @app.post("/webhook")
 async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
@@ -281,7 +317,7 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                 msg_intro = "👋 Olá! Eu sou o *Aulio*, seu assistente inteligente para registro de aulas.\nMeu objetivo é transformar seus áudios em diários preenchidos no sistema escolar em segundos! 🚀\n"
                 await enviar_mensagem_whatsapp(remetente, msg_intro)
                 if tipo == 'chat':
-                    await enviar_mensagem_whatsapp(remetente, "🎙️ Para começarmos, grave um áudio relatando como foi sua aula (turma, conteúdo e faltosos).")
+                    await enviar_mensagem_whatsapp(remetente, "🎙️ Para começarmos, grave um áudio relatando como foi sua aula.\nInforme")
                     return {"status": "ok"}
 
         if tipo == 'chat' and not estado_atual:

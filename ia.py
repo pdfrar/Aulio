@@ -129,9 +129,9 @@ async def extrair_dados_da_aula(caminho_arquivo_audio, dados_anteriores=None):
 
     Estrutura EXATA do JSON:
     {{
-        "disciplina": "string",
-        "turma_site": "string (Apenas número e letra. Ex: 5A)",
-        "turma_api": "string (Prefixo F, M ou I + Número + Letra. Ex: F5A)",
+        "disciplina": "string (Ex: Educação Tecnológica. Se for Infantil, mantenha exato: Aprendizagem e Desenvolvimento)",
+        "turma_site": "string (Apenas número e letra. Ex: 5A, 4C)",
+        "turma_api": "string (Prefixo F, M ou I + Número + Letra. Ex: F5A, I4C)",
         "conteudo": "string",
         "tarefa": "string ou 'Nenhuma'",
         "faltosos": {{"Nome_do_Aluno": 0}},
@@ -139,7 +139,15 @@ async def extrair_dados_da_aula(caminho_arquivo_audio, dados_anteriores=None):
     }}
     
     REGRA DOS FALTOSOS: Se o professor disser ausências, retorne {{"Noah": 0, "Joaquim": 0}}. Se justificada, valor 1. Se não falar de faltas, retorne vazio {{}}.
-    REGRA DA DISCIPLINA: Mapeie para (computacao, lingua_portuguesa, matematica, ciencias, geografia, historia, lingua_inglesa, arte, educacao_fisica, ensino_religioso).
+    
+    REGRA DA DISCIPLINA (CRÍTICO): 
+    - Ensino Fundamental/Médio: Mapeie para (computacao, lingua_portuguesa, matematica, ciencias, geografia, historia, lingua_inglesa, arte, educacao_fisica, ensino_religioso).
+    - Educação Infantil: NÃO MAPEIE para as matérias acima. Escreva o nome exato falado (Ex: Aprendizagem e Desenvolvimento).
+    
+    REGRA DA TURMA API:
+    - Ensino Fundamental: Prefixo 'F'. Ex: 5º ano A = F5A.
+    - Ensino Médio: Prefixo 'M'. Ex: 1ª série B = M1B.
+    - Educação Infantil: Prefixo 'I'. Ex: Infantil 4 C = I4C.
     """
 
     if not dados_anteriores:
@@ -156,7 +164,6 @@ async def extrair_dados_da_aula(caminho_arquivo_audio, dados_anteriores=None):
         with open(caminho_arquivo_audio, "rb") as f:
             audio_bytes = f.read()
 
-        # 🚀 AQUI ESTÁ A MAGIA MULTIMODAL: Enviando o áudio e o Prompt juntos!
         response = await client.aio.models.generate_content(
             model='gemini-2.5-flash',
             contents=[
@@ -167,6 +174,26 @@ async def extrair_dados_da_aula(caminho_arquivo_audio, dados_anteriores=None):
         )
         dados_aula = json.loads(response.text)
         print(f"\n🔴 RAIO-X MULTIMODAL (O JSON gerado direto do áudio): {dados_aula}\n")
+        
+        buscar_bncc = False
+        if not dados_anteriores or 'bncc' not in dados_anteriores:
+            buscar_bncc = True  
+        else:
+            mudou_conteudo = dados_aula.get('conteudo') != dados_anteriores.get('conteudo')
+            mudou_turma = dados_aula.get('turma_site') != dados_anteriores.get('turma_site')
+            mudou_disciplina = dados_aula.get('disciplina') != dados_anteriores.get('disciplina')
+            if mudou_conteudo or mudou_turma or mudou_disciplina:
+                buscar_bncc = True
+
+        if buscar_bncc:
+            disciplina = dados_aula.get('disciplina', '')
+            if disciplina:
+                resultado_bncc = await buscar_bncc_ultra_rapida(disciplina, dados_aula.get('turma_site', ''), dados_aula.get('conteudo'))
+                if resultado_bncc:
+                    dados_aula['bncc'] = resultado_bncc
+        elif dados_anteriores and 'bncc' in dados_anteriores:
+            dados_aula['bncc'] = dados_anteriores['bncc']
+                    
         return dados_aula
     except Exception as e:
         print(f"Erro na inteligencia multimodal: {e}")
