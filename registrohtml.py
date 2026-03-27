@@ -87,11 +87,12 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
     input_disciplina = sopa_form.find('input', {'name': 'Disciplina'})
     input_descricao = sopa_form.find('input', {'name': 'DescricaoDiario'})
     
-    id_disciplina_real = input_id_disciplina['value'] if input_id_disciplina else ""
-    disciplina_real = input_disciplina['value'] if input_disciplina else ""
-    descricao_real = input_descricao['value'] if input_descricao else "Diário 1º Bimestre"
+    # 🛡️ ESCUDO BLINDADO: Se o ActiveSoft esconder os dados, usamos o que veio do server.py!
+    id_disciplina_real = input_id_disciplina['value'] if (input_id_disciplina and input_id_disciplina.get('value')) else id_disciplina
+    disciplina_real = input_disciplina['value'] if (input_disciplina and input_disciplina.get('value')) else disciplina_str
+    descricao_real = input_descricao['value'] if (input_descricao and input_descricao.get('value')) else "Diário da Turma"
 
-    print(f"[Aulio HTTP] Autodescoberta: ID Disciplina Oculto = {id_disciplina_real} | Nome = {disciplina_real}")
+    print(f"[Aulio HTTP] Autodescoberta: ID Disciplina = {id_disciplina_real} | Nome = {disciplina_real}")
 
     # 2. O Payload Imbatível (Parroteando os dados reais do sistema)
     payload_aula = {

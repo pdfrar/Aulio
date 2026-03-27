@@ -375,7 +375,7 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                         # ------------------------------------------------------------------
                         faltosos_extraidos = dados_aula.get('faltosos', {})
                         disciplina_atual = dados_aula.get('disciplina', '')
-                        turma_atual = dados_aula.get('turma_site', '')
+                        turma_atual = dados_aula.get('turma_api', '')
                         conteudo_atual = dados_aula.get('conteudo', '')
                         
                         # Criamos as duas tarefas pendentes
@@ -460,20 +460,23 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                     await enviar_mensagem_whatsapp(remetente, "❌ Não entendi muito bem. Diga de forma clara qual é o nome completo!")
 
             elif etapa == 'esperando_confirmacao':
-                if texto_msg.lower() in ['sim', 'ok', 'pode', 'confirmo', 'certo', 'vai', 's', 'bora', 'tá certo']:
+                if texto_msg.lower() in ['sim', 'ok', 'pode', 'confirmo', 'certo', 'vai', 's', 'bora', 'tá certo', 'sim.']:
                     usuarios_salvos = carregar_usuarios()
                     if remetente in usuarios_salvos:
                         login_salvo = usuarios_salvos[remetente]['login']
                         senha_salva = usuarios_salvos[remetente]['senha']
                         dados_aula = estado_atual.get('dados_aula', {})
 
-                        await enviar_mensagem_whatsapp(remetente, f"🚀 Registrando aula em {dados_aula.get('turma_site')}...")
+                        await enviar_mensagem_whatsapp(remetente, f"🚀 Registrando aula em {ids_diario['disciplina_str']}...")
+                        
+                        # 🛡️ O ERRO TAVA AQUI: A gente passa o estado_atual inteiro pro robô se virar, e não variáveis soltas!
                         background_tasks.add_task(tentar_executar_robo, remetente, estado_atual, login_salvo, senha_salva)
                     else:
                         estados_usuarios[remetente]['etapa'] = 'esperando_login'
-                        salvar_estados_disco(estados_usuarios) # SALVA AQUI!
+                        salvar_estados_disco(estados_usuarios)
                         await enviar_mensagem_whatsapp(remetente, "Certo, vamos iniciar o registro.\n🔒 Digite apenas seu **LOGIN**:\nA senha será solicitada na próxima mensagem.")
-                else: await enviar_mensagem_whatsapp(remetente, "Mande **SIM** para confirmar ou outro áudio para corrigir.")
+                else: 
+                    await enviar_mensagem_whatsapp(remetente, "Mande **SIM** para confirmar ou outro áudio para corrigir.")
 
             elif etapa == 'esperando_login':
                 estados_usuarios[remetente]['login_salvo'] = texto_msg

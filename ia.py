@@ -52,49 +52,95 @@ def limpar_texto_para_api(texto):
     texto_sem_acento = unicodedata.normalize('NFD', texto).encode('ascii', 'ignore').decode('utf-8')
     return texto_sem_acento.lower().replace(" ", "_")
 
-async def buscar_bncc_ultra_rapida(disciplina, turma, conteudo):
+async def buscar_bncc_ultra_rapida(disciplina, turma_api, conteudo):
     if not disciplina or not conteudo: return ""
     
     # ⚡ 1. VERIFICA O CACHE ANTES DE IR PRA NUVEM!
     cache = carregar_cache_bncc()
-    chave_busca = limpar_texto_para_api(f"{disciplina}_{turma}_{conteudo[:30]}")
+    chave_busca = limpar_texto_para_api(f"{disciplina}_{turma_api}_{conteudo[:30]}")
     
     if chave_busca in cache:
         print("\n> ⚡ [VELOCIDADE DA LUZ] BNCC encontrada no Cache Local!")
         return cache[chave_busca]
 
-    # 2. Se não tem no cache, busca na API normal...
-    numeros_turma = re.findall(r'\d+', turma)
+    # 2. Descobre o Nível (I = Infantil, F = Fundamental, M = Médio) e o Número
+    nivel = turma_api[0].upper() if turma_api else 'F'
+    numeros_turma = re.findall(r'\d+', turma_api)
     numero = numeros_turma[0] if numeros_turma else "6" 
-    
-    mapa_anos = {"1": "primeiro", "2": "segundo", "3": "terceiro", "4": "quarto", "5": "quinto", "6": "sexto", "7": "setimo", "8": "oitavo", "9": "nono"}
-    ano_api = mapa_anos.get(numero, "sexto") 
-    nome_disc = disciplina.lower()
-    disc_api = "computacao" 
-    
-    if "portugu" in nome_disc: disc_api = "lingua_portuguesa"
-    elif "arte" in nome_disc: disc_api = "arte"
-    elif "física" in nome_disc or "fisica" in nome_disc: disc_api = "educacao_fisica"
-    elif "ingl" in nome_disc: disc_api = "lingua_inglesa"
-    elif "matem" in nome_disc: disc_api = "matematica"
-    elif "ciênc" in nome_disc or "cienc" in nome_disc: disc_api = "ciencias"
-    elif "geogra" in nome_disc: disc_api = "geografia"
-    elif "hist" in nome_disc: disc_api = "historia"
-    elif "religi" in nome_disc: disc_api = "ensino_religioso"
 
-    url = f"https://cientificar1992.pythonanywhere.com/bncc_fundamental/disciplina/{disc_api}/{ano_api}/"
+    url = ""
+    
+    # ==========================================
+    # 🧒 EDUCAÇÃO INFANTIL
+    # ==========================================
+    if nivel == 'I':
+        # Mapeando a idade
+        if numero in ["1", "2", "3"]: ano_api = "bem_pequenas"
+        elif numero in ["4", "5", "6"]: ano_api = "pequenas"
+        else: ano_api = "pequenas"
+        
+        # Inteligência Rápida para descobrir o Campo de Experiência
+        cont_lower = conteudo.lower()
+        if any(x in cont_lower for x in ["letra", "palavra", "história", "fala", "escuta", "leitura", "alfabeto", "vogal"]):
+            campo = "escuta"
+        elif any(x in cont_lower for x in ["número", "conta", "quantidade", "espaço", "tempo", "matemática", "forma"]):
+            campo = "espacos"
+        elif any(x in cont_lower for x in ["corpo", "movimento", "dança", "pular", "correr", "esporte"]):
+            campo = "corpo"
+        elif any(x in cont_lower for x in ["cor", "desenho", "pintar", "som", "música", "traço", "arte"]):
+            campo = "tracos"
+        else:
+            campo = "escuta" # Padrão
+            
+        url = f"https://cientificar1992.pythonanywhere.com/bncc_infantil/campo/{campo}/{ano_api}/"
+
+    # ==========================================
+    # 🧑‍🎓 ENSINO MÉDIO
+    # ==========================================
+    elif nivel == 'M':
+        nome_disc = disciplina.lower()
+        if "portugu" in nome_disc or "redaç" in nome_disc: disc_api = "lingua_portuguesa_medio"
+        elif "matem" in nome_disc: disc_api = "matematica_medio"
+        elif "ciênc" in nome_disc or "químic" in nome_disc or "biologia" in nome_disc: disc_api = "ciencias_natureza"
+        elif "hist" in nome_disc or "geogra" in nome_disc or "sociologia" in nome_disc or "filosofia" in nome_disc: disc_api = "ciencias_humanas"
+        elif "arte" in nome_disc or "física" in nome_disc or "ingl" in nome_disc: disc_api = "linguagens" # Educação Física fica em linguagens no EM
+        else: disc_api = "computacao_medio"
+        
+        url = f"https://cientificar1992.pythonanywhere.com/bncc_medio/disciplina/{disc_api}/"
+
+    # ==========================================
+    # 👦 ENSINO FUNDAMENTAL
+    # ==========================================
+    else: 
+        mapa_anos = {"1": "primeiro", "2": "segundo", "3": "terceiro", "4": "quarto", "5": "quinto", "6": "sexto", "7": "setimo", "8": "oitavo", "9": "nono"}
+        ano_api = mapa_anos.get(numero, "sexto") 
+        nome_disc = disciplina.lower()
+        
+        if "portugu" in nome_disc: disc_api = "lingua_portuguesa"
+        elif "arte" in nome_disc: disc_api = "arte"
+        elif "física" in nome_disc or "fisica" in nome_disc: disc_api = "educacao_fisica"
+        elif "ingl" in nome_disc: disc_api = "lingua_inglesa"
+        elif "matem" in nome_disc: disc_api = "matematica"
+        elif "ciênc" in nome_disc or "cienc" in nome_disc: disc_api = "ciencias"
+        elif "geogra" in nome_disc: disc_api = "geografia"
+        elif "hist" in nome_disc: disc_api = "historia"
+        elif "religi" in nome_disc: disc_api = "ensino_religioso"
+        else: disc_api = "computacao"
+
+        url = f"https://cientificar1992.pythonanywhere.com/bncc_fundamental/disciplina/{disc_api}/{ano_api}/"
+
     print(f"\n> 🐢 [INDO NA NUVEM] Procurando BNCC na API: {url}")
     
     try:
         async with httpx.AsyncClient() as http_client:
             resposta = await http_client.get(url)
-            if resposta.status_code != 200:
-                if numero == "7":
-                    url = f"https://cientificar1992.pythonanywhere.com/bncc_fundamental/disciplina/{disc_api}/sétimo/"
-                    resposta = await http_client.get(url)
-                else:
-                    resposta = await http_client.get(url.rstrip('/'))
-                    
+            # Regrinha do Sétimo ano e fallback da API
+            if resposta.status_code != 200 and nivel == 'F' and numero == "7":
+                url_fallback = f"https://cientificar1992.pythonanywhere.com/bncc_fundamental/disciplina/{disc_api}/sétimo/"
+                resposta = await http_client.get(url_fallback)
+            elif resposta.status_code != 200:
+                resposta = await http_client.get(url.rstrip('/'))
+                
             if resposta.status_code != 200: return ""
             texto_opcoes = json.dumps(resposta.json(), ensure_ascii=False)
 
@@ -118,7 +164,9 @@ async def buscar_bncc_ultra_rapida(disciplina, turma, conteudo):
         
         return resultado_final
 
-    except Exception as e: return ""
+    except Exception as e: 
+        print(f"Erro na busca da BNCC: {e}")
+        return ""
     
 async def extrair_dados_da_aula(caminho_arquivo_audio, dados_anteriores=None):
     hoje = datetime.date.today().strftime("%d/%m/%Y")
@@ -142,12 +190,12 @@ async def extrair_dados_da_aula(caminho_arquivo_audio, dados_anteriores=None):
     
     REGRA DA DISCIPLINA (CRÍTICO): 
     - Ensino Fundamental/Médio: Mapeie para (computacao, lingua_portuguesa, matematica, ciencias, geografia, historia, lingua_inglesa, arte, educacao_fisica, ensino_religioso).
-    - Educação Infantil: NÃO MAPEIE para as matérias acima. Escreva o nome exato falado (Ex: Aprendizagem e Desenvolvimento).
+    - Educação Infantil: NÃO MAPEIE. Escreva o nome exato falado (Ex: Aprendizagem e Desenvolvimento).
     
-    REGRA DA TURMA API:
-    - Ensino Fundamental: Prefixo 'F'. Ex: 5º ano A = F5A.
-    - Ensino Médio: Prefixo 'M'. Ex: 1ª série B = M1B.
-    - Educação Infantil: Prefixo 'I'. Ex: Infantil 4 C = I4C.
+    REGRA DA TURMA API (ALERTA MÁXIMO):
+    - Se o professor disser a palavra "INFANTIL" (Ex: Infantil 4, Infantil IV): A turma_api DEVE OBRIGATORIAMENTE começar com 'I' (Ex: I4C). PROIBIDO usar a palavra "Ano" para turmas do Infantil.
+    - Se o professor disser "ANO" (Ex: 5º Ano, 4º Ano): Prefixo 'F' (Ex: F5A).
+    - Se o professor disser "SÉRIE" (Ex: 1ª Série): Prefixo 'M' (Ex: M1B).
     """
 
     if not dados_anteriores:
