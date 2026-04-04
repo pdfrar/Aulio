@@ -1,0 +1,57 @@
+[
+    {
+        "numero_chamada": 1,
+        "matricula": "2137",
+        "nome": "ALICE CARDINS DE FARIAS"
+    },
+    {
+        "numero_chamada": 2,
+        "matricula": "2206",
+        "nome": "ANA LIZ MEDEIROS DOS SANTOS"
+    },
+    {
+        "numero_chamada": 3,
+        "matricula": "2276",
+        "nome": "ANNY SOFIA DA SILVA MARIANO"
+    },
+    {
+        "numero_chamada": 4,
+        "matricula": "2110",
+        "nome": "ANTONY BERTO MACHADO SUASSUNA"
+    },
+    {
+        "numero_chamada": 5,
+        "matricula": "2043",
+        "nome": "ESTHER GOES DE MEDEIROS"
+    },
+    {
+        "numero_chamada": 6,
+        "matricula": "2297",
+        "nome": "ESTHER LUZIA DE FREITAS RAMALHO"
+    },
+    {
+        "numero_chamada": 7,
+        "matricula": "2279",
+        "nome": "GUILHERME RODRIGUES DIAS DE LIMA"
+    },
+    {
+        "numero_chamada": 8,
+        "matricula": "1989",
+        "nome": "KLEBER GOMES PEREIRA FILHO"
+    },
+    {
+        "numero_chamada": 9,
+        "matricula": "1751",
+        "nome": "SAMUEL ARTHUS COSTA DE OLIVEIRA "
+    },
+    {
+        "numero_chamada": 10,
+        "matricula": "2310",
+        "nome": "SOFIA GUEDES DE OLIVEIRA"
+    },
+    {
+        "numero_chamada": 11,
+        "matricula": "2445",
+        "nome": "THEO SMITH BRAGA MEDEIROS"
+    }
+]

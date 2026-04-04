@@ -1,0 +1,82 @@
+[
+    {
+        "numero_chamada": 1,
+        "matricula": "2346",
+        "nome": "ALLANA KAROLINE TARGINO NEVES TOLENTINO"
+    },
+    {
+        "numero_chamada": 2,
+        "matricula": "2474",
+        "nome": "ANA STELLA LINHARES MARQUES"
+    },
+    {
+        "numero_chamada": 3,
+        "matricula": "1808",
+        "nome": "ARTHUR LISBOA RODRIGUES"
+    },
+    {
+        "numero_chamada": 4,
+        "matricula": "1156",
+        "nome": "DAVI LUCCA SIQUEIRA DE LIMA"
+    },
+    {
+        "numero_chamada": 5,
+        "matricula": "1367",
+        "nome": "DAVI LUCENA DE SOUZA "
+    },
+    {
+        "numero_chamada": 6,
+        "matricula": "1308",
+        "nome": "ESTHER DA SILVA PAREDES"
+    },
+    {
+        "numero_chamada": 7,
+        "matricula": "2303",
+        "nome": "HUGO DE LIMA FIRMINO"
+    },
+    {
+        "numero_chamada": 8,
+        "matricula": "70",
+        "nome": "JOSÉ LUIZ SOUSA DA SILVA"
+    },
+    {
+        "numero_chamada": 9,
+        "matricula": "758",
+        "nome": "JOSÉ VINICIUS SOARES SOUSA"
+    },
+    {
+        "numero_chamada": 10,
+        "matricula": "1287",
+        "nome": "LAIS DOS SANTOS SILVA"
+    },
+    {
+        "numero_chamada": 11,
+        "matricula": "973",
+        "nome": "NICOLAS INACIO DE ANDRADE"
+    },
+    {
+        "numero_chamada": 12,
+        "matricula": "2444",
+        "nome": "NICOLLI BRAGA MEDEIROS"
+    },
+    {
+        "numero_chamada": 13,
+        "matricula": "794",
+        "nome": "PEDRO ENZO DA SILVA COSTA"
+    },
+    {
+        "numero_chamada": 14,
+        "matricula": "2354",
+        "nome": "PEDRO HENRIQUE FLOR DA SILVA"
+    },
+    {
+        "numero_chamada": 15,
+        "matricula": "2381",
+        "nome": "PEDRO HENRIQUE SOARES DE MENEZES"
+    },
+    {
+        "numero_chamada": 16,
+        "matricula": "105",
+        "nome": "PEDRO MIGUEL LOPES MONTEIRO"
+    }
+]

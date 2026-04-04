@@ -1,0 +1,87 @@
+[
+    {
+        "numero_chamada": 1,
+        "matricula": "2313",
+        "nome": "AGATHA PEREIRA BUARQUE"
+    },
+    {
+        "numero_chamada": 2,
+        "matricula": "1724",
+        "nome": "ANA ALICE GOMES ALVES ALMEIDA"
+    },
+    {
+        "numero_chamada": 3,
+        "matricula": "2436",
+        "nome": "ANTONELLA SOARES DE MEDEIROS"
+    },
+    {
+        "numero_chamada": 4,
+        "matricula": "2042",
+        "nome": "BENJAMIN DE SOUZA BARRETO"
+    },
+    {
+        "numero_chamada": 5,
+        "matricula": "1942",
+        "nome": "ELIZABETH FARIAS MESTRE"
+    },
+    {
+        "numero_chamada": 6,
+        "matricula": "1802",
+        "nome": "EMANNUEL MESSIAS DE ARAUJO FERREIRA FILHO"
+    },
+    {
+        "numero_chamada": 7,
+        "matricula": "1666",
+        "nome": "FRANCISCO ANTONIO DE MARIA BISNETO"
+    },
+    {
+        "numero_chamada": 8,
+        "matricula": "2187",
+        "nome": "HEITOR ALVES DA SILVA FIGUEIREDO"
+    },
+    {
+        "numero_chamada": 9,
+        "matricula": "1999",
+        "nome": "ISAQUE LAEL MEDEIROS FIRMINO "
+    },
+    {
+        "numero_chamada": 10,
+        "matricula": "2011",
+        "nome": "KALEB LUSTOSA LIMA DE LUCENA "
+    },
+    {
+        "numero_chamada": 11,
+        "matricula": "1946",
+        "nome": "LARISSA NOBREGA FEITOSA "
+    },
+    {
+        "numero_chamada": 12,
+        "matricula": "1968",
+        "nome": "LAÍS DA SILVA SANTOS"
+    },
+    {
+        "numero_chamada": 13,
+        "matricula": "2311",
+        "nome": "MARINA BORGES OLIVEIRA DE SOUSA"
+    },
+    {
+        "numero_chamada": 14,
+        "matricula": "2278",
+        "nome": "NIKLAUS DE LIRA SALES VÁSQUEZ"
+    },
+    {
+        "numero_chamada": 15,
+        "matricula": "1887",
+        "nome": "PEDRO IAGO CAVALCANTE DOS SANTOS VIDAL DE NEGREIROS"
+    },
+    {
+        "numero_chamada": 16,
+        "matricula": "2222",
+        "nome": "RAFAEL MONTEIRO OLIVEIRA"
+    },
+    {
+        "numero_chamada": 17,
+        "matricula": "2316",
+        "nome": "RAVI OLIVEIRA SANTOS"
+    }
+]

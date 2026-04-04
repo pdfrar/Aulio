@@ -1,0 +1,82 @@
+[
+    {
+        "numero_chamada": 1,
+        "matricula": "2212",
+        "nome": "BERNARDO MARTINS FAUSTO LOUREIRO"
+    },
+    {
+        "numero_chamada": 2,
+        "matricula": "1410",
+        "nome": "EVA DA SILVA MAXIMIANO"
+    },
+    {
+        "numero_chamada": 3,
+        "matricula": "2106",
+        "nome": "FLORA GARCIA SILVA DA COSTA"
+    },
+    {
+        "numero_chamada": 4,
+        "matricula": "1817",
+        "nome": "GUILHERME CAVALCANTE COSTA"
+    },
+    {
+        "numero_chamada": 5,
+        "matricula": "1423",
+        "nome": "HEITOR DE OLIVEIRA FERREIRA"
+    },
+    {
+        "numero_chamada": 6,
+        "matricula": "2284",
+        "nome": "HEITOR OLIVEIRA HENRIQUES CHAVES"
+    },
+    {
+        "numero_chamada": 7,
+        "matricula": "1297",
+        "nome": "IZABEL MOTA MEDEIROS"
+    },
+    {
+        "numero_chamada": 8,
+        "matricula": "2065",
+        "nome": "JOAQUIM DOIA FREITAS SANTANA CARNEIRO"
+    },
+    {
+        "numero_chamada": 9,
+        "matricula": "1760",
+        "nome": "JOÃO MIGUEL FERREIRA VITORIO"
+    },
+    {
+        "numero_chamada": 10,
+        "matricula": "1542",
+        "nome": "JÔNATAS NOBREGA MENDES"
+    },
+    {
+        "numero_chamada": 11,
+        "matricula": "1268",
+        "nome": "MARIA SOPHIA WANDERLEY DA NOBREGA GARCIA"
+    },
+    {
+        "numero_chamada": 12,
+        "matricula": "1723",
+        "nome": "OTÁVIO MARTINS MOTA "
+    },
+    {
+        "numero_chamada": 13,
+        "matricula": "1952",
+        "nome": "PEDRO FERNANDO MOURA DE SOUSA"
+    },
+    {
+        "numero_chamada": 14,
+        "matricula": "1293",
+        "nome": "RAFAEL PEREIRA LEITE MONTEIRO"
+    },
+    {
+        "numero_chamada": 15,
+        "matricula": "1766",
+        "nome": "SAMILLY NOMEVIQUE DE QUEIROGA NÓBREGA "
+    },
+    {
+        "numero_chamada": 16,
+        "matricula": "1741",
+        "nome": "VICTOR GOMES RODRIGUES"
+    }
+]

@@ -1,0 +1,62 @@
+[
+    {
+        "numero_chamada": 1,
+        "matricula": "2388",
+        "nome": "ANNA LIZ VIANA DE OLIVEIRA"
+    },
+    {
+        "numero_chamada": 2,
+        "matricula": "2387",
+        "nome": "DANIEL CAXIAS MARINHO DE QUEIROZ"
+    },
+    {
+        "numero_chamada": 3,
+        "matricula": "2315",
+        "nome": "GABRIEL DE LIMA MAMEDE"
+    },
+    {
+        "numero_chamada": 4,
+        "matricula": "2308",
+        "nome": "LUCAS GUEDES DE OLIVEIRA CHRISPIM TERCEIRO"
+    },
+    {
+        "numero_chamada": 5,
+        "matricula": "2221",
+        "nome": "LUCAS PEREIRA FELIX"
+    },
+    {
+        "numero_chamada": 6,
+        "matricula": "2183",
+        "nome": "MARIA ANDREZA OLIVEIRA MENDES"
+    },
+    {
+        "numero_chamada": 7,
+        "matricula": "2018",
+        "nome": "MARIA HELENA ALVES MENDONÇA"
+    },
+    {
+        "numero_chamada": 8,
+        "matricula": "2378",
+        "nome": "MARIA LIZ ALVES DE ARAUJO SILVA"
+    },
+    {
+        "numero_chamada": 9,
+        "matricula": "2288",
+        "nome": "PEDRO HENRIQUE RAMALHO DE  OLIVEIRA"
+    },
+    {
+        "numero_chamada": 10,
+        "matricula": "2190",
+        "nome": "THEO BARBOSA CÂNDIDO"
+    },
+    {
+        "numero_chamada": 11,
+        "matricula": "2461",
+        "nome": "THEO SANTANA QUEIROZ"
+    },
+    {
+        "numero_chamada": 12,
+        "matricula": "2142",
+        "nome": "VITÓRIA DÉSYRRÉE VILAR"
+    }
+]

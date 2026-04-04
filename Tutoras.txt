@@ -32,9 +32,10 @@ sessao-pedro-final
 
 Oracle: 136.248.74.44
 WSL notebook: 172.23.144.1
+WSL Pc: 172.31.48.1
 
 {
-  "webhook": "http://172.23.144.1:8000/webhook",
+  "webhook": "http://172.31.48.1:8000/webhook",
   "waitQrCode": true,
   "config": {
     "autoDownload": true,
@@ -56,3 +57,24 @@ WSL notebook: 172.23.144.1
 
 API Active
 Bearer ZaAmsMtiTSf3nxpuTJuZ2zkgOmVMhr
+
+
+Reiniciar docker
+# 1. Derruba o container e apaga os volumes (Isso apaga o cache e a sessão bugada!)
+docker compose down -v
+
+# 2. Faz uma limpeza profunda no Docker (remove redes e restos de containers mortos)
+docker system prune -f
+
+# 3. Sobe o container de novo, limpinho e zerado
+docker compose up -d
+
+$env:CLAUDE_CODE_USE_OPENAI = "1"
+
+$env:OPENAI_BASE_URL = "https://openrouter.ai/api/v1"
+
+$env:OPENAI_API_KEY = "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"
+
+$env:OPENAI_MODEL = "qwen/qwen3.6-plus:free"
+
+openclaude

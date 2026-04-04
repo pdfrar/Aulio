@@ -1,1 +1,305 @@
-{}
+{
+    "558381219527@c.us": {
+        "etapa": "esperando_confirmacao",
+        "dados_aula": {
+            "disciplina": "inteligencia_artificial",
+            "turma_site": "1A",
+            "turma_api": "M1A",
+            "conteudo": "Estudo sobre como utilizar inteligências artificiais para montar rotinas de estudo.",
+            "tarefa": "Nenhuma",
+            "faltosos": {
+                "Eduardo": 0
+            },
+            "data": "27/03/2026",
+            "bncc": "EM13CO10 - Conhecer os fundamentos da Inteligência Artificial, comparando-a com a inteligência humana, analisando suas potencialidades, riscos e limites."
+        },
+        "ids_diario": {
+            "id_diario": "7936",
+            "id_turma": "389",
+            "id_disciplina": "00",
+            "disciplina_str": "Ensino Médio / 1ª Série / 2026 / 1ª SÉRIE - A - HISTÓRIA"
+        },
+        "numeros_frequencia": {
+            "F": [],
+            "J": [
+                10
+            ],
+            "nao_encontrados": [],
+            "ambiguos": {}
+        },
+        "lista_limpa_para_ia": [
+            {
+                "numero_chamada": 1,
+                "nome": "ADRIAN MATEUS MEDEIROS CLIMACO DA SILVA"
+            },
+            {
+                "numero_chamada": 2,
+                "nome": "ALEX LACERDA DE CALDAS FILHO"
+            },
+            {
+                "numero_chamada": 3,
+                "nome": "ANA BEATRIZ OLIVEIRA CARVALHO"
+            },
+            {
+                "numero_chamada": 4,
+                "nome": "ANA LIVIA MARTINS XAVIER"
+            },
+            {
+                "numero_chamada": 5,
+                "nome": "ANA LIVIA PEREIRA MOURA DE SOUSA MAGALHÃES"
+            },
+            {
+                "numero_chamada": 6,
+                "nome": "ANNY BEATRIZ RODRIGUES DA SILVA"
+            },
+            {
+                "numero_chamada": 7,
+                "nome": "ANTONY GOMES DE OLIVEIRA"
+            },
+            {
+                "numero_chamada": 8,
+                "nome": "BIANCA DE OLIVEIRA SILVA"
+            },
+            {
+                "numero_chamada": 9,
+                "nome": "DAVI DE ALENCAR RODRIGUES "
+            },
+            {
+                "numero_chamada": 10,
+                "nome": "EDUARDO OLIVEIRA MOTA LUCENA"
+            },
+            {
+                "numero_chamada": 11,
+                "nome": "EVELLYN VITÒRIA CAMPOS DE OLIVEIRA"
+            },
+            {
+                "numero_chamada": 12,
+                "nome": "GABRIEL DE BRITO FERREIRA RODRIGUES"
+            },
+            {
+                "numero_chamada": 13,
+                "nome": "GISELE FERREIRA CARVALHO"
+            },
+            {
+                "numero_chamada": 14,
+                "nome": "HEITOR BATISTA RESENDE"
+            },
+            {
+                "numero_chamada": 15,
+                "nome": "HELOISE MORAIS GOMES"
+            },
+            {
+                "numero_chamada": 16,
+                "nome": "ISABEL CRISTINE DE ARAUJO SILVA"
+            },
+            {
+                "numero_chamada": 17,
+                "nome": "ISABELLE NOBREGA ALVES"
+            },
+            {
+                "numero_chamada": 18,
+                "nome": "JHONATAN ARAUJO PEREIRA"
+            },
+            {
+                "numero_chamada": 19,
+                "nome": "JUSCIANO FERNANDES DE FREITAS FILHO"
+            },
+            {
+                "numero_chamada": 20,
+                "nome": "KETLEY CRISTINNI DOS SANTOS NEVES"
+            },
+            {
+                "numero_chamada": 21,
+                "nome": "LETICIA SANTOS ARAUJO"
+            },
+            {
+                "numero_chamada": 22,
+                "nome": "LUIZA VITÓRIA RODRIGUES LOPES MACÊDO"
+            },
+            {
+                "numero_chamada": 23,
+                "nome": "MARIA CECILIA DA SILVA MEDEIROS"
+            },
+            {
+                "numero_chamada": 24,
+                "nome": "MARIA VITÓRIA BRANDÃO COSTA "
+            },
+            {
+                "numero_chamada": 25,
+                "nome": "MIRLA MEDEIROS DE FREITAS"
+            },
+            {
+                "numero_chamada": 26,
+                "nome": "PEDRO RAFAEL MEDEIROS DE SOUZA"
+            },
+            {
+                "numero_chamada": 27,
+                "nome": "RADASSA PABLYNNE SOARES GOMES"
+            },
+            {
+                "numero_chamada": 28,
+                "nome": "REBECA FERREIRA SANTANA DE OLIVEIRA"
+            },
+            {
+                "numero_chamada": 29,
+                "nome": "TARSILA OLIVEIRA ARAUJO SANTOS"
+            },
+            {
+                "numero_chamada": 30,
+                "nome": "NOME NÃO ENCONTRADO"
+            }
+        ],
+        "lista_oficial": [
+            {
+                "numero_chamada": 1,
+                "matricula": "2273",
+                "nome": "ADRIAN MATEUS MEDEIROS CLIMACO DA SILVA"
+            },
+            {
+                "numero_chamada": 2,
+                "matricula": "1522",
+                "nome": "ALEX LACERDA DE CALDAS FILHO"
+            },
+            {
+                "numero_chamada": 3,
+                "matricula": "1429",
+                "nome": "ANA BEATRIZ OLIVEIRA CARVALHO"
+            },
+            {
+                "numero_chamada": 4,
+                "matricula": "303",
+                "nome": "ANA LIVIA MARTINS XAVIER"
+            },
+            {
+                "numero_chamada": 5,
+                "matricula": "713",
+                "nome": "ANA LIVIA PEREIRA MOURA DE SOUSA MAGALHÃES"
+            },
+            {
+                "numero_chamada": 6,
+                "matricula": "286",
+                "nome": "ANNY BEATRIZ RODRIGUES DA SILVA"
+            },
+            {
+                "numero_chamada": 7,
+                "matricula": "1879",
+                "nome": "ANTONY GOMES DE OLIVEIRA"
+            },
+            {
+                "numero_chamada": 8,
+                "matricula": "734",
+                "nome": "BIANCA DE OLIVEIRA SILVA"
+            },
+            {
+                "numero_chamada": 9,
+                "matricula": "1891",
+                "nome": "DAVI DE ALENCAR RODRIGUES "
+            },
+            {
+                "numero_chamada": 10,
+                "matricula": "282",
+                "nome": "EDUARDO OLIVEIRA MOTA LUCENA"
+            },
+            {
+                "numero_chamada": 11,
+                "matricula": "2412",
+                "nome": "EVELLYN VITÒRIA CAMPOS DE OLIVEIRA"
+            },
+            {
+                "numero_chamada": 12,
+                "matricula": "707",
+                "nome": "GABRIEL DE BRITO FERREIRA RODRIGUES"
+            },
+            {
+                "numero_chamada": 13,
+                "matricula": "940",
+                "nome": "GISELE FERREIRA CARVALHO"
+            },
+            {
+                "numero_chamada": 14,
+                "matricula": "2470",
+                "nome": "HEITOR BATISTA RESENDE"
+            },
+            {
+                "numero_chamada": 15,
+                "matricula": "262",
+                "nome": "HELOISE MORAIS GOMES"
+            },
+            {
+                "numero_chamada": 16,
+                "matricula": "1139",
+                "nome": "ISABEL CRISTINE DE ARAUJO SILVA"
+            },
+            {
+                "numero_chamada": 17,
+                "matricula": "281",
+                "nome": "ISABELLE NOBREGA ALVES"
+            },
+            {
+                "numero_chamada": 18,
+                "matricula": "774",
+                "nome": "JHONATAN ARAUJO PEREIRA"
+            },
+            {
+                "numero_chamada": 19,
+                "matricula": "2290",
+                "nome": "JUSCIANO FERNANDES DE FREITAS FILHO"
+            },
+            {
+                "numero_chamada": 20,
+                "matricula": "1373",
+                "nome": "KETLEY CRISTINNI DOS SANTOS NEVES"
+            },
+            {
+                "numero_chamada": 21,
+                "matricula": "2080",
+                "nome": "LETICIA SANTOS ARAUJO"
+            },
+            {
+                "numero_chamada": 22,
+                "matricula": "2469",
+                "nome": "LUIZA VITÓRIA RODRIGUES LOPES MACÊDO"
+            },
+            {
+                "numero_chamada": 23,
+                "matricula": "2467",
+                "nome": "MARIA CECILIA DA SILVA MEDEIROS"
+            },
+            {
+                "numero_chamada": 24,
+                "matricula": "1450",
+                "nome": "MARIA VITÓRIA BRANDÃO COSTA "
+            },
+            {
+                "numero_chamada": 25,
+                "matricula": "1809",
+                "nome": "MIRLA MEDEIROS DE FREITAS"
+            },
+            {
+                "numero_chamada": 26,
+                "matricula": "986",
+                "nome": "PEDRO RAFAEL MEDEIROS DE SOUZA"
+            },
+            {
+                "numero_chamada": 27,
+                "matricula": "711",
+                "nome": "RADASSA PABLYNNE SOARES GOMES"
+            },
+            {
+                "numero_chamada": 28,
+                "matricula": "290",
+                "nome": "REBECA FERREIRA SANTANA DE OLIVEIRA"
+            },
+            {
+                "numero_chamada": 29,
+                "matricula": "279",
+                "nome": "TARSILA OLIVEIRA ARAUJO SANTOS"
+            },
+            {
+                "numero_chamada": 30,
+                "matricula": "1440",
+                "nome": "NOME NÃO ENCONTRADO"
+            }
+        ]
+    }
+}

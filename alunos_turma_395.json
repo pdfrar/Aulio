@@ -1,0 +1,52 @@
+[
+    {
+        "numero_chamada": 1,
+        "matricula": "1810",
+        "nome": "ANTONIO JOSÉ DA SILVA NETO"
+    },
+    {
+        "numero_chamada": 2,
+        "matricula": "2241",
+        "nome": "ASAF LUCAS PEIXOTO DOS SANTOS"
+    },
+    {
+        "numero_chamada": 3,
+        "matricula": "1377",
+        "nome": "DEBORA GABRIELLY MENDES DE ARAUJO SILVA"
+    },
+    {
+        "numero_chamada": 4,
+        "matricula": "2185",
+        "nome": "GABRIEL FERNANDES FERREIRA"
+    },
+    {
+        "numero_chamada": 5,
+        "matricula": "144",
+        "nome": "GUSTAVO MACENA SOARES DE VERAS"
+    },
+    {
+        "numero_chamada": 6,
+        "matricula": "2118",
+        "nome": "JHULYA ELLEN DA NOBREGA FERNANDES"
+    },
+    {
+        "numero_chamada": 7,
+        "matricula": "977",
+        "nome": "JULIA CHAGAS CAVALCANTI"
+    },
+    {
+        "numero_chamada": 8,
+        "matricula": "2101",
+        "nome": "MANUELA MELO RAMALHO"
+    },
+    {
+        "numero_chamada": 9,
+        "matricula": "173",
+        "nome": "MARCELO CRUZ AMORIM FILHO"
+    },
+    {
+        "numero_chamada": 10,
+        "matricula": "1652",
+        "nome": "PEDRO LUCAS DE SOUSA OLIVEIRA"
+    }
+]

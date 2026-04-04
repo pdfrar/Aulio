@@ -1,0 +1,102 @@
+[
+    {
+        "numero_chamada": 1,
+        "matricula": "1461",
+        "nome": "ALICE DA SILVA SANTOS"
+    },
+    {
+        "numero_chamada": 2,
+        "matricula": "877",
+        "nome": "ANA JULIA FIGUEIREDO LUCENA BATISTA"
+    },
+    {
+        "numero_chamada": 3,
+        "matricula": "1664",
+        "nome": "ARTHUR CAMPOS FERNANDES BARROS"
+    },
+    {
+        "numero_chamada": 4,
+        "matricula": "1458",
+        "nome": "AYSSA CRISTINA SOARES PIMENTEL "
+    },
+    {
+        "numero_chamada": 5,
+        "matricula": "1153",
+        "nome": "BENICIO CALVANTI DE MEDEIROS"
+    },
+    {
+        "numero_chamada": 6,
+        "matricula": "964",
+        "nome": "BENÍCIO LEITE SIMPLÍCIO"
+    },
+    {
+        "numero_chamada": 7,
+        "matricula": "1130",
+        "nome": "CALEBE FELIX BRITO"
+    },
+    {
+        "numero_chamada": 8,
+        "matricula": "1815",
+        "nome": "CAUÊ LUSTOSA CARDOSO"
+    },
+    {
+        "numero_chamada": 9,
+        "matricula": "1406",
+        "nome": "EMANOEL DE SOUSA DA CONCEIÇÃO"
+    },
+    {
+        "numero_chamada": 10,
+        "matricula": "2164",
+        "nome": "GABRIEL DIAS DE MEDEIROS"
+    },
+    {
+        "numero_chamada": 11,
+        "matricula": "1503",
+        "nome": "GIOVANNA DE VASCONCELOS MEDEIROS GALVÃO"
+    },
+    {
+        "numero_chamada": 12,
+        "matricula": "920",
+        "nome": "JOSÉ MURILO DE SOUSA LOPES"
+    },
+    {
+        "numero_chamada": 13,
+        "matricula": "1210",
+        "nome": "JOÃO VICTOR NERES DA SILVA"
+    },
+    {
+        "numero_chamada": 14,
+        "matricula": "1454",
+        "nome": "LARA MEDEIROS DE MELO"
+    },
+    {
+        "numero_chamada": 15,
+        "matricula": "1312",
+        "nome": "LUCAS MEDEIROS DE ARAUJO GALVÃO"
+    },
+    {
+        "numero_chamada": 16,
+        "matricula": "1240",
+        "nome": "MARIA LUISA LUCENA GOMES"
+    },
+    {
+        "numero_chamada": 17,
+        "matricula": "1745",
+        "nome": "MARIA LUIZA OLIVEIRA DE LIMA SILVA"
+    },
+    {
+        "numero_chamada": 18,
+        "matricula": "951",
+        "nome": "MARTÍN MIGUEL EUFRÁSIO CAVALCANTE"
+    },
+    {
+        "numero_chamada": 19,
+        "matricula": "2417",
+        "nome": "MERLIA EVELLYN DE SOUZA ALVES"
+    },
+    {
+        "numero_chamada": 20,
+        "matricula": "1165",
+        "nome": "PIETRO MACEDO BORGES"
+    }
+]

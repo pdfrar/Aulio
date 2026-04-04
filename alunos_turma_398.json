@@ -1,0 +1,82 @@
+[
+    {
+        "numero_chamada": 1,
+        "matricula": "1996",
+        "nome": "ANA LAURA DANTAS VIEIRA"
+    },
+    {
+        "numero_chamada": 2,
+        "matricula": "1228",
+        "nome": "ANA SAFIRA ARAÚJO NUNES"
+    },
+    {
+        "numero_chamada": 3,
+        "matricula": "1416",
+        "nome": "ESAÚ LINS ALVES BONFIM"
+    },
+    {
+        "numero_chamada": 4,
+        "matricula": "1420",
+        "nome": "JEFFERSON ANDERSON DA SILVA CABRAL FILHO "
+    },
+    {
+        "numero_chamada": 5,
+        "matricula": "2280",
+        "nome": "JOÃO MIGUEL DANTAS RODRIGUES"
+    },
+    {
+        "numero_chamada": 6,
+        "matricula": "2464",
+        "nome": "JOÃO PAULO REINALDO FAGUNDES"
+    },
+    {
+        "numero_chamada": 7,
+        "matricula": "1303",
+        "nome": "LIS GUIMARÃES NOGUEIRA XAVIER"
+    },
+    {
+        "numero_chamada": 8,
+        "matricula": "2355",
+        "nome": "LUIZ HENRIQUE FLOR DA SILVA"
+    },
+    {
+        "numero_chamada": 9,
+        "matricula": "1318",
+        "nome": "MARIA CLARA SOARES TRAVASSOS"
+    },
+    {
+        "numero_chamada": 10,
+        "matricula": "1345",
+        "nome": "MARIA JULIA NOBREGA PERONICO"
+    },
+    {
+        "numero_chamada": 11,
+        "matricula": "1298",
+        "nome": "MARIANA RAFAELA LEITE RODRIGUES"
+    },
+    {
+        "numero_chamada": 12,
+        "matricula": "1254",
+        "nome": "NICOLAS GUEDES NOBREGA MENEZES"
+    },
+    {
+        "numero_chamada": 13,
+        "matricula": "1243",
+        "nome": "NOAH DANTAS LIBERATO"
+    },
+    {
+        "numero_chamada": 14,
+        "matricula": "1216",
+        "nome": "PEDRO BENICIO ROCHA MARTINS"
+    },
+    {
+        "numero_chamada": 15,
+        "matricula": "1683",
+        "nome": "SOPHIA LAYSE DE OLIVEIRA LIMA"
+    },
+    {
+        "numero_chamada": 16,
+        "matricula": "1437",
+        "nome": "VICTOR NÓBREGA CAMPOS NICÁCIO"
+    }
+]

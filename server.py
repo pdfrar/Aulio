@@ -12,33 +12,35 @@ import registrohtml
 import sigaapi
 from dotenv import load_dotenv
 import sys
-import traceback 
+import traceback
 sys.stdout.reconfigure(encoding='utf-8')
 
-load_dotenv() 
+load_dotenv()
 
 app = FastAPI()
 
 SESSAO = os.getenv("WPP_SESSION", "sessao-pedro-final")
-TOKEN = os.getenv("WPP_TOKEN") 
-DOCKER_URL = os.getenv("WPP_URL", "http://localhost:21465") 
+TOKEN = os.getenv("WPP_TOKEN")
+DOCKER_URL = os.getenv("WPP_URL", "http://localhost:21465")
 
-SIGA_BASE_URL = "https://siga.activesoft.com.br"
-SIGA_TOKEN = "Bearer ZaAmsMtiTSf3nxpuTJuZ2zkgOmVMhr"
+SIGA_BASE_URL = os.getenv("SIGA_BASE_URL", "https://siga.activesoft.com.br")
+SIGA_TOKEN = f"Bearer {os.getenv('SIGA_TOKEN', '')}"
 ARQUIVO_DIARIOS = "diarios_com_turmas_2026.json"
-ARQUIVO_USUARIOS = "usuarios.json"  
-ARQUIVO_ESTADOS = "estados_conversas.json" # <--- NOSSO CÉREBRO PERMANENTE
+ARQUIVO_USUARIOS = "usuarios.json"
+ARQUIVO_ESTADOS = "estados_conversas.json"
+
+_ESTADO_LOCK_PATH = "estados_conversas.json.lock"
 
 NUMEROS_PERMITIDOS = [
-    "558396336492@c.us", "5583996336492@c.us", "5583999030176@c.us",
-    "558399030176@c.us", "5583981219527@c.us", "558381219527@c.us",
-    "558398156803@c.us", "55838156803@c.us", "5583996035018@c.us",
-    "558396035018@c.us" 
+    "558396336492@c.us", "5583996336492@c.us", "5583981219527@c.us", "558381219527@c.us",
+    "558398156803@c.us", "55838156803@c.us",
+    "558399030176@c.us", "5583999030176@c.us"
 ]
 
 # ==============================================================================
-# SISTEMA DE MEMÓRIA
+# SISTEMA DE MEMÓRIA (read always from disk, write atomically via .tmp + rename)
 # ==============================================================================
+
 def carregar_estados_disco():
     if os.path.exists(ARQUIVO_ESTADOS):
         try:
@@ -49,15 +51,30 @@ def carregar_estados_disco():
     return {}
 
 def salvar_estados_disco(estados_dict):
-    try:
-        with open(ARQUIVO_ESTADOS, "w", encoding="utf-8") as f:
-            json.dump(estados_dict, f, indent=4, ensure_ascii=False)
-    except Exception as e:
-        print(f"Erro ao salvar estados: {e}")
+    tmp_path = ARQUIVO_ESTADOS + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        json.dump(estados_dict, f, indent=4, ensure_ascii=False)
+    os.replace(tmp_path, ARQUIVO_ESTADOS)
+
+def carregar_boas_vindas():
+    path = ".boas_vindas.json"
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return set(json.load(f))
+        except Exception:
+            pass
+    return set()
+
+def salvar_boas_vindas(welcomed_set):
+    path = ".boas_vindas.json"
+    with open(path + ".tmp", "w", encoding="utf-8") as f:
+        json.dump(list(welcomed_set), f)
+    os.replace(path + ".tmp", path)
 
 # Inicia puxando do HD direto! Adeus "estados_usuarios = {}"
 estados_usuarios = carregar_estados_disco()
-boas_vindas_enviadas = set() 
+boas_vindas_enviadas = carregar_boas_vindas() 
 
 import unicodedata
 
@@ -67,17 +84,18 @@ def remover_acentos(txt):
 
 def descobrir_dados_do_diario(turma_site, turma_api, disciplina_ia):
     mapa_banco = {
-        "computacao": ["Educação Tecnológica", "Computação", "Robótica", "Informática"],
-        "lingua_portuguesa": ["Língua Portuguesa", "Português", "Redação"],
+        # Coloquei até 'IA' aqui caso a escola tenha abreviado!
+        "computacao": ["Educação Tecnológica", "Computação", "Robótica", "Informática", "Inteligência Artificial", "Pensamento Computacional", "IA", "Tecnologia"],
+        "inteligencia_artificial": ["Inteligência Artificial", "Computação", "Educação Tecnológica", "IA"],
+        "lingua_portuguesa": ["Língua Portuguesa", "Português", "Redação", "Literatura"],
         "lingua_inglesa": ["Inglês", "Língua Inglesa"],
         "matematica": ["Matemática"],
-        "ciencias": ["Ciências", "Ciência"],
+        "ciencias": ["Ciências", "Ciência", "Biologia", "Física", "Química"],
         "geografia": ["Geografia"],
-        "historia": ["História"],
+        "historia": ["História", "Sociologia", "Filosofia"],
         "arte": ["Arte", "Artes"],
         "educacao_fisica": ["Educação Física"],
         "ensino_religioso": ["Ensino Religioso", "Religião"],
-        # --- A NOVA MATÉRIA DO INFANTIL ---
         "aprendizagem e desenvolvimento": ["Aprendizagem e Desenvolvimento", "Aprendizagem"]
     }
     nomes_possiveis = mapa_banco.get(disciplina_ia.lower(), [disciplina_ia])
@@ -89,37 +107,33 @@ def descobrir_dados_do_diario(turma_site, turma_api, disciplina_ia):
         numero_turma = ''.join(filter(str.isdigit, turma_site))
         letra_turma = ''.join(filter(str.isalpha, turma_site)).upper()
         
-        # --- O TRADUTOR ROMANO DO INFANTIL ---
         if turma_api.startswith('I') and numero_turma:
             romanos = {"1": "I", "2": "II", "3": "III", "4": "IV", "5": "V"}
             numero_turma = romanos.get(numero_turma, numero_turma)
-        # -------------------------------------
+            
+        # 🛡️ BLINDAGEM MÁXIMA: Descobre o nível exato que a IA mandou (I, M ou F)
+        nivel_api = turma_api[0].upper() if turma_api else 'F'
         
         candidatos = []
         for diario in diarios:
             nome_turma = diario.get("nome_turma_completo", "")
+            
+            # 🚧 O MURO: Se o nível não bater, ele ignora o diário imediatamente!
+            if nivel_api == 'M' and ("Médio" not in nome_turma and "Série" not in nome_turma): continue
+            if nivel_api == 'F' and "Fundamental" not in nome_turma: continue
+            if nivel_api == 'I' and "Infantil" not in nome_turma: continue
+            
             nome_disc = diario.get("nome_disciplina", "")
             bateu_disciplina = any(remover_acentos(nome) in remover_acentos(nome_disc) for nome in nomes_possiveis)
+            
             if bateu_disciplina and numero_turma in nome_turma and letra_turma in nome_turma:
                 candidatos.append(diario)
                 
-        if not candidatos: return None 
-        
-        texto_dica = (turma_site + " " + turma_api).lower()
-        quer_fundamental = "ano" in texto_dica or "f" in turma_api.lower()
-        quer_medio = "série" in texto_dica or "serie" in texto_dica or "m" in turma_api.lower()
-
-        diarios_filtrados = []
-        for diario in candidatos:
-            nome_turma = diario.get("nome_turma_completo", "")
-            if quer_fundamental and "Fundamental" in nome_turma:
-                diarios_filtrados.append(diario)
-            elif quer_medio and ("Médio" in nome_turma or "Série" in nome_turma):
-                diarios_filtrados.append(diario)
-
-        if not diarios_filtrados: diarios_filtrados = candidatos
+        if not candidatos: 
+            print(f"🔴 ERRO: Não achei diário de {disciplina_ia} no nível {nivel_api} da turma {numero_turma}{letra_turma}!")
+            return None 
             
-        diario_escolhido = diarios_filtrados[0]
+        diario_escolhido = candidatos[0]
         nome_turma = diario_escolhido.get("nome_turma_completo", "")
         nome_disc = diario_escolhido.get("nome_disciplina", "")
         
@@ -156,8 +170,12 @@ async def enviar_mensagem_whatsapp(numero, texto):
     payload = {"phone": numero, "message": texto}
     try: 
         async with httpx.AsyncClient() as client:
-            await client.post(url, json=payload, headers=headers)
-    except: pass
+            resposta = await client.post(url, json=payload, headers=headers)
+            # Se o WPPConnect não der o OK (200 ou 201), ele dedura o erro!
+            if resposta.status_code not in [200, 201]:
+                print(f"\n🔴 [DOCKER RECUSOU A MENSAGEM] Status: {resposta.status_code} | Resposta: {resposta.text}\n")
+    except Exception as e: 
+        print(f"\n🔴 [ERRO DE CONEXÃO COM O DOCKER] Não consegui acessar {url}. Erro: {e}\n")
 
 async def baixar_audio_limpo(message_id):
     url = f"{DOCKER_URL}/api/{SESSAO}/download-media"
@@ -304,7 +322,9 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
             if remetente in estados_usuarios: 
                 del estados_usuarios[remetente]
                 salvar_estados_disco(estados_usuarios)
-            if remetente in boas_vindas_enviadas: boas_vindas_enviadas.remove(remetente) 
+            if remetente in boas_vindas_enviadas:
+                boas_vindas_enviadas.remove(remetente)
+                salvar_boas_vindas(boas_vindas_enviadas) 
             return {"status": "ok"}
             
         estado_atual = estados_usuarios.get(remetente)
@@ -312,12 +332,15 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
 
         if remetente not in boas_vindas_enviadas:
             boas_vindas_enviadas.add(remetente)
+            salvar_boas_vindas(boas_vindas_enviadas)
             usuarios_salvos = carregar_usuarios()
             if remetente not in usuarios_salvos:
                 msg_intro = "👋 Olá! Eu sou o *Aulio*, seu assistente inteligente para registro de aulas.\nMeu objetivo é transformar seus áudios em diários preenchidos no sistema escolar em segundos! 🚀\n"
                 await enviar_mensagem_whatsapp(remetente, msg_intro)
                 if tipo == 'chat':
-                    await enviar_mensagem_whatsapp(remetente, "🎙️ Para começarmos, grave um áudio relatando como foi sua aula.\nInforme")
+                    await enviar_mensagem_whatsapp(remetente, "🎙️ Para começarmos, grave um áudio relatando como foi sua aula.")
+                    await enviar_mensagem_whatsapp(remetente, "📝 Informe por áudio ou texto os seguintes dados sobre a aula:\n • Série e Turma;\n • Disciplina;\n • Conteúdo da aula;\n • Tarefas (sala ou casa);\n • Faltosos.")
+                    await enviar_mensagem_whatsapp(remetente, "Fico no aguardo para registrar sua aula! 😃")
                     return {"status": "ok"}
 
         if tipo == 'chat' and not estado_atual:
@@ -356,17 +379,41 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                             os.remove(arquivo)
                             return {"status": "ok"}
                             
-                        ARQUIVO_CACHE_ALUNOS = "cache_alunos_todos_diarios.json"
+                        # --- Carrega alunos do banco SQLite (ou JSON de turma) ---
+                        import sqlite3
                         lista_oficial = []
-                        try:
-                            with open(ARQUIVO_CACHE_ALUNOS, "r", encoding="utf-8") as f:
-                                lista_oficial = json.load(f).get(str(ids_diario['id_diario']), [])
-                        except Exception as e: pass
-                            
+                        id_turma_busca = str(ids_diario.get('id_turma', ''))
+                        db_path = "alunos.db"
+
+                        if os.path.exists(db_path):
+                            try:
+                                con = sqlite3.connect(db_path)
+                                cur = con.cursor()
+                                cur.execute(
+                                    "SELECT numero_chamada, nome FROM alunos_diario WHERE id_turma = ? ORDER BY numero_chamada",
+                                    (id_turma_busca,)
+                                )
+                                lista_oficial = [{"numero_chamada": row[0], "nome": row[1]} for row in cur.fetchall()]
+                                con.close()
+                            except Exception as e:
+                                print(f"[BANCO] Erro ao ler SQLite: {e}")
+
+                        # Fallback: JSON por turma
                         if not lista_oficial:
+                            json_path = f"alunos_turma_{id_turma_busca}.json"
+                            try:
+                                with open(json_path, "r", encoding="utf-8") as f:
+                                    lista_oficial = json.load(f)
+                            except FileNotFoundError:
+                                print(f"[BANCO] ❌ JSON '{json_path}' não encontrado.")
+
+                        print(f"[BANCO] Turma {id_turma_busca}: {len(lista_oficial)} alunos.")
+
+                        if not lista_oficial:
+                            print(f"[BANCO] ❌ Lista vazia! Execute extrairdadosjson.py para atualizar o banco.")
                             await enviar_mensagem_whatsapp(remetente, f"⚠️ A lista de alunos não foi encontrada no banco local. Parei o registro.")
                             os.remove(arquivo)
-                            return {"status": "ok"}
+                            return {"status": "ok"} 
                             
                         lista_limpa_para_ia = [{"numero_chamada": aluno.get('numero_chamada'), "nome": aluno.get('nome', 'Sem Nome')} for aluno in lista_oficial]
                             
@@ -390,7 +437,34 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                             dados_aula['bncc'] = texto_bncc
                             
                         if not numeros_frequencia: numeros_frequencia = {"F": [], "J": [], "nao_encontrados": [], "ambiguos": {}}
-                        
+
+                        # 🔍 MATCH LOCAL por substring — resolve nomes curtos como "Eduardo"
+                        def encontrar_aluno(nome_busca, lista_alunos):
+                            busca = nome_busca.lower().strip()
+                            matches = []
+                            for a in lista_alunos:
+                                nome_cheio = a.get("nome", "").lower()
+                                if busca in nome_cheio or nome_cheio in busca:
+                                    matches.append(a)
+                            if len(matches) == 1:
+                                return matches[0].get("numero_chamada"), matches[0].get("nome")
+                            elif len(matches) > 1:
+                                return "ambiguous", [m.get("nome", "") for m in matches]
+                            return None, None
+
+                        nao_achados = list(numeros_frequencia.get("nao_encontrados", []))
+                        print(f"[MATCH LOCAL] nao_achados: {nao_achados}")
+                        print(f"[MATCH LOCAL] lista_oficial nomes: {[a.get('nome','') for a in lista_oficial]}")
+                        for nome_busca in nao_achados:
+                            num_ch, nome = encontrar_aluno(nome_busca, lista_oficial)
+                            print(f"[MATCH LOCAL] buscando '{nome_busca}' → resultado num={num_ch}, nome={nome}")
+                            if num_ch is not None and num_ch != "ambiguous":
+                                print(f"[MATCH LOCAL] Encontrou '{nome_busca}' → Nº {num_ch} ({nome})")
+                                numeros_frequencia["F"].append(num_ch)
+                                numeros_frequencia["nao_encontrados"].remove(nome_busca)
+                            elif num_ch == "ambiguous":
+                                numeros_frequencia["ambiguos"][nome_busca] = nome
+
                         # --- ALERTA DE AMBIGUIDADE ---
                         ambiguos = numeros_frequencia.get("ambiguos", {})
                         if ambiguos:
@@ -467,9 +541,10 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                         senha_salva = usuarios_salvos[remetente]['senha']
                         dados_aula = estado_atual.get('dados_aula', {})
 
-                        await enviar_mensagem_whatsapp(remetente, f"🚀 Registrando aula em {ids_diario['disciplina_str']}...")
+                        # 🛡️ O BUG ESTAVA AQUI: Puxando do estado_atual com segurança!
+                        diario_str = estado_atual['ids_diario']['disciplina_str']
+                        await enviar_mensagem_whatsapp(remetente, f"🚀 Registrando aula em {diario_str}...")
                         
-                        # 🛡️ O ERRO TAVA AQUI: A gente passa o estado_atual inteiro pro robô se virar, e não variáveis soltas!
                         background_tasks.add_task(tentar_executar_robo, remetente, estado_atual, login_salvo, senha_salva)
                     else:
                         estados_usuarios[remetente]['etapa'] = 'esperando_login'
