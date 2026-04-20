@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m uvicorn server:app --host 0.0.0.0 --port 8000 --reload)",
+      "Bash(wsl docker:*)",
+      "Bash(wsl curl:*)",
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(''''\\\\n''''.join\\(data\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; c=json.load\\(sys.stdin\\); print\\(json.dumps\\(c[0].get\\(''''Config'''',{}\\).get\\(''''Env'''',[]\\), indent=2\\)\\)\")",
+      "Bash(wsl bash:*)",
+      "Bash(python -c \":*)",
+      "Bash(python -c \"import json; cache=json.load\\(open\\(''cache_alunos_todos_diarios.json''\\)\\); print\\(''Total diários:'', len\\(cache\\)\\); counts=[\\(k, len\\(v\\)\\) for k,v in cache.items\\(\\)]; print\\(''Exemplo:'', counts[0] if counts else ''vazio''\\)\")",
+      "Bash(python extrairdadosjson.py)",
+      "Bash(python -c \"import json; c=json.load\\(open\\(''cache_alunos_todos_diarios.json'', encoding=''utf-8''\\)\\); v=c.get\\(''8002'',[]\\); print\\(len\\(v\\)\\); print\\(v[0] if v else ''vazio''\\)\")",
+      "Bash(ls -la *.db alunos_diario_*.json)",
+      "Bash(ls -la alunos_diario_*.json *.db)",
+      "Bash(ls *.json)",
+      "Bash(rm -f alunos.db alunos_diario_*.json cache_alunos_todos_diarios.json)",
+      "Bash(ls alunos_*.* cache_alunos*)",
+      "Bash(python -c \"import sqlite3; c=sqlite3.connect\\(''alunos.db''\\); rows=c.execute\\(''SELECT numero_chamada, nome FROM alunos_diario WHERE id_turma = \"\"389\"\" ORDER BY numero_chamada''\\).fetchall\\(\\); c.close\\(\\); print\\(f''Turma 389: {len\\(rows\\)} alunos''\\); [print\\(f''  Nº {r[0]}: {r[1]}''\\) for r in rows if ''EDUARDO'' in r[1]]\")",
+      "Bash(lsof:*)",
+      "Bash(netstat -tlnp)",
+      "Bash(fuser:*)",
+      "Bash(pkill:*)",
+      "Bash(sudo apt:*)"
+    ]
+  }
+}

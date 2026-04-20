@@ -1,0 +1,16 @@
+# Web Framework & Servidor
+fastapi
+uvicorn
+
+# Clientes HTTP & Requisições
+requests
+httpx
+
+# Variáveis de Ambiente
+python-dotenv
+
+# Web Scraping & Parsing
+beautifulsoup4
+
+# Integração com IA
+groq
