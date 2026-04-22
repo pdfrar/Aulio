@@ -82,7 +82,7 @@
     {
         "numero_chamada": 17,
         "matricula": "1923",
-        "nome": "GUTEMBERG GONEGUNDES DOS SANTOS FILHO "
+        "nome": "GUTEMBERG GONEGUNDES DOS SANTOS FILHO"
     },
     {
         "numero_chamada": 18,
@@ -146,41 +146,36 @@
     },
     {
         "numero_chamada": 30,
-        "matricula": "2371",
-        "nome": "REBECCA DOS SANTOS OLIVEIRA"
-    },
-    {
-        "numero_chamada": 31,
         "matricula": "736",
         "nome": "RHYAN CICERO LUCENA SANTOS"
     },
     {
-        "numero_chamada": 32,
+        "numero_chamada": 31,
         "matricula": "413",
         "nome": "RIAN DOUGLAS VIANA DE MEDEIROS"
     },
     {
-        "numero_chamada": 33,
+        "numero_chamada": 32,
         "matricula": "391",
         "nome": "RICHARDY MENINO DE OLIVEIRA LEITÃO"
     },
     {
-        "numero_chamada": 34,
+        "numero_chamada": 33,
         "matricula": "2023",
         "nome": "ROBERTA FELIX DA SILVA "
     },
     {
-        "numero_chamada": 35,
+        "numero_chamada": 34,
         "matricula": "370",
         "nome": "RYAN ALYSON DE MORAIS GOMES"
     },
     {
-        "numero_chamada": 36,
+        "numero_chamada": 35,
         "matricula": "397",
         "nome": "SARAH VIEIRA DE MORAIS TORRES"
     },
     {
-        "numero_chamada": 37,
+        "numero_chamada": 36,
         "matricula": "2031",
         "nome": "YASMIN HENRIQUE QUEIROZ SANTOS"
     }

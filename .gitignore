@@ -2,10 +2,12 @@
 __pycache__/
 *.pyc
 
-# Ignorar áudios baixados
+
 *.mp3
 *.ogg
 *.m4a
+*.db
+*.html
 
 # Ignorar pastas do WPPConnect (Sessões e Tokens)
 tokens/

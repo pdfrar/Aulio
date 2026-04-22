@@ -13,6 +13,7 @@ import sigaapi
 from dotenv import load_dotenv
 import sys
 import traceback
+import difflib
 sys.stdout.reconfigure(encoding='utf-8')
 
 load_dotenv()
@@ -84,9 +85,9 @@ def remover_acentos(txt):
 
 def descobrir_dados_do_diario(turma_site, turma_api, disciplina_ia):
     mapa_banco = {
-        # Coloquei até 'IA' aqui caso a escola tenha abreviado!
-        "computacao": ["Educação Tecnológica", "Computação", "Robótica", "Informática", "Inteligência Artificial", "Pensamento Computacional", "IA", "Tecnologia"],
-        "inteligencia_artificial": ["Inteligência Artificial", "Computação", "Educação Tecnológica", "IA"],
+        # Removido o "IA" solto para não dar match com o final de Histor"ia" ou Geograf"ia"
+        "computacao": ["Educação Tecnológica", "Computação", "Robótica", "Informática", "Inteligência Artificial", "Pensamento Computacional", "Tecnologia"],
+        "inteligencia_artificial": ["Inteligência Artificial", "Computação", "Educação Tecnológica"],
         "lingua_portuguesa": ["Língua Portuguesa", "Português", "Redação", "Literatura"],
         "lingua_inglesa": ["Inglês", "Língua Inglesa"],
         "matematica": ["Matemática"],
@@ -111,14 +112,12 @@ def descobrir_dados_do_diario(turma_site, turma_api, disciplina_ia):
             romanos = {"1": "I", "2": "II", "3": "III", "4": "IV", "5": "V"}
             numero_turma = romanos.get(numero_turma, numero_turma)
             
-        # 🛡️ BLINDAGEM MÁXIMA: Descobre o nível exato que a IA mandou (I, M ou F)
         nivel_api = turma_api[0].upper() if turma_api else 'F'
         
         candidatos = []
         for diario in diarios:
             nome_turma = diario.get("nome_turma_completo", "")
             
-            # 🚧 O MURO: Se o nível não bater, ele ignora o diário imediatamente!
             if nivel_api == 'M' and ("Médio" not in nome_turma and "Série" not in nome_turma): continue
             if nivel_api == 'F' and "Fundamental" not in nome_turma: continue
             if nivel_api == 'I' and "Infantil" not in nome_turma: continue
@@ -137,13 +136,22 @@ def descobrir_dados_do_diario(turma_site, turma_api, disciplina_ia):
         nome_turma = diario_escolhido.get("nome_turma_completo", "")
         nome_disc = diario_escolhido.get("nome_disciplina", "")
         
+        # 🎯 O CÓDIGO LIMPO: Puxa o ID real direto do JSON atualizado!
+        id_disc_real = str(diario_escolhido.get("id_disciplina", "")).strip()
+        
+        # Deixamos o "00" apenas como um fallback extremo de segurança caso a API da escola fique fora do ar
+        if not id_disc_real or id_disc_real.lower() == "none":
+            id_disc_real = "00"
+        
         return {
-            "id_diario": diario_escolhido["id_diario"], 
-            "id_turma": diario_escolhido["id_turma"], 
-            "id_disciplina": "00", 
+            "id_diario": str(diario_escolhido["id_diario"]), 
+            "id_turma": str(diario_escolhido["id_turma"]), 
+            "id_disciplina": id_disc_real, 
             "disciplina_str": f"{nome_turma} - {nome_disc}"
         }
-    except Exception as e: print(f"Erro ao buscar diário no JSON: {e}")
+    except Exception as e: 
+        print(f"Erro ao buscar diário no JSON: {e}")
+        
     return None
 
 def carregar_usuarios():
@@ -204,12 +212,14 @@ async def baixar_audio_limpo(message_id):
 
 async def exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequencia, lista_oficial, lista_limpa_para_ia):
     nomes_confirmados = []
+    
+    # Criamos sets de strings para uma comparação rápida e segura
+    faltas_f = set(str(x) for x in numeros_frequencia.get('F', []))
+    faltas_j = set(str(x) for x in numeros_frequencia.get('J', []))
+    
     for aluno in lista_oficial:
-        num = aluno.get('numero_chamada')
-        num_str = str(num) 
-        
-        faltas_f = [str(x) for x in numeros_frequencia.get('F', [])]
-        faltas_j = [str(x) for x in numeros_frequencia.get('J', [])]
+        # Pegamos o número da chamada como string
+        num_str = str(aluno.get('numero_chamada', ''))
         
         if num_str in faltas_f:
             nomes_confirmados.append(f"{aluno.get('nome')} (*Falta*)")
@@ -373,6 +383,12 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                        # O Aulio agora é Multimodal! Ele engole o arquivo de áudio direto.
                         dados_aula = await ia.extrair_dados_da_aula(arquivo, dados_anteriores)
 
+                        # 🛡️ ESCUDO ANTI-CRASH: Se a IA da nuvem falhar, o bot avisa e não quebra!
+                        if not dados_aula:
+                            await enviar_mensagem_whatsapp(remetente, "❌ Erro nos servidores da Inteligência Artificial. Por favor, tente enviar o áudio novamente.")
+                            os.remove(arquivo)
+                            return {"status": "ok"}
+
                         ids_diario = descobrir_dados_do_diario(dados_aula.get('turma_site', ''), dados_aula.get('turma_api', ''), dados_aula.get('disciplina', ''))
                         if not ids_diario:
                             await enviar_mensagem_whatsapp(remetente, "❌ Não achei o diário desta turma. Tente outro áudio.")
@@ -440,16 +456,52 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
 
                         # 🔍 MATCH LOCAL por substring — resolve nomes curtos como "Eduardo"
                         def encontrar_aluno(nome_busca, lista_alunos):
-                            busca = nome_busca.lower().strip()
+                            busca = remover_acentos(nome_busca.lower().strip())
                             matches = []
+                            
+                            # Tentativa 1: Busca exata / Substring (Como era antes)
                             for a in lista_alunos:
-                                nome_cheio = a.get("nome", "").lower()
-                                if busca in nome_cheio or nome_cheio in busca:
+                                nome_comp = remover_acentos(a.get("nome", "").lower())
+                                if busca in nome_comp or nome_comp in busca:
                                     matches.append(a)
+                                    
                             if len(matches) == 1:
                                 return matches[0].get("numero_chamada"), matches[0].get("nome")
                             elif len(matches) > 1:
                                 return "ambiguous", [m.get("nome", "") for m in matches]
+                                
+                            # Tentativa 2: "Fuzzy Matching" (Se a IA escrever Ludmilla, Yago, etc)
+                            # Vamos comparar a primeira palavra do nome buscado com a primeira palavra de todos os alunos
+                            palavras_busca = busca.split()
+                            if not palavras_busca: return None, None
+                            
+                            primeiro_nome_busca = palavras_busca[0]
+                            
+                            for a in lista_alunos:
+                                nome_comp = remover_acentos(a.get("nome", "").lower())
+                                palavras_oficiais = nome_comp.split()
+                                if not palavras_oficiais: continue
+                                
+                                primeiro_nome_oficial = palavras_oficiais[0]
+                                
+                                # Verifica a semelhança entre as palavras (Ludmilla vs Ludmila dá ~94% de semelhança)
+                                similaridade = difflib.SequenceMatcher(None, primeiro_nome_busca, primeiro_nome_oficial).ratio()
+                                
+                                # Se bater mais de 80% de semelhança na primeira palavra, considera um match!
+                                if similaridade >= 0.8:
+                                    # Se a busca tiver sobrenome (ex: Ludmilla Silva), a gente checa se o sobrenome também parece
+                                    if len(palavras_busca) > 1 and len(palavras_oficiais) > 1:
+                                        sim_sobrenome = difflib.SequenceMatcher(None, palavras_busca[1], palavras_oficiais[1]).ratio()
+                                        if sim_sobrenome >= 0.8:
+                                            matches.append(a)
+                                    else:
+                                        matches.append(a)
+
+                            if len(matches) == 1:
+                                return matches[0].get("numero_chamada"), matches[0].get("nome")
+                            elif len(matches) > 1:
+                                return "ambiguous", [m.get("nome", "") for m in matches]
+                                
                             return None, None
 
                         nao_achados = list(numeros_frequencia.get("nao_encontrados", []))
@@ -460,7 +512,17 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                             print(f"[MATCH LOCAL] buscando '{nome_busca}' → resultado num={num_ch}, nome={nome}")
                             if num_ch is not None and num_ch != "ambiguous":
                                 print(f"[MATCH LOCAL] Encontrou '{nome_busca}' → Nº {num_ch} ({nome})")
-                                numeros_frequencia["F"].append(num_ch)
+                                
+                                # 🛡️ CORREÇÃO: Puxa o status verdadeiro (0 ou 1) lá do JSON do LLaMA
+                                valor_real = faltosos_extraidos.get(nome_busca, 0)
+                                
+                                if str(valor_real) == '1':
+                                    numeros_frequencia["J"].append(num_ch)
+                                    print(f"  -> Salvando como Justificada (J)")
+                                else:
+                                    numeros_frequencia["F"].append(num_ch)
+                                    print(f"  -> Salvando como Falta Normal (F)")
+                                    
                                 numeros_frequencia["nao_encontrados"].remove(nome_busca)
                             elif num_ch == "ambiguous":
                                 numeros_frequencia["ambiguos"][nome_busca] = nome

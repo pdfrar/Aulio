@@ -37,8 +37,8 @@ def obter_conexao_banco():
 
 
 def reconstruir_mapa_diarios():
-    """Baixa todas as turmas e diários, salva em JSON."""
-    print("[Aulio Data] Construindo mapa de diários e turmas...")
+    """Baixa todas as turmas e diários, salvando inclusive o ID da disciplina."""
+    print("[Aulio Data] Construindo mapa de diários e turmas com IDs de disciplina...")
 
     url_enturmacao = f"{BASE_URL}/api/v0/enturmacao_com_detalhes/"
     res_turmas = requests.get(url_enturmacao, headers=HEADERS)
@@ -61,7 +61,7 @@ def reconstruir_mapa_diarios():
 
     lista_final = []
     for t_id, nome_turma_completo in mapa_nomes_turmas.items():
-        print(f"  -> Puxando diários da turma {t_id}...")
+        print(f"  -> Puxando diários e disciplinas da turma {t_id}...")
         url_diarios = f"{BASE_URL}/api/v0/diarios/?turma={t_id}"
         res_diarios = requests.get(url_diarios, headers=HEADERS)
 
@@ -73,10 +73,16 @@ def reconstruir_mapa_diarios():
             for diario in dados_diarios:
                 id_diario = str(diario.get("id"))
                 nome_disc = str(diario.get("nome_disciplina", "DESCONHECIDA")).upper()
+                
+                # 🎯 O PULO DO GATO: Capturamos o ID da disciplina retornado pela API
+                # A API do Siga geralmente envia como 'disciplina' ou 'id_disciplina'
+                id_disc = str(diario.get("disciplina") or diario.get("id_disciplina") or "")
+
                 if id_diario:
                     lista_final.append({
                         "id_diario": id_diario,
                         "nome_disciplina": nome_disc,
+                        "id_disciplina": id_disc, # Novo campo!
                         "id_turma": t_id,
                         "nome_turma_completo": nome_turma_completo
                     })
@@ -88,34 +94,25 @@ def reconstruir_mapa_diarios():
     with open(ARQUIVO_DIARIOS, "w", encoding="utf-8") as f:
         json.dump(lista_final, f, ensure_ascii=False, indent=4)
 
-    print(f"[Aulio Data] {len(lista_final)} diários salvos no {ARQUIVO_DIARIOS}.")
+    print(f"[Aulio Data] {len(lista_final)} diários (com IDs de disciplina) salvos.")
     return True
 
 
 def atualizar_cache_alunos():
-    """
-    Baixa alunos de cada TURMA (1 req por turma), salva:
-    1) alunos_turma_XXX.json — 1 arquivo por turma
-    2) SQLite (alunos.db) — index por id_turma para consulta rápida
-    """
+    """Baixa alunos de cada TURMA e sincroniza com o banco local."""
     print("[Aulio Data] Atualizando banco de alunos por turma...")
 
     if not os.path.exists(ARQUIVO_DIARIOS):
         ok = reconstruir_mapa_diarios()
-        if not ok:
-            print("[Aulio Data] Erro ao reconstruir diários. Abortando.")
-            return False
+        if not ok: return False
 
     with open(ARQUIVO_DIARIOS, "r", encoding="utf-8") as f:
         diarios = json.load(f)
-    print(f"[Aulio Data] {len(diarios)} diários carregados.")
 
-    # Agrupa diários por turma
     turmas_unicas = {}
     for diario in diarios:
         tid = str(diario.get("id_turma"))
         turmas_unicas[tid] = diario.get("nome_turma_completo", "?")
-    print(f"[Aulio Data] {len(turmas_unicas)} turmas únicas.")
 
     con = obter_conexao_banco()
     cur = con.cursor()
@@ -123,25 +120,19 @@ def atualizar_cache_alunos():
     con.commit()
 
     for id_turma, turma_nome in turmas_unicas.items():
-        print(f"\n  Turma {id_turma} ({turma_nome})", end=" ... ")
+        print(f"\n  Sincronizando {turma_nome}...", end=" ")
 
         resp = requests.get(
             f"{BASE_URL}/api/v0/acesso/alunos/?id_turma={id_turma}",
             headers=HEADERS
         )
-        if resp.status_code != 200:
-            print(f"STATUS {resp.status_code}")
-            continue
+        if resp.status_code != 200: continue
 
         j = resp.json()
-        if isinstance(j, dict) and "results" in j:
-            j = j["results"]
+        if isinstance(j, dict) and "results" in j: j = j["results"]
 
-        alunos = [a for a in j
-                  if a.get("situacao_aluno_turma") == "Cursando"
-                  and str(a.get("id_turma")) == id_turma]
+        alunos = [a for a in j if a.get("situacao_aluno_turma") == "Cursando" and str(a.get("id_turma")) == id_turma]
         alunos.sort(key=lambda a: a.get("nome", ""))
-        print(f"{len(alunos)} alunos", end="")
 
         alunos_turma = []
         for idx, a in enumerate(alunos, start=1):
@@ -151,29 +142,19 @@ def atualizar_cache_alunos():
                 "nome": a.get("nome", "Sem Nome")
             }
             alunos_turma.append(aluno_info)
-            # Salva no SQLite (1 req por turma → N diários)
             cur.execute(
                 "INSERT OR REPLACE INTO alunos_diario (id_diario, id_turma, numero_chamada, matricula, nome) VALUES (?, ?, ?, ?, ?)",
                 ("", id_turma, idx, aluno_info["matricula"], aluno_info["nome"])
             )
 
-        # Salva JSON único: alunos_turma_389.json
-        caminho_json = f"alunos_turma_{id_turma}.json"
-        with open(caminho_json, "w", encoding="utf-8") as f:
+        with open(f"alunos_turma_{id_turma}.json", "w", encoding="utf-8") as f:
             json.dump(alunos_turma, f, ensure_ascii=False, indent=4)
 
-        print(f" → salvo {caminho_json}")
         time.sleep(0.15)
 
     con.commit()
     con.close()
-
-    # Conta total
-    con2 = obter_conexao_banco()
-    total = con2.execute("SELECT COUNT(*) FROM alunos_diario").fetchone()[0]
-    con2.close()
-
-    print(f"\n[Aulio Data] Banco atualizado! {total} entradas em {len(turmas_unicas)} turmas.")
+    print(f"\n[Aulio Data] Sincronização completa!")
     return True
 
 

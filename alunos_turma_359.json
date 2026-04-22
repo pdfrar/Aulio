@@ -31,41 +31,36 @@
     },
     {
         "numero_chamada": 7,
-        "matricula": "2414",
-        "nome": "LARA PIMENTEL MELO"
-    },
-    {
-        "numero_chamada": 8,
         "matricula": "2231",
         "nome": "MARIA IASMIN BRITO E MEDEIROS"
     },
     {
-        "numero_chamada": 9,
+        "numero_chamada": 8,
         "matricula": "2282",
         "nome": "MARIA LEANDRA CARVALHO GAMA"
     },
     {
-        "numero_chamada": 10,
+        "numero_chamada": 9,
         "matricula": "2385",
         "nome": "MARIA VITORIA QUEIROZ ABEL"
     },
     {
-        "numero_chamada": 11,
+        "numero_chamada": 10,
         "matricula": "2287",
         "nome": "MURILO GOMES RAMOS DE SOUSA"
     },
     {
-        "numero_chamada": 12,
+        "numero_chamada": 11,
         "matricula": "2400",
         "nome": "PAOLA MOREIRA DE ARAUJO"
     },
     {
-        "numero_chamada": 13,
+        "numero_chamada": 12,
         "matricula": "2423",
         "nome": "PEDRO GONÇALVES PORTELLA"
     },
     {
-        "numero_chamada": 14,
+        "numero_chamada": 13,
         "matricula": "2369",
         "nome": "SAMILLY DE ARAUJO RAMOS"
     }

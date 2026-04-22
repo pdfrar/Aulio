@@ -174,17 +174,23 @@ async def extrair_dados_da_aula(caminho_arquivo_audio, dados_anteriores=None):
         "disciplina": "string (Ex: Educação Tecnológica. Se for Infantil, mantenha exato: Aprendizagem e Desenvolvimento)",
         "turma_site": "string (Apenas número e letra. Ex: 5A, 4C)",
         "turma_api": "string (Prefixo F, M ou I + Número + Letra. Ex: F5A, I4C)",
-        "conteudo": "string", formatado na norma culta da lingua portuguesa.
-        "tarefa": "string ou 'Nenhuma'", formatado na norma culta da lingua portuguesa.
-        "faltosos": {{"Nome_do_Aluno": 0}},
+        "conteudo": "string formatado na norma culta",
+        "tarefa": "string ou 'Nenhuma' formatado na norma culta",
+        "faltosos": {{"Nome_do_Aluno": "0 ou 1"}},
         "data": "{hoje}"
     }}
     
-    REGRA DOS FALTOSOS: Se o professor disser ausências, retorne {{"Noah": 0, "Joaquim": 0}}. Se justificada, valor 1. Se não falar de faltas, retorne vazio {{}}.
+    REGRA DOS FALTOSOS (MUITO IMPORTANTE): 
+    - Falta normal = 0. Falta justificada = 1.
+    - Exemplo: Se faltaram Noah (normal) e Joaquim (justificada), retorne {{"Noah": 0, "Joaquim": 1}}. Se não houver faltas, retorne {{}}.
+    - SE FOR UMA ATUALIZAÇÃO: Se o professor pedir para justificar a falta de alguém que já estava na lista, você OBRIGATORIAMENTE deve mudar o valor dessa pessoa de 0 para 1.
     
     REGRA DA DISCIPLINA (CRÍTICO): 
     - Ensino Fundamental/Médio: Mapeie para (computacao, lingua_portuguesa, matematica, ciencias, geografia, historia, lingua_inglesa, arte, educacao_fisica, ensino_religioso).
     - Educação Infantil: NÃO MAPEIE. Escreva o nome exato falado.
+    
+    REGRA DE VOCABULÁRIO TÉCNICO: 
+    - Se a disciplina for Robótica, Computação, Inteligência Artificial ou Tecnologia, e o áudio falar de "gráficos", "grafos" ou "grafos e aplicações", CORRIJA OBRIGATORIAMENTE o conteúdo para a palavra "Grafos".
     
     REGRA DA TURMA API (ALERTA MÁXIMO):
     - Se o professor disser a palavra "INFANTIL": A turma_api DEVE OBRIGATORIAMENTE começar com 'I' (Ex: I4C). PROIBIDO usar a palavra "Ano" para turmas do Infantil.
@@ -279,25 +285,29 @@ async def traduzir_nomes_para_chamada(faltosos_extraidos, lista_oficial_alunos):
         return {"F": [], "J": [], "nao_encontrados": [], "ambiguos": {}}
 
     prompt_tradutor = f"""
-    Você é um assistente escolar especialista em cruzamento de dados. Responda EXCLUSIVAMENTE em formato JSON.
+    Você é um sistema computacional. Responda EXCLUSIVAMENTE em formato JSON.
+    É ESTRITAMENTE PROIBIDO EXPLICAR SEU RACIOCÍNIO. NÃO ESCREVA TEXTO FORA DO JSON.
+    NÃO CRIE CHAVES QUE SEJAM FRASES OU JUSTIFICATIVAS. AS CHAVES DEVEM SER APENAS OS NOMES DOS ALUNOS.
+    
     LISTA OFICIAL: {json.dumps(lista_oficial_alunos, ensure_ascii=False)}
-    ALUNOS CITADOS: {json.dumps(faltosos_extraidos, ensure_ascii=False)}
+    ALUNOS CITADOS E STATUS (0 = Falta, 1 = Justificada): {json.dumps(faltosos_extraidos, ensure_ascii=False)}
 
-    PASSO A PASSO OBRIGATÓRIO:
-    1. Leia TODOS os alunos citados.
-    2. FAÇA CORRESPONDÊNCIA PARCIAL: se o nome citado for um PRIMEIRO NOME (ex: "Eduardo"), procure na LISTA OFICIAL qualquer aluno que contenha "Eduardo" no nome completo. Se houver EXATAMENTE UM, é match direto. Se houver mais de um que contenha, coloque em "ambiguos".
-    3. Se tiver EXATAMENTE UMA correspondência, coloque o 'numero_chamada' na lista "F" (se 0) ou "J" (se 1).
-    4. Se NENHUM nome da lista oficial contiver o nome citado, coloque em "nao_encontrados".
-    5. Se tiver MAIS DE UMA correspondência parcial, coloque em "ambiguos" com as opções de nome completo.
-    EXEMPLO: Aluno citado = "Eduardo". Lista oficial tem "João Eduardo Silva Santos" (Nº 15) e "Eduardo Pereira" (Nº 8) → dois matches → coloque em "ambiguos".
-    EXEMPLO: Aluno citado = "Eduardo". Lista oficial tem só "João Eduardo Silva Santos" (Nº 15) → match único → F: [15].
+    PASSO A PASSO OBRIGATÓRIO (APLIQUE SILENCIOSAMENTE):
+    1. Leia os nomes em ALUNOS CITADOS. O número associado a cada nome é o STATUS da falta (0 ou 1).
+    2. FAÇA CORRESPONDÊNCIA PARCIAL: procure na LISTA OFICIAL o aluno que contenha o nome citado. Ignore diferenças de acentos ou maiúsculas/minúsculas.
+    3. CLASSIFICAÇÃO RIGOROSA (REGRA DE OURO):
+       - Se o status for 0, coloque O NUMERO DA CHAMADA (inteiro) na lista "F".
+       - Se o status for 1, coloque O NUMERO DA CHAMADA (inteiro) na lista "J".
+       - PROIBIDO inventar status. Siga o número do dicionário.
+    4. Se NENHUM nome da lista bater, coloque O NOME CITADO na lista "nao_encontrados".
+    5. Se tiver MAIS DE UMA correspondência, coloque O NOME CITADO na lista "ambiguos", e as opções encontradas como valor.
 
-    RETORNO OBRIGATÓRIO (JSON puro com a estrutura exata abaixo):
+    RETORNO OBRIGATÓRIO (JSON PURO, SEM COMENTÁRIOS, SEM TEXTO EXPLICATIVO):
     {{
         "F": [],
         "J": [],
         "nao_encontrados": [],
-        "ambiguos": {{"Nome": ["Opção 1", "Opção 2"]}}
+        "ambiguos": {{"NomeCitado": ["Opção 1", "Opção 2"]}}
     }}
     """
     try:

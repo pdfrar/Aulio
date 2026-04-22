@@ -126,26 +126,31 @@
     },
     {
         "numero_chamada": 26,
+        "matricula": "2329",
+        "nome": "MIGUEL VINÍCIUS CORREIA DA SILVA"
+    },
+    {
+        "numero_chamada": 27,
         "matricula": "350",
         "nome": "MURILO GUEDES ARAUJO SOARES"
     },
     {
-        "numero_chamada": 27,
+        "numero_chamada": 28,
         "matricula": "766",
         "nome": "MURYLLO SOUTO AMORIM"
     },
     {
-        "numero_chamada": 28,
+        "numero_chamada": 29,
         "matricula": "333",
         "nome": "NICOLLY DE ALMEIDA SOUZA"
     },
     {
-        "numero_chamada": 29,
+        "numero_chamada": 30,
         "matricula": "1182",
         "nome": "RAMON LUCENA XAVIER"
     },
     {
-        "numero_chamada": 30,
+        "numero_chamada": 31,
         "matricula": "946",
         "nome": "ÁLVARO CLISTENES VIRGULINO RAMALHO"
     }

@@ -60,10 +60,11 @@ Acessar Hostinger
 Senha: (AulioAgape2026)
 ssh root@187.77.38.194
 
-AulioHostinger
-"full": "AulioAgape:$2b$10$uL4kaD6IS3x_cJWievklLeoyHWid8dWUt.aSsB.B4f2PtbB1onShq"
+AulioAgape
+$2b$10$0oKbB9sjkP0TF82w9LkQJ.LQRjQ_48CbbnypEe_oTEcxQiue89tGu
 
-
+AulioAgapeV2
+$2b$10$erahq3ZmZPicfC.HPWKVDOQMMesL7TFLZTiYbhHrFsDloDUTgV632
 
 Reiniciar docker
 # 1. Derruba o container e apaga os volumes (Isso apaga o cache e a sessão bugada!)
