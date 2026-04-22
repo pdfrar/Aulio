@@ -7,27 +7,21 @@ from urllib.parse import urlparse, parse_qs, urlencode
 from dotenv import load_dotenv
 from datetime import datetime
 import re
+import unicodedata
 
 load_dotenv()
 
 def descobrir_diario_ativo(html_lista_diarios):
-    """
-    Analisa a tabela de bimestres do Siga e retorna o IdDiario 
-    do primeiro bimestre que estiver com o botão 'Registro de aulas' aberto.
-    """
     print("[Aulio Inteligência] Analisando tabela de bimestres para encontrar o diário ativo...")
     sopa = BeautifulSoup(html_lista_diarios, 'html.parser')
     
-    # Busca todos os links da página
     links = sopa.find_all('a', href=True)
     
     for link in links:
         texto = link.text.strip().lower()
         href = link['href']
         
-        # O pulo do gato: acha o link exato que permite registrar aula
         if "registro de aulas" in texto or "registroaulas.asp" in href.lower():
-            # Desmembra a URL para pegar os parâmetros
             parsed_url = urlparse(href)
             parametros = parse_qs(parsed_url.query)
             
@@ -46,7 +40,6 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
     sessao = requests.Session()
     url_login = "https://siga03.activesoft.com.br/login/?next=/portal/"
 
-    # --- ETAPA 1 e 2: O GET e a captura do Token Dinâmico ---
     print("\n[Aulio HTTP] Acessando a página para capturar o token de segurança...")
     resposta_get = sessao.get(url_login)
     html_login = resposta_get.content.decode('iso-8859-1', errors='ignore')
@@ -56,7 +49,6 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
     if token_input: csrf_token_fresco = token_input['value']
     else: raise Exception("PAGE_ERROR: Não encontrei o token CSRF do Django.")
 
-    # --- ETAPA 3: O POST de Login ---
     print(f"[Aulio HTTP] Autenticando usuário {login}...")
     payload_login = {"csrfmiddlewaretoken": csrf_token_fresco, "codigo": "AGAPE", "login": login, "senha": senha}
     headers = {"User-Agent": "Mozilla/5.0", "Referer": url_login}
@@ -65,7 +57,6 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
     if "portal" not in resposta_post.url or resposta_post.status_code not in (200, 301, 302): raise Exception("LOGIN_ERROR") 
     print("[Aulio HTTP] Login realizado com sucesso!")
 
-    # --- ETAPA 4: Buscar o Passaporte JWT na API ---
     url_api = "https://siga03.activesoft.com.br/api/v1/global/"
     resposta_api = sessao.get(url_api)
     texto_api = resposta_api.content.decode('iso-8859-1', errors='ignore')
@@ -76,14 +67,12 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
     servidor_base = "https://app39.activesoft.com.br"
     url_sso = f"{servidor_base}/sistema/LoginDiretoV2.asp"
     
-    # 1. Aplicando os cabeçalhos salvadores (Disfarce)
     sessao.headers.update({
         "Sec-Fetch-Dest": "iframe",
         "Referer": f"{servidor_base}/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
     })
 
-    # 2. O PASSO QUE FALTAVA: Entrar no Lobby PRIMEIRO para gerar o IdPeriodo
     print(f"[DEBUG 1] Fazendo POST no SSO para carregar o ProfessorPrincipal...")
     payload_sso_lobby = {
         "ServidorDefinido": servidor_base, 
@@ -93,47 +82,25 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
     }
     resp_lobby = sessao.post(url_sso, data=payload_sso_lobby)
     print(f"[DEBUG 1.1] Status do Lobby: {resp_lobby.status_code} | URL Final: {resp_lobby.url}")
-    print(f"[DEBUG 1.2] Cookies da sessão: {sessao.cookies.get_dict()}")
 
-    # 3. Agora sim, com o IdPeriodo na memória do servidor, vamos pedir a tabela!
     disciplina_encoded = urllib.parse.quote(disciplina_str.encode('iso-8859-1'))
-    
-    # 🛡️ TRAVA DE SEGURANÇA: Se o ID vier vazio do server.py, injeta "00" pro Siga não crashar!
     id_disciplina_seguro = id_disciplina if id_disciplina.strip() else "00"
-    
-    # Injetamos a variável segura na URL
     url_radar = f"{servidor_base}/sistema/sistema.1065614/TelasSIGA/Diario/DiarioPrincipal.asp?IdTurma={id_turma}&IdDisciplina={id_disciplina_seguro}&Disciplina={disciplina_encoded}"
     
     print(f"\n[DEBUG 2] Fazendo GET na Tabela de Diários...")
-    print(f"[DEBUG 2.1] URL Alvo: {url_radar}")
-    
     resposta_radar = sessao.get(url_radar)
-    print(f"[DEBUG 2.2] Status da Tabela: {resposta_radar.status_code}")
-    
     html_radar = resposta_radar.content.decode('iso-8859-1', errors='ignore')
     
-    # 4. O DETECTOR DE FALHAS AUTOMÁTICO (O que você pediu!)
-    # Note que os devs do Siga escreveram "Nenehuma" errado no HTML deles
     if "Nenehuma turma/disciplina selecionada" in html_radar or "Nenhum diário de classe foi encontrado" in html_radar:
-        print("\n❌ [DEBUG ERRO CRÍTICO] O Siga barrou a requisição!")
-        print("Motivo: Ele retornou a página de erro de turma vazia.")
-        print("Ação: Salvando o HTML no Windows para análise...")
-        with open("debug_radar_ERRO.html", "w", encoding="utf-8") as f:
-            f.write(html_radar)
-        print("=================================================\n")
         raise Exception("PAGE_ERROR: O Siga perdeu a sessão e não carregou a tabela.")
     
     print("\n✅ [DEBUG SUCESSO] A tabela renderizou perfeitamente!")
     print("=================================================\n")
 
-    # -------------------------------------------------------------------
-    # ETAPA 5.5 (Continuação): Leitura das Datas
-    # -------------------------------------------------------------------
     sopa_radar = BeautifulSoup(html_radar, 'html.parser')
-
     print("[Aulio Inteligência] Buscando o bimestre mais próximo do prazo...")
     hoje = datetime.now()
-    candidatos_abertos = [] # Lista para guardar (data, id)
+    candidatos_abertos = [] 
 
     linhas_tabela = sopa_radar.find_all('tr')
 
@@ -142,11 +109,9 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
         datas_encontradas = re.findall(r'\d{2}/\d{2}/\d{4}', texto_linha)
         
         if datas_encontradas:
-            data_limite_str = datas_encontradas[-1] # Pega a última data da linha
+            data_limite_str = datas_encontradas[-1]
             try:
                 data_limite = datetime.strptime(data_limite_str, "%d/%m/%Y")
-                
-                # Se o diário ainda não venceu...
                 if data_limite >= hoje:
                     links = linha.find_all('a', href=True)
                     for link in links:
@@ -155,25 +120,19 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
                         id_extracao = params_lower.get('iddiario', [None])[0]
                         
                         if id_extracao:
-                            # Guardamos a data e o ID para comparar depois
                             candidatos_abertos.append((data_limite, id_extracao))
                             break 
             except:
                 continue
 
     if candidatos_abertos:
-        # 🎯 A MÁGICA: Ordenamos pela data e pegamos a MENOR (a mais próxima de hoje)
         candidatos_abertos.sort(key=lambda x: x[0])
         data_escolhida, id_diario_aberto = candidatos_abertos[0]
-        
         id_diario = id_diario_aberto
         print(f"[Aulio Inteligência] 🎯 Alvo travado no Bimestre que vence em {data_escolhida.strftime('%d/%m/%Y')} (ID: {id_diario})")
     else:
         raise Exception("STATUS_ERROR: Nenhum bimestre ativo encontrado na tabela.")
 
-    # -------------------------------------------------------------------
-    # ETAPA 6: Gravar a Aula (Agora com o id_diario garantido como aberto)
-    # -------------------------------------------------------------------
     print(f"[Aulio HTTP] Lendo o formulário do Diário {id_diario}...")
     url_formulario = f"https://app39.activesoft.com.br/sistema/sistema.1065614/TelasSIGA/Diario/RegistroAulas.asp?IdDiario={id_diario}&IdTurma={id_turma}"
     resposta_form = sessao.get(url_formulario)
@@ -187,8 +146,6 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
     disciplina_real = input_disciplina['value'] if (input_disciplina and input_disciplina.get('value')) else disciplina_str
     descricao_real = input_descricao['value'] if (input_descricao and input_descricao.get('value')) else "Diário da Turma"
     if not id_disciplina_real.strip(): id_disciplina_real = "00"
-
-    print(f"[Aulio HTTP] Autodescoberta: ID Disciplina = {id_disciplina_real} | Nome = {disciplina_real}")
 
     payload_aula = {
         "AulaSelecionada": "0", "StRegistroEmEdicao": "1", "DataAulaNovo": data_aula,
@@ -205,7 +162,6 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
         resp_aula = sessao.post(url_gravar_aula, data=payload_codificado, headers=headers_aula, allow_redirects=False)
         html_resposta_aula = resp_aula.content.decode('iso-8859-1', errors='ignore')
         
-        # 🐕 CÃO DE GUARDA: Procura se o Siga cuspiu algum pop-up de erro (alert) na tela
         alertas = re.findall(r"alerta\(['\"](.*?)['\"]\)", html_resposta_aula, re.IGNORECASE)
         alertas.extend(re.findall(r"alert\(['\"](.*?)['\"]\)", html_resposta_aula, re.IGNORECASE))
         
@@ -219,19 +175,17 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
         
     if resp_aula.status_code in (200, 302, 301):
         print("[Aulio HTTP] Aula gravada com sucesso no banco de dados!")
-    else:
-        print(f"[Aulio HTTP] Aviso: resposta inesperada ao gravar aula (status {resp_aula.status_code})")
 
     # -------------------------------------------------------------------
-    # ETAPA 7: Gravar a Frequência (API INTELIGENTE + TRATOR)
+    # ETAPA 7: Gravar a Frequência (RASPANDO O NOME DA TELA HTML)
     # -------------------------------------------------------------------
+
     print("\n[Aulio HTTP] Consultando histórico de frequências na API da escola...")
     url_api_frequencia = f"https://siga.activesoft.com.br/api/v0/diario_frequencia/?diario={id_diario}"
     headers_api = {"Authorization": f"Bearer {os.getenv('SIGA_TOKEN', '')}"}
     resposta_api_freq = sessao.get(url_api_frequencia, headers=headers_api)
     dados_frequencia = resposta_api_freq.json() if resposta_api_freq.status_code == 200 else []
 
-    # 🚜 O CÉREBRO MATEMÁTICO: Conta a última aula registrada varrendo o JSON
     max_aula_registrada = 0
     if dados_frequencia:
         for aluno in dados_frequencia:
@@ -243,11 +197,9 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
                     except: pass
                     
     qtde_aulas_real = max_aula_registrada + 1
-
     aula_inicial_bloco = ((qtde_aulas_real - 1) // 10) * 10 + 1
     coluna_atual_no_bloco = ((qtde_aulas_real - 1) % 10) + 1
 
-    print(f"[Aulio HTTP] A última aula gravada foi a {max_aula_registrada}.")
     print(f"[Aulio HTTP] Sincronizando frequência da aula NOVA nº {qtde_aulas_real} (Bloco {aula_inicial_bloco}, Coluna {coluna_atual_no_bloco})...")
 
     url_visual_freq = f"https://app39.activesoft.com.br/sistema/sistema.1065614/TelasSIGA/Diario/RegistroFrequencia2.asp?IdDiario={id_diario}&IdTurma={id_turma}&IdDisciplina={id_disciplina_real}&QtdeAulasRegistradas={qtde_aulas_real}&AulaInicial={aula_inicial_bloco}"
@@ -260,67 +212,79 @@ def registrar_aula_completa(login, senha, id_diario, id_turma, id_disciplina, di
         if nome: payload_frequencia[nome] = tag.get('value', '')
 
     payload_frequencia.update({
-        "AulaInicial": str(aula_inicial_bloco),
-        "AulaInicialGravacao": str(aula_inicial_bloco),
-        "QtdeAulasRegistradas": str(qtde_aulas_real),
-        "Disciplina": disciplina_real,
-        "DescricaoDiario": descricao_real,
-        "IdDiario": id_diario,
-        "IdTurma": id_turma,
-        "IdDisciplina": id_disciplina_real,
-        f"DataAula{coluna_atual_no_bloco}": data_aula
+        "AulaInicial": str(aula_inicial_bloco), "AulaInicialGravacao": str(aula_inicial_bloco),
+        "QtdeAulasRegistradas": str(qtde_aulas_real), "Disciplina": disciplina_real,
+        "DescricaoDiario": descricao_real, "IdDiario": id_diario,
+        "IdTurma": id_turma, "IdDisciplina": id_disciplina_real, f"DataAula{coluna_atual_no_bloco}": data_aula
     })
     
-    faltosos_F = [int(x) for x in numeros_frequencia.get("F", []) if str(x).isdigit()]
-    faltosos_J = [int(x) for x in numeros_frequencia.get("J", []) if str(x).isdigit()]
+    def blindar_texto(txt):
+        if not txt: return ""
+        txt = str(txt).upper()
+        txt = unicodedata.normalize('NFKD', txt).encode('ASCII', 'ignore').decode('utf-8')
+        return re.sub(r'\s+', ' ', txt).strip()
 
-    # 🛡️ MAPA DE IDENTIDADE: Liga a API ao ID real do aluno, ignorando a ordem visual
-    mapa_api_alunos = {str(a.get("id_aluno", "")): a for a in dados_frequencia if a.get("id_aluno")}
-    
-    # Quantidade real de linhas no formulário (ex: 30 linhas, mesmo que o último seja o Nº 31)
+    faltosos_F = [blindar_texto(x) for x in numeros_frequencia.get("F", [])]
+    faltosos_J = [blindar_texto(x) for x in numeros_frequencia.get("J", [])]
+
+    print("\n================== 🕵️‍♂️ DEBUG DE FALTAS ==================")
+    print(f"Lista do server.py 'F' (Já Triturada): {faltosos_F}")
+    print(f"Lista do server.py 'J' (Já Triturada): {faltosos_J}")
+    print("========================================================")
+
     qtde_linhas_html = int(payload_frequencia.get("QtdeAlunos", len(dados_frequencia)))
 
     for i in range(1, qtde_linhas_html + 1):
-        # 1. Pergunta ao formulário: "Quem é o aluno que está fisicamente na linha i?"
-        id_aluno_siga = str(payload_frequencia.get(f"IdAluno{i}", ""))
+        aluno_api = dados_frequencia[i - 1] if (i - 1) < len(dados_frequencia) else {}
         
-        # 2. Puxa a ficha completa dele na API
-        aluno_api = mapa_api_alunos.get(id_aluno_siga, {})
-
-        num_chamada_str = aluno_api.get("numero_chamada")
-        num_chamada = int(num_chamada_str) if num_chamada_str else i
-        nome_display = aluno_api.get("nome_aluno") or aluno_api.get("aluno") or aluno_api.get("nome") or "Estudante"
+        # 🚨 A CARTADA FINAL: Procurar o nome do aluno DIRETO no HTML da tabela
+        input_aluno = sopa_freq.find('input', {'name': f'IdAluno{i}'})
+        nome_cru_html = ""
+        if input_aluno:
+            tr_parent = input_aluno.find_parent('tr')
+            if tr_parent:
+                # Puxa todo o texto da linha (Ex: "21 MARIA EDUARDA RODRIGUES PEREIRA")
+                nome_cru_html = tr_parent.get_text(" ", strip=True)
+                
+        nome_triturado_html = blindar_texto(nome_cru_html)
 
         string_frequencia = ""
         
-        # 3. Reconstrói a linha do tempo (10 aulas)
         for pos in range(1, 11):
             aula_abs = aula_inicial_bloco + pos - 1
             
-            # SE FOR A AULA DE HOJE: Toma a decisão com base no nosso áudio
             if pos == coluna_atual_no_bloco:
-                if num_chamada in faltosos_F: 
+                is_falta_f = any(falta in nome_triturado_html for falta in faltosos_F if falta)
+                is_falta_j = any(falta in nome_triturado_html for falta in faltosos_J if falta)
+
+                # Refletor pra provar que achou o nome na tela HTML
+                if "MARIA EDUARDA" in nome_triturado_html or "ANA LETICIA" in nome_triturado_html:
+                    print(f"\n🕵️‍♂️ ANALISANDO ALUNA DA LINHA {i}:")
+                    print(f"   Nome achado no HTML: '{nome_cru_html}'")
+                    print(f"   Deu Match de F? {is_falta_f}")
+                    print(f"   Deu Match de J? {is_falta_j}")
+
+                if is_falta_f: 
                     string_frequencia += "F"
-                    print(f"  👉 Falta Normal (F) para Nº {num_chamada} - {nome_display} (Linha do site: {i})")
-                elif num_chamada in faltosos_J: 
+                    print(f"  👉 Falta Normal (F) Cravada! - Linha {i}")
+                elif is_falta_j: 
                     string_frequencia += "J"
-                    print(f"  👉 Falta Justificada (J) para Nº {num_chamada} - {nome_display} (Linha do site: {i})")
+                    print(f"  👉 Falta Justificada (J) Cravada! - Linha {i}")
                 else: 
                     string_frequencia += "P"
             
-            # SE FOR O PASSADO/FUTURO: Copia exatamente o que está na API
             else:
-                valor_api = aluno_api.get(f"presenca_falta_{aula_abs:02d}")
+                # Histórico blindado
+                chave_api = f"presenca_falta_{aula_abs:02d}"
+                valor_api = aluno_api.get(chave_api)
                 
-                # O FIX DO APAGÃO: Se a API mandar "P", a gente preserva o "P"!
                 if not valor_api or valor_api == "Z":
-                    string_frequencia += "Z" # Vazio
+                    string_frequencia += "Z"
                 elif valor_api == "•":
-                    string_frequencia += "P" # Ponto vira Presença
+                    string_frequencia += "P"
                 else:
-                    string_frequencia += str(valor_api).upper() # Mantém P, F, J ou D
+                    string_frequencia += str(valor_api).upper()
 
-        # 4. Salva a string blindada na linha física correta do formulário
         payload_frequencia[f"ArrayPresencaFalta{i}"] = string_frequencia
 
     try:

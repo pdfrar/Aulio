@@ -296,9 +296,9 @@ async def traduzir_nomes_para_chamada(faltosos_extraidos, lista_oficial_alunos):
     1. Leia os nomes em ALUNOS CITADOS. O número associado a cada nome é o STATUS da falta (0 ou 1).
     2. FAÇA CORRESPONDÊNCIA PARCIAL: procure na LISTA OFICIAL o aluno que contenha o nome citado. Ignore diferenças de acentos ou maiúsculas/minúsculas.
     3. CLASSIFICAÇÃO RIGOROSA (REGRA DE OURO):
-       - Se o status for 0, coloque O NUMERO DA CHAMADA (inteiro) na lista "F".
-       - Se o status for 1, coloque O NUMERO DA CHAMADA (inteiro) na lista "J".
-       - PROIBIDO inventar status. Siga o número do dicionário.
+        - Se status for 0, adicione O NOME OFICIAL COMPLETO do aluno na lista "F".
+        - Se status for 1, adicione O NOME OFICIAL COMPLETO do aluno na lista "J".
+        - PROIBIDO inventar status. Siga o número do dicionário.
     4. Se NENHUM nome da lista bater, coloque O NOME CITADO na lista "nao_encontrados".
     5. Se tiver MAIS DE UMA correspondência, coloque O NOME CITADO na lista "ambiguos", e as opções encontradas como valor.
 

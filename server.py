@@ -213,17 +213,17 @@ async def baixar_audio_limpo(message_id):
 async def exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_frequencia, lista_oficial, lista_limpa_para_ia):
     nomes_confirmados = []
     
-    # Criamos sets de strings para uma comparação rápida e segura
-    faltas_f = set(str(x) for x in numeros_frequencia.get('F', []))
-    faltas_j = set(str(x) for x in numeros_frequencia.get('J', []))
+    # 🛡️ CORREÇÃO: Agora as listas contém NOMES. Deixamos tudo maiúsculo para evitar erro de formatação.
+    faltas_f = set(str(x).strip().upper() for x in numeros_frequencia.get('F', []))
+    faltas_j = set(str(x).strip().upper() for x in numeros_frequencia.get('J', []))
     
     for aluno in lista_oficial:
-        # Pegamos o número da chamada como string
-        num_str = str(aluno.get('numero_chamada', ''))
+        # Pegamos o NOME OFICIAL do aluno para fazer a comparação (esquece o número da chamada!)
+        nome_oficial = str(aluno.get('nome', '')).strip().upper()
         
-        if num_str in faltas_f:
+        if nome_oficial in faltas_f:
             nomes_confirmados.append(f"{aluno.get('nome')} (*Falta*)")
-        elif num_str in faltas_j:
+        elif nome_oficial in faltas_j:
             nomes_confirmados.append(f"{aluno.get('nome')} (*Justificada*)")
             
     texto_faltosos = ", ".join(nomes_confirmados) if nomes_confirmados else "Nenhum"
@@ -241,7 +241,7 @@ async def exibir_resumo_confirmacao(remetente, dados_aula, ids_diario, numeros_f
         "lista_limpa_para_ia": lista_limpa_para_ia,
         "lista_oficial": lista_oficial
     }
-    salvar_estados_disco(estados_usuarios) # SALVA AQUI!
+    salvar_estados_disco(estados_usuarios)
     
     bncc_texto = dados_aula.get('bncc', '')
     conteudo_exibicao = f"{dados_aula.get('conteudo')}\n*(BNCC: {bncc_texto})*" if bncc_texto else dados_aula.get('conteudo')
@@ -517,11 +517,9 @@ async def receber_mensagem(request: Request, background_tasks: BackgroundTasks):
                                 valor_real = faltosos_extraidos.get(nome_busca, 0)
                                 
                                 if str(valor_real) == '1':
-                                    numeros_frequencia["J"].append(num_ch)
-                                    print(f"  -> Salvando como Justificada (J)")
+                                    numeros_frequencia["J"].append(nome)  # <--- Agora ele guarda o NOME OFICIAL DA ESCOLA
                                 else:
-                                    numeros_frequencia["F"].append(num_ch)
-                                    print(f"  -> Salvando como Falta Normal (F)")
+                                    numeros_frequencia["F"].append(nome)  # <--- Agora ele guarda o NOME OFICIAL DA ESCOLA
                                     
                                 numeros_frequencia["nao_encontrados"].remove(nome_busca)
                             elif num_ch == "ambiguous":
